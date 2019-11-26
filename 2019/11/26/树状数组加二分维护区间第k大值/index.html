@@ -1,522 +1,386 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <meta charset="utf-8" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 
-    
+<link rel="stylesheet" href="/css/main.css">
 
-    
-    <title>树状数组加二分维护区间第k大值 | Hexo</title>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="keywords" content="" />
-    
-    <meta name="description" content="题目链接按题意每一次查询和最大的p个数的最小字典序中第q个位置的数字；首先我们可以把所有数字的按从大到小进行一级排序，位置按从前往后进行二级排序，那么在排序以后p个数的最大和且最小字典序就是前p个数，那么我==只要输出前面按照位置从小到大的第q个数就行了==。显然，问题转化后就是求前p个数中的第q大值；树状数组维护数字x是第几大，然后在有单调性的情况下选择二分第q大值就好了。 1234567891">
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="题目链接按题意每一次查询和最大的p个数的最小字典序中第q个位置的数字；首先我们可以把所有数字的按从大到小进行一级排序，位置按从前往后进行二级排序，那么在排序以后p个数的最大和且最小字典序就是前p个数，那么我==只要输出前面按照位置从小到大的第q个数就行了==。显然，问题转化后就是求前p个数中的第q大值；树状数组维护数字x是第几大，然后在有单调性的情况下选择二分第q大值就好了。 1234567891">
 <meta property="og:type" content="article">
 <meta property="og:title" content="树状数组加二分维护区间第k大值">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;26&#x2F;%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="题目链接按题意每一次查询和最大的p个数的最小字典序中第q个位置的数字；首先我们可以把所有数字的按从大到小进行一级排序，位置按从前往后进行二级排序，那么在排序以后p个数的最大和且最小字典序就是前p个数，那么我==只要输出前面按照位置从小到大的第q个数就行了==。显然，问题转化后就是求前p个数中的第q大值；树状数组维护数字x是第几大，然后在有单调性的情况下选择二分第q大值就好了。 1234567891">
-<meta property="og:locale" content="en">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;26&#x2F;%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC&#x2F;cf1227d.png">
 <meta property="og:updated_time" content="2019-11-26T10:04:08.748Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;26&#x2F;%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC&#x2F;cf1227d.png">
-    
 
-    
-        <link rel="alternate" href="/" title="Hexo" type="application/atom+xml" />
-    
+<link rel="canonical" href="http://yoursite.com/2019/11/26/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC/">
 
-    
 
-    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
-    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
 
-    <link rel="stylesheet" href="/css/style.css">
+  <title>树状数组加二分维护区间第k大值 | Hexo</title>
+  
 
-    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
-    
-    
-        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
-    
-    
-        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
-    
-    
-    
 
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body>
-    <div id="wrap">
-        <header id="header">
-    <div id="header-outer" class="outer">
-        <div class="container">
-            <div class="container-inner">
-                <div id="header-title">
-                    <h1 class="logo-wrap">
-                        <a href="/" class="logo"></a>
-                    </h1>
-                    
-                </div>
-                <div id="header-inner" class="nav-container">
-                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
-                    <div class="nav-container-inner">
-                        <ul id="main-nav">
-                            
-                                <li class="main-nav-list-item" >
-                                    <a class="main-nav-list-link" href="/">Home</a>
-                                </li>
-                            
-                                        
-                                    
-                                <li class="main-nav-list-item" >
-                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
-                                </li>
-                            
-                        </ul>
-                        <nav id="sub-nav">
-                            <div id="search-form-wrap">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
 
-    <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
-        <button type="submit" class="search-form-submit"></button>
-    </form>
-    <div class="ins-search">
-    <div class="ins-search-mask"></div>
-    <div class="ins-search-container">
-        <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Type something..." />
-            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
-        </div>
-        <div class="ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
-    </div>
-</div>
-<script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: 'Posts',
-            PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
-            UNTITLED: '(Untitled)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
-<script src="/js/insight.js"></script>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
 
-</div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-        <div class="container">
-            <div class="main-body container-inner">
-                <div class="main-body-inner">
-                    <section id="main">
-                        <div class="main-body-header">
-    <h1 class="header">
-    
-    uncategorized
-    </h1>
-</div>
-
-                        <div class="main-body-content">
-                            <article id="post-树状数组加二分维护区间第k大值" class="article article-single article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-            <header class="article-header">
-                
-    
-        <h1 class="article-title" itemprop="name">
-        树状数组加二分维护区间第k大值
-        </h1>
-    
-
-            </header>
-        
-        
-            <div class="article-meta">
-                
-    <div class="article-date">
-      <i class="fa fa-calendar"></i>
-      <a href="/2019/11/26/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC/" class="article-date">
-         <time datetime="2019-11-26T06:25:59.000Z" itemprop="datePublished">2019-11-26</time>
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
 
 
-                
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
 
-                
-                
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
-                
+  </li>
+        <li class="menu-item menu-item-tags">
 
-            </div>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-            <h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="http://codeforces.com/contest/1227/problem/D2" target="_blank" rel="noopener">题目链接</a></h2><p><img src="/2019/11/26/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC/cf1227d.png" alt="cf1227d2"><br><br>按题意每一次查询和最大的p个数的最小字典序中第q个位置的数字；<br>首先我们可以把所有数字的按从大到小进行一级排序，位置按从前往后进行二级排序，那么在排序以后p个数的最大和且最小字典序就是前p个数，那么我==只要输出前面按照位置从小到大的第q个数就行了==。<br>显然，问题转化后就是求前p个数中的第q大值；<br>树状数组维护数字x是第几大，然后在有单调性的情况下选择二分第q大值就好了。</p>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/26/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="无向秃">
+      <meta itemprop="description" content="飞蛾扑火也许仅仅是因为那一丝的温暖吧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          树状数组加二分维护区间第k大值
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-11-26 14:25:59 / 修改时间：18:04:08" itemprop="dateCreated datePublished" datetime="2019-11-26T14:25:59+08:00">2019-11-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="http://codeforces.com/contest/1227/problem/D2" target="_blank" rel="noopener">题目链接</a></h2><p><img src="/2019/11/26/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC/cf1227d.png" alt="cf1227d2"><br><br>按题意每一次查询和最大的p个数的最小字典序中第q个位置的数字；<br>首先我们可以把所有数字的按从大到小进行一级排序，位置按从前往后进行二级排序，那么在排序以后p个数的最大和且最小字典序就是前p个数，那么我==只要输出前面按照位置从小到大的第q个数就行了==。<br>显然，问题转化后就是求前p个数中的第q大值；<br>树状数组维护数字x是第几大，然后在有单调性的情况下选择二分第q大值就好了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 2e5+5;</span><br><span class="line">typedef long long ll;</span><br><span class="line">int a[N],ans[N],n,sum[N];</span><br><span class="line">struct ab&#123;</span><br><span class="line">	int x,y;</span><br><span class="line">&#125;c[N];</span><br><span class="line">struct sc&#123;</span><br><span class="line">	int x,y,z;</span><br><span class="line">&#125;b[N];</span><br><span class="line">bool cmp(ab p,ab q)&#123;</span><br><span class="line">	if(p.x&gt;q.x) return true;</span><br><span class="line">	if(p.x==q.x&amp;&amp;p.y&lt;q.y) return true;</span><br><span class="line">	return false;</span><br><span class="line">&#125;</span><br><span class="line">bool cmp1(sc p,sc q)&#123;</span><br><span class="line">	return p.x&lt;q.x;</span><br><span class="line">&#125;</span><br><span class="line">void add(int x)&#123;</span><br><span class="line">	while(x&lt;=n)&#123;</span><br><span class="line">		//printf(&quot;%dxxx\n&quot;,x);</span><br><span class="line">		sum[x]++;</span><br><span class="line">		x+=(x&amp;(-x));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">int get(int x)&#123;</span><br><span class="line">	int ans=0;</span><br><span class="line">	while(x)&#123;</span><br><span class="line">		ans+=sum[x];</span><br><span class="line">		x-=(x&amp;(-x));</span><br><span class="line">	&#125;</span><br><span class="line">	return ans;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int t,m,i,j;</span><br><span class="line">	scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">	for(i=1;i&lt;=n;i++)&#123;</span><br><span class="line">		scanf(&quot;%d&quot;,&amp;a[i]);</span><br><span class="line">		c[i].x=a[i];</span><br><span class="line">		c[i].y=i;</span><br><span class="line">	&#125;</span><br><span class="line">	sort(c+1,c+1+n,cmp);</span><br><span class="line">	for(i=1;i&lt;=n;i++) sum[i]=0;</span><br><span class="line">	scanf(&quot;%d&quot;,&amp;m);</span><br><span class="line">	for(i=1;i&lt;=m;i++)&#123;</span><br><span class="line">		scanf(&quot;%d %d&quot;,&amp;b[i].x,&amp;b[i].y);</span><br><span class="line">		b[i].z=i;</span><br><span class="line">	&#125;</span><br><span class="line">	sort(b+1,b+1+m,cmp1);</span><br><span class="line">	int p=b[m].x,q=1;</span><br><span class="line">	for(i=1;i&lt;=p;i++)&#123;</span><br><span class="line">		add(c[i].y);</span><br><span class="line">		//printf(&quot;%dss\n&quot;,c[i].y);</span><br><span class="line">		while(b[q].x==i)&#123;</span><br><span class="line">			int l=1,r=n,mid=0;</span><br><span class="line">			while(l&lt;r)&#123;</span><br><span class="line">				mid=(l+r)/2;</span><br><span class="line">				//printf(&quot;%d %d\n&quot;,mid,get(mid));</span><br><span class="line">				if(get(mid)&gt;=b[q].y) r=mid;</span><br><span class="line">				else l=mid+1;</span><br><span class="line">			&#125;</span><br><span class="line">			ans[b[q].z]=a[r];</span><br><span class="line">			q++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	for(i=1;i&lt;=m;i++)&#123;</span><br><span class="line">		printf(&quot;%d\n&quot;,ans[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/26/IncDec%E5%BA%8F%E5%88%97%20%20%20%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/" rel="prev" title="IncDec序列   差分数组">
+      <i class="fa fa-chevron-left"></i> IncDec序列   差分数组
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
         </div>
-        <footer class="article-footer">
-            
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
+  <aside class="sidebar">
+    <div class="sidebar-inner">
 
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-    <a data-url="http://yoursite.com/2019/11/26/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC/" data-id="ck3fj6eg30001b4vq2fslg04o" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目链接"><span class="nav-number">1.</span> <span class="nav-text">题目链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
 
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-        </footer>
-    </div>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "author": {
-            "@type": "Person",
-            "name": "John Doe"
-        },
-        "headline": "树状数组加二分维护区间第k大值",
-        "image": "http://yoursite.com/2019/11/26/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC/cf1227d.png",
-        "keywords": "",
-        "genre": "",
-        "datePublished": "2019-11-26",
-        "dateCreated": "2019-11-26",
-        "dateModified": "2019-11-26",
-        "url": "http://yoursite.com/2019/11/26/树状数组加二分维护区间第k大值/",
-        "description": "题目链接按题意每一次查询和最大的p个数的最小字典序中第q个位置的数字；首先我们可以把所有数字的按从大到小进行一级排序，位置按从前往后进行二级排序，那么在排序以后p个数的最大和且最小字典序就是前p个数，那么我==只要输出前面按照位置从小到大的第q个数就行了==。显然，问题转化后就是求前p个数中的第q大值；树状数组维护数字x是第几大，然后在有单调性的情况下选择二分第q大值就好了。
-1234567891",
-        "wordCount": 212
-    }
-</script>
-
-</article>
-
-    <section id="comments">
-    
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="无向秃"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">无向秃</p>
+  <div class="site-description" itemprop="description">飞蛾扑火也许仅仅是因为那一丝的温暖吧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
         
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
-
-
-    
-    </section>
-
-
-
-                        </div>
-                    </section>
-                    <aside id="sidebar">
-    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
-    <div class="sidebar-top">
-        <p>follow:</p>
-        <ul class="social-links">
-            
-                
-                <li>
-                    <a class="social-tooltip" title="twitter" href="/" target="_blank" rel="noopener">
-                        <i class="icon fa fa-twitter"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
-                        <i class="icon fa fa-facebook"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="stack-overflow" href="/" target="_blank" rel="noopener">
-                        <i class="icon fa fa-stack-overflow"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="github" href="https://github.com/ppoffice/hexo-theme-hueman" target="_blank" rel="noopener">
-                        <i class="icon fa fa-github"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
-                        <i class="icon fa fa-weibo"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
-                        <i class="icon fa fa-rss"></i>
-                    </a>
-                </li>
-                
-            
-        </ul>
-    </div>
-    
-        
-<nav id="article-nav">
-    
-    
-        <a href="/2019/11/26/IncDec%E5%BA%8F%E5%88%97%20%20%20%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/" id="article-nav-older" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">IncDec序列   差分数组</p>
-        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">日志</span>
         </a>
-    
-</nav>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
 
-    
-    <div class="widgets-container">
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
         
-            
-                
 
-            
-                
-    <div class="widget-wrap">
-        <h3 class="widget-title">recents</h3>
-        <div class="widget">
-            <ul id="recent-post" class="">
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/11/26/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/2019/11/26/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC/cf1227d.png)" alt="树状数组加二分维护区间第k大值" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2019/11/26/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC/" class="title">树状数组加二分维护区间第k大值</a></p>
-                            <p class="item-date"><time datetime="2019-11-26T06:25:59.000Z" itemprop="datePublished">2019-11-26</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/11/26/IncDec%E5%BA%8F%E5%88%97%20%20%20%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2019/11/26/IncDec%E5%BA%8F%E5%88%97%20%20%20%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/" class="title">IncDec序列   差分数组</a></p>
-                            <p class="item-date"><time datetime="2019-11-26T05:11:39.368Z" itemprop="datePublished">2019-11-26</time></p>
-                        </div>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
-
-            
-                
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">archives</h3>
-        <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a><span class="archive-list-count">2</span></li></ul>
-        </div>
-    </div>
-
-
-            
-                
-
-            
-                
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">links</h3>
-        <div class="widget">
-            <ul>
-                
-                    <li>
-                        <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
-
-
-            
-        
-    </div>
-</aside>
-
-                </div>
-            </div>
-        </div>
-        <footer id="footer">
-    <div class="container">
-        <div class="container-inner">
-            <a id="back-to-top" href="javascript:;" target="_blank" rel="noopener"><i class="icon fa fa-angle-up"></i></a>
-            <div class="credit">
-                <h1 class="logo-wrap">
-                    <a href="/" class="logo"></a>
-                </h1>
-                <p>&copy; 2019 John Doe</p>
-                
-                <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="https://github.com/ppoffice" target="_blank">PPOffice</a></p>
-                
-            </div>
-            <div class="footer-plugins">
-              
-    
-
-
-            </div>
-        </div>
-    </div>
-</footer>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">无向秃</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.5.0
+  </div>
 
         
-    
-    <script>
-    var disqus_shortname = 'hexo-theme-hueman';
-    
-    
-    var disqus_url = 'http://yoursite.com/2019/11/26/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84%E5%8A%A0%E4%BA%8C%E5%88%86%E7%BB%B4%E6%8A%A4%E5%8C%BA%E9%97%B4%E7%AC%ACk%E5%A4%A7%E5%80%BC/';
-    
-    (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
 
 
 
 
 
-    
-        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
-    
-    
-        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
-    
-    
-
-    
 
 
 
-<!-- Custom Scripts -->
-<script src="/js/main.js"></script>
+        
+      </div>
+    </footer>
+  </div>
 
-    </div>
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
 </body>
 </html>
