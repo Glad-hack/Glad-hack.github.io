@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-28T04:18:21.501Z</updated>
+  <updated>2020-01-28T04:44:06.892Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://yoursite.com/2020/01/28/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/"/>
     <id>http://yoursite.com/2020/01/28/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/</id>
     <published>2020-01-28T03:19:55.000Z</published>
-    <updated>2020-01-28T04:18:21.501Z</updated>
+    <updated>2020-01-28T04:44:06.892Z</updated>
     
-    <content type="html"><![CDATA[<p>#欧拉函数</p><blockquote><p>欧拉函数是一个用于求1~n里面所有的与n互质数字的个数</p></blockquote><h2 id="欧拉函数的性质"><a href="#欧拉函数的性质" class="headerlink" title="欧拉函数的性质"></a>欧拉函数的性质</h2><ol><li>φ(x * y) = φ(x) * φ(y)    <strong>当且(x,y)==1</strong></li><li>φ(x) = x - 1           <strong>当且仅当x为质数时</strong></li><li>φ(n) = (p-1) * p^(k-1)</li><li>φ(n)=n∗∏(1−1/pi)       <strong>pi是n的质因子</strong></li><li>a^(φ(m))==1%m          <strong>当且仅当(a,m)==1</strong></li><li>s = n * (φ(n)/2)         <strong>s为小于n且与n互质的数之和</strong></li><li>φ(n * p)=φ(n) * p        <strong>当p为质数且n%p==0</strong></li><li>φ(n * p)=φ(n) * (p-1)     <strong>当p为质数且n%p!=0</strong></li></ol><h2 id="计算欧拉值的打表代码-时间复杂度O-n"><a href="#计算欧拉值的打表代码-时间复杂度O-n" class="headerlink" title="计算欧拉值的打表代码,时间复杂度O(n)"></a>计算欧拉值的打表代码,时间复杂度O(n)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">phi[1]=1;</span><br><span class="line">for(int i=2;i&lt;n;i++)&#123;</span><br><span class="line">if(vis[i]==0) pri[++tot]=i,phi[i]=i-1;</span><br><span class="line">for(int j=1;j&lt;=tot&amp;&amp;1ll*i*pri[j]&lt;n;j++)&#123;</span><br><span class="line">vis[i*pri[j]]=1;//标记此点经过非质数</span><br><span class="line">if(i%pri[j]==0) &#123;</span><br><span class="line">phi[i*pri[j]]=phi[i]*pri[j];//性质7</span><br><span class="line">break;</span><br><span class="line">&#125;</span><br><span class="line">else phi[i*pri[j]]=phi[i]*(pri[j]-1);//性质8</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="用性质4计算单个欧拉值"><a href="#用性质4计算单个欧拉值" class="headerlink" title="用性质4计算单个欧拉值"></a>用性质4计算单个欧拉值</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">int ph(int n)&#123;</span><br><span class="line">int res=n,i;</span><br><span class="line">    for(i=2;i*i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(n%i==0)</span><br><span class="line">        &#123;</span><br><span class="line">            res=res-res/i;</span><br><span class="line">            while(n%i==0) n/=i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(n&gt;1)</span><br><span class="line">        res=res-res/n;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>#欧拉函数</p><blockquote><p><code>欧拉函数是一个用于求1~n里面所有的与n互质数字的个数</code></p></blockquote><h2 id="欧拉函数的性质"><a href="#欧拉函数的性质" class="headerlink" title="欧拉函数的性质"></a>欧拉函数的性质</h2><ol><li>φ(x * y) = φ(x) * φ(y)    <strong>当且(x,y)==1</strong></li><li>φ(x) = x - 1           <strong>当且仅当x为质数时</strong></li><li>φ(n) = (p-1) * p^(k-1)</li><li>φ(n)=n∗∏(1−1/pi)       <strong>pi是n的质因子</strong></li><li>a^(φ(m))==1%m          <strong>当且仅当(a,m)==1</strong></li><li>s = n * (φ(n)/2)         <strong>s为小于n且与n互质的数之和</strong></li><li>φ(n * p)=φ(n) * p        <strong>当p为质数且n%p==0</strong></li><li>φ(n * p)=φ(n) * (p-1)     <strong>当p为质数且n%p!=0</strong></li></ol><h2 id="计算欧拉值的打表代码-时间复杂度O-n"><a href="#计算欧拉值的打表代码-时间复杂度O-n" class="headerlink" title="计算欧拉值的打表代码,时间复杂度O(n)"></a>计算欧拉值的打表代码,时间复杂度O(n)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">phi[1]=1;</span><br><span class="line">for(int i=2;i&lt;n;i++)&#123;</span><br><span class="line">if(vis[i]==0) pri[++tot]=i,phi[i]=i-1;</span><br><span class="line">for(int j=1;j&lt;=tot&amp;&amp;1ll*i*pri[j]&lt;n;j++)&#123;</span><br><span class="line">vis[i*pri[j]]=1;//标记此点经过非质数</span><br><span class="line">if(i%pri[j]==0) &#123;</span><br><span class="line">phi[i*pri[j]]=phi[i]*pri[j];//性质7</span><br><span class="line">break;</span><br><span class="line">&#125;</span><br><span class="line">else phi[i*pri[j]]=phi[i]*(pri[j]-1);//性质8</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="用性质4计算单个欧拉值"><a href="#用性质4计算单个欧拉值" class="headerlink" title="用性质4计算单个欧拉值"></a>用性质4计算单个欧拉值</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">int ph(int n)&#123;</span><br><span class="line">int res=n,i;</span><br><span class="line">    for(i=2;i*i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(n%i==0)</span><br><span class="line">        &#123;</span><br><span class="line">            res=res-res/i;</span><br><span class="line">            while(n%i==0) n/=i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(n&gt;1)</span><br><span class="line">        res=res-res/n;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -31,9 +31,9 @@
       
         &lt;p&gt;#欧拉函数&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;欧拉函数是一个用于求1~n里面所有的与n互质数字的个数&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;欧拉函数是一个用于求1~n里面所有的与n互质数字的个数&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&quot;欧拉函数的性质&quot;&gt;&lt;a href=&quot;#欧拉函数的性质&quot; class=&quot;headerlink&quot; title=&quot;欧拉函
+&lt;h2 id=&quot;欧拉函数的性质&quot;&gt;&lt;a href=&quot;#欧拉函数的性质&quot; class=&quot;headerlin
       
     
     </summary>
@@ -97,7 +97,7 @@
     <link href="http://yoursite.com/2020/01/14/%E6%AC%A7%E6%8B%89%E7%AD%9B/"/>
     <id>http://yoursite.com/2020/01/14/%E6%AC%A7%E6%8B%89%E7%AD%9B/</id>
     <published>2020-01-14T07:33:59.000Z</published>
-    <updated>2020-01-14T08:11:06.694Z</updated>
+    <updated>2020-01-28T04:44:56.069Z</updated>
     
     <content type="html"><![CDATA[<h1 id="欧拉筛"><a href="#欧拉筛" class="headerlink" title="欧拉筛"></a>欧拉筛</h1><h2 id="欧拉筛证明："><a href="#欧拉筛证明：" class="headerlink" title="欧拉筛证明："></a>欧拉筛证明：</h2><p>首先介绍一下算术基本原理：x=p1^e1 * p2^e2 * p3^e3…(p为质数，e为正数，x为任意不为1的正整数)<br>由上可以知道x=x1 * p(min)，(p为组成x的最小质数)。<br>所以每一个数一定可以变成一个最小质数乘上一个比这个数小的正整数；<br>那么x将会在x1处被判断，同时也将判断比x * j(j为比x最小质数小的所有质数)<br>那么我们可以通过枚举x值来判断每一个数字是否为质数。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void erlu(int n)&#123;</span><br><span class="line">int i,j,k;</span><br><span class="line">  for(i=1;i&lt;=n;i++) vis[i]=pri[i]=0;</span><br><span class="line">for(i=2;i&lt;=n;i++)&#123;//枚举x</span><br><span class="line">if(!vis[i])&#123;</span><br><span class="line">pri[++tot]=i;</span><br><span class="line">&#125;</span><br><span class="line">for(j=1;j&lt;=tot&amp;&amp;(i*pri[j]&lt;=n);j++)&#123;</span><br><span class="line">vis[i*pri[j]]=pri[j];//保存质数表，每一个空间表示该下标的最小质数！</span><br><span class="line">if(i%pri[j]==0) break;第一个比x小的质数</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -114,7 +114,7 @@
       <category term="数论" scheme="http://yoursite.com/categories/%E6%95%B0%E8%AE%BA/"/>
     
     
-      <category term="数论" scheme="http://yoursite.com/tags/%E6%95%B0%E8%AE%BA/"/>
+      <category term="ACM" scheme="http://yoursite.com/tags/ACM/"/>
     
   </entry>
   
