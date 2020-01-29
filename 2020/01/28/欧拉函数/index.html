@@ -21,7 +21,7 @@
   var CONFIG = {
     hostname: new URL('http://yoursite.com').hostname,
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Gemini',
     version: '7.7.0',
     exturl: false,
     sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
@@ -46,12 +46,12 @@
   };
 </script>
 
-  <meta name="description" content="欧拉函数 欧拉函数是一个用于求1~n里面所有的与n互质数字的个数  欧拉函数的性质 φ(x * y) = φ(x) * φ(y)    当且(x,y)==1 φ(x) = x - 1           当且仅当x为质数时 φ(n) = (p-1) * p^(k-1) φ(n)=n∗∏(1−1&#x2F;pi)       pi是n的质因子 a^(φ(m))==1%m          当且仅当(a,m)=">
+  <meta name="description" content="欧拉函数 欧拉函数是一个用于求1~n里面所有的与n互质数字的个数  欧拉函数的性质 φ(x  y) = φ(x)  φ(y)    当且(x,y)==1 φ(x) = x - 1           当且仅当x为质数时 φ(n) = (p-1) * p^(k-1) φ(n)=n∗∏(1−1&#x2F;pi)       pi是n的质因子 a^(φ(m))==1%m          当且仅当(a,m)==1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="欧拉函数">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;28&#x2F;%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="欧拉函数 欧拉函数是一个用于求1~n里面所有的与n互质数字的个数  欧拉函数的性质 φ(x * y) = φ(x) * φ(y)    当且(x,y)==1 φ(x) = x - 1           当且仅当x为质数时 φ(n) = (p-1) * p^(k-1) φ(n)=n∗∏(1−1&#x2F;pi)       pi是n的质因子 a^(φ(m))==1%m          当且仅当(a,m)=">
+<meta property="og:description" content="欧拉函数 欧拉函数是一个用于求1~n里面所有的与n互质数字的个数  欧拉函数的性质 φ(x  y) = φ(x)  φ(y)    当且(x,y)==1 φ(x) = x - 1           当且仅当x为质数时 φ(n) = (p-1) * p^(k-1) φ(n)=n∗∏(1−1&#x2F;pi)       pi是n的质因子 a^(φ(m))==1%m          当且仅当(a,m)==1">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-01-28T04:59:01.904Z">
 <meta name="twitter:card" content="summary">
@@ -137,6 +137,16 @@
     <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
@@ -171,7 +181,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/28/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/vscode.png">
       <meta itemprop="name" content="无向秃">
       <meta itemprop="description" content="飞蛾扑火也许仅仅是因为那一丝的温暖吧">
     </span>
@@ -207,6 +217,41 @@
             </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/01/28/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/01/28/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>721</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -221,14 +266,14 @@
 <p><code>欧拉函数是一个用于求1~n里面所有的与n互质数字的个数</code></p>
 </blockquote>
 <h2 id="欧拉函数的性质"><a href="#欧拉函数的性质" class="headerlink" title="欧拉函数的性质"></a>欧拉函数的性质</h2><ol>
-<li>φ(x * y) = φ(x) * φ(y)    <strong>当且(x,y)==1</strong></li>
+<li>φ(x <em> y) = φ(x) </em> φ(y)    <strong>当且(x,y)==1</strong></li>
 <li>φ(x) = x - 1           <strong>当且仅当x为质数时</strong></li>
 <li>φ(n) = (p-1) * p^(k-1)</li>
 <li>φ(n)=n∗∏(1−1/pi)       <strong>pi是n的质因子</strong></li>
 <li>a^(φ(m))==1%m          <strong>当且仅当(a,m)==1</strong></li>
-<li>s = n * (φ(n)/2)         <strong>s为小于n且与n互质的数之和</strong></li>
-<li>φ(n * p)=φ(n) * p        <strong>当p为质数且n%p==0</strong></li>
-<li>φ(n * p)=φ(n) * (p-1)     <strong>当p为质数且n%p!=0</strong></li>
+<li>s = n <em> (φ(n)/2)         <em>*s为小于n且与n互质的数之和</em></em></li>
+<li>φ(n <em> p)=φ(n) </em> p        <strong>当p为质数且n%p==0</strong></li>
+<li>φ(n <em> p)=φ(n) </em> (p-1)     <strong>当p为质数且n%p!=0</strong></li>
 </ol>
 <h2 id="计算欧拉值的打表代码-时间复杂度O-n"><a href="#计算欧拉值的打表代码-时间复杂度O-n" class="headerlink" title="计算欧拉值的打表代码,时间复杂度O(n)"></a>计算欧拉值的打表代码,时间复杂度O(n)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">phi[1]=1;</span><br><span class="line">	for(int i=2;i&lt;n;i++)&#123;</span><br><span class="line">		if(vis[i]==0) pri[++tot]=i,phi[i]=i-1;</span><br><span class="line">		for(int j=1;j&lt;=tot&amp;&amp;1ll*i*pri[j]&lt;n;j++)&#123;</span><br><span class="line">			vis[i*pri[j]]=1;//标记此点经过非质数</span><br><span class="line">			if(i%pri[j]==0) &#123;</span><br><span class="line">				phi[i*pri[j]]=phi[i]*pri[j];//性质7</span><br><span class="line">				break;</span><br><span class="line">			&#125;</span><br><span class="line">			else phi[i*pri[j]]=phi[i]*(pri[j]-1);//性质8</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="用性质4计算单个欧拉值"><a href="#用性质4计算单个欧拉值" class="headerlink" title="用性质4计算单个欧拉值"></a>用性质4计算单个欧拉值</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">int ph(int n)&#123;</span><br><span class="line">	int res=n,i;</span><br><span class="line">    for(i=2;i*i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(n%i==0)</span><br><span class="line">        &#123;</span><br><span class="line">            res=res-res/i;</span><br><span class="line">            while(n%i==0) n/=i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(n&gt;1)</span><br><span class="line">        res=res-res/n;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -238,6 +283,8 @@
     
     
     
+      
+
 
       <footer class="post-footer">
 
@@ -267,6 +314,7 @@
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -319,6 +367,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="无向秃"
+      src="/images/vscode.png">
   <p class="site-author-name" itemprop="name">无向秃</p>
   <div class="site-description" itemprop="description">飞蛾扑火也许仅仅是因为那一丝的温暖吧</div>
 </div>
@@ -333,16 +383,23 @@
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
+          
         <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
+          
         <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Glad-hack/Glad-hack.github.io" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Glad-hack&#x2F;Glad-hack.github.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
 
 
 
@@ -368,14 +425,41 @@
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">无向秃</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">9k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">8 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
-  <span class="post-meta-divider">|</span>
-  <div class="theme-info">主题 – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.0
-  </div>
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
 
 
@@ -393,7 +477,7 @@
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 <script src="/js/utils.js"></script><script src="/js/motion.js"></script>
-<script src="/js/schemes/muse.js"></script>
+<script src="/js/schemes/pisces.js"></script>
 <script src="/js/next-boot.js"></script>
 
 
@@ -417,6 +501,37 @@
   
 
   
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: 'pFPBehyRHA9lN8VGTr1SYmEz-gzGzoHsz',
+      appKey: 'e77gs6hLgV7EFVhUryCCOGqU',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: '' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
 
 </body>
 </html>
