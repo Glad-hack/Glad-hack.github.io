@@ -54,7 +54,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="在家无聊，想到python貌似挺好玩的，我就来试试，hhh，祝病毒早日被消灭">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-02T10:43:01.514Z">
+<meta property="og:updated_time" content="2020-02-02T12:38:36.259Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://dream-ak.top/2020/02/02/python%E5%90%AF%E5%8A%A8/">
@@ -203,7 +203,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-02 16:27:48 / 修改时间：18:43:01" itemprop="dateCreated datePublished" datetime="2020-02-02T16:27:48+08:00">2020-02-02</time>
+              <time title="创建时间：2020-02-02 16:27:48 / 修改时间：20:38:36" itemprop="dateCreated datePublished" datetime="2020-02-02T16:27:48+08:00">2020-02-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -280,6 +280,12 @@
     
     
       
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\02\02\python字符串\" rel="bookmark">python字符串和数组元组</a></div>
+    </li>
+  </ul>
 
 
       <footer class="post-footer">
@@ -296,7 +302,10 @@
     <a href="/2020/02/01/%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E5%A0%86%E4%BC%98%E5%8C%96/" rel="prev" title="迪杰斯特拉堆优化">
       <i class="fa fa-chevron-left"></i> 迪杰斯特拉堆优化
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/02/python%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="next" title="python字符串和数组元组">
+      python字符串和数组元组 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -373,14 +382,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -425,7 +434,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">13k</span>
+    <span title="站点总字数">14k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -506,6 +515,54 @@
   
 
   
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 
