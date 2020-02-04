@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dream-ak.top/"/>
-  <updated>2020-02-03T09:02:14.419Z</updated>
+  <updated>2020-02-03T09:16:45.318Z</updated>
   <id>https://dream-ak.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>函数</title>
+    <link href="https://dream-ak.top/2020/02/03/%E5%87%BD%E6%95%B0/"/>
+    <id>https://dream-ak.top/2020/02/03/%E5%87%BD%E6%95%B0/</id>
+    <published>2020-02-03T09:04:38.000Z</published>
+    <updated>2020-02-03T09:16:45.318Z</updated>
+    
+    <content type="html"><![CDATA[<p>终于到激动人心的时刻了，我们开始学习$python$函数了，有点小快啊，hhh<a id="more"></a></p><h1 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h1><h2 id="def"><a href="#def" class="headerlink" title="$def$"></a>$def$</h2><p>定义一个函数要使用$def$语句，依次写出函数名、括号、括号中的参数和冒号:，然后，在缩进块中编写函数体，函数的返回值用return语句返回。<br>拿一个从$l$加到$r$的和的函数来讲<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def sum(l,r):</span><br><span class="line">    sum = 0</span><br><span class="line">    for i in range(l,r+1,1):</span><br><span class="line">        sum += i</span><br><span class="line">    return sum</span><br><span class="line">l = int(input(&quot;l=&quot;))</span><br><span class="line">r = int(input(&quot;r=&quot;))</span><br><span class="line">print(sum(l,r))</span><br></pre></td></tr></table></figure></p><blockquote><p>$output$<br>l=1<br>r=100<br>5050</p></blockquote><h2 id="位置参数"><a href="#位置参数" class="headerlink" title="位置参数"></a>位置参数</h2><p>比如上面的参数就叫做位置参数，调用$sum$函数时，必须给予两个固定参数</p><h2 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h2><p>看一个代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;终于到激动人心的时刻了，我们开始学习$python$函数了，有点小快啊，hhh&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="python基础" scheme="https://dream-ak.top/categories/python%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="python" scheme="https://dream-ak.top/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>dict和set</title>
