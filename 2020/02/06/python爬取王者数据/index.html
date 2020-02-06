@@ -46,18 +46,21 @@
   };
 </script>
 
-  <meta name="description" content="首先我得说一句，这里得字符串编码有点玄学，如果讲开了有点可怕，所以我就在最开始得地方放一个大佬的链接算了，方便以后查阅廖雪峰的笔记">
+  <meta name="description" content="正则已经学完了，就要开始玩爬虫了呀，我们首先爬一个王者的数据，来好好看看吧">
 <meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python字符串和数组元组">
-<meta property="og:url" content="https:&#x2F;&#x2F;dream-ak.top&#x2F;2020&#x2F;02&#x2F;02&#x2F;python%E5%AD%97%E7%AC%A6%E4%B8%B2&#x2F;index.html">
+<meta property="og:title" content="python爬取王者数据">
+<meta property="og:url" content="https:&#x2F;&#x2F;dream-ak.top&#x2F;2020&#x2F;02&#x2F;06&#x2F;python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="首先我得说一句，这里得字符串编码有点玄学，如果讲开了有点可怕，所以我就在最开始得地方放一个大佬的链接算了，方便以后查阅廖雪峰的笔记">
+<meta property="og:description" content="正则已经学完了，就要开始玩爬虫了呀，我们首先爬一个王者的数据，来好好看看吧">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-04T03:26:12.993Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;dream-ak.top&#x2F;2020&#x2F;02&#x2F;06&#x2F;python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;dream-ak.top&#x2F;2020&#x2F;02&#x2F;06&#x2F;python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE&#x2F;2.png">
+<meta property="og:updated_time" content="2020-02-06T12:31:56.093Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;dream-ak.top&#x2F;2020&#x2F;02&#x2F;06&#x2F;python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE&#x2F;1.png">
 
-<link rel="canonical" href="https://dream-ak.top/2020/02/02/python%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+<link rel="canonical" href="https://dream-ak.top/2020/02/06/python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE/">
 
 
 <script id="page-configurations">
@@ -69,7 +72,7 @@
   };
 </script>
 
-  <title>python字符串和数组元组 | Hexo</title>
+  <title>python爬取王者数据 | Hexo</title>
   
 
 
@@ -179,7 +182,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dream-ak.top/2020/02/02/python%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+    <link itemprop="mainEntityOfPage" href="https://dream-ak.top/2020/02/06/python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/vscode.png">
@@ -192,7 +195,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          python字符串和数组元组
+          python爬取王者数据
         </h1>
 
         <div class="post-meta">
@@ -201,24 +204,18 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-02-02 20:21:42" itemprop="dateCreated datePublished" datetime="2020-02-02T20:21:42+08:00">2020-02-02</time>
+              <time title="创建时间：2020-02-06 18:24:34 / 修改时间：20:31:56" itemprop="dateCreated datePublished" datetime="2020-02-06T18:24:34+08:00">2020-02-06</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-04 11:26:12" itemprop="dateModified" datetime="2020-02-04T11:26:12+08:00">2020-02-04</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">python基础</span>
+                  <a href="/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫</span>
                   </a>
                 </span>
             </span>
@@ -239,8 +236,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/02/python%E5%AD%97%E7%AC%A6%E4%B8%B2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/02/python%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/06/python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/06/python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -250,14 +247,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -269,32 +266,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>首先我得说一句，这里得字符串编码有点玄学，如果讲开了有点可怕，所以我就在最开始得地方放一个大佬的链接算了，方便以后查阅<a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017075323632896" target="_blank" rel="noopener">廖雪峰的笔记</a><br><a id="more"></a></p>
-<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><p>对于$python3$的编码格式是一个$Unicode$编码</p>
-<h2 id="unicode-编码"><a href="#unicode-编码" class="headerlink" title="$unicode$编码"></a>$unicode$编码</h2><p>粗略解释一下，详情请访问廖雪峰的笔记：</p>
-<blockquote>
-<p>$Unicode$解决了各国语言的编码冲突，利用两个字节。<br>$UTF-8$编码是因为$Unicode$对于空间来说浪费高，所以折中出现了utf-8编码</p>
-</blockquote>
-<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>在计算机内存中，统一使用$Unicode$编码，当需要保存到硬盘或者需要传输的时候，就转换为$UTF-8$编码。</p>
+        <p>正则已经学完了，就要开始玩爬虫了呀，我们首先爬一个王者的数据，来好好看看吧<a id="more"></a></p>
+<h1 id="requests"><a href="#requests" class="headerlink" title="$requests$"></a>$requests$</h1><p>首先我们安装这一个requests模块，在终端输入</p>
 <ol>
-<li>用记事本编辑的时候，从文件读取的$UTF-8$字符被转换为$Unicode$字符到内存里，编辑完成后，保存的时候再把$Unicode$转换为$UTF-8$保存到文件。</li>
-<li>浏览网页的时候，服务器会把动态生成的$Unicode$内容转换为$UTF-8$再传输到浏览器：<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2>$python3$的字符串是$Unicode$编码，也就是适合各种语言啦<blockquote>
-<p>对于单个字符来说，我们支持$ord()$获得字符整数表示，$chr()$把编码转为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(chr(20320))</span><br><span class="line">print(ord(&apos;你&apos;))</span><br></pre></td></tr></table></figure>
-<p>输出<br>你<br>20320</p>
-</blockquote>
-</li>
+<li>pip install requests</li>
 </ol>
-<h3 id="len-计算字符串的字符数"><a href="#len-计算字符串的字符数" class="headerlink" title="$len$计算字符串的字符数"></a>$len$计算字符串的字符数</h3><p>$len(str)$返回一个整数，表示$str$所含有的字符数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">strr=&quot;我爱你&quot;</span><br><span class="line">print(len(strr))</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>$output:$<br>3</p>
-<h2 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h2><p>$python$的格式化和C语言的大致相同<br>|占位符|替换内容|<br>|:-:|:-:|<br>|%s|字符串|<br>|%d|整数|<br>|%f|浮点数|<br>|%x|16进制整数|<br>不过有个区别我表示的重点提醒：<strong>print(“%s” % strr),不像C语言中间用逗号分隔</strong><br>顺带一个妙招，当你忘了要用什么的时候可以使用%s哦，他会自动转字符串，hhh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(&quot;%s %s&quot; % (520,False))</span><br></pre></td></tr></table></figure></p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
-<li>对于$python$里的字符中不能直接相加，需要先把它用$ord$转成数字然后再用$chr$转回来！</li>
-<li>对于字符串里面字符修改必须使用$repalce(old,new,count)$进行生成新的字符串对象！</li>
+<p>利用$r=requests.get()$来进行对一个网页的获取，返回一个二进制字符串，为了不把字符转乱码，我们一般使用正确的编码格式，这个编码格式一般在网页上写着！或者使用$r.apparent_encoding$的函数自动获取，不过不保证完全准确！<br>转字符串时可以使用$html=r.text$返回字符串</p>
+<h2 id="强行爬虫"><a href="#强行爬虫" class="headerlink" title="强行爬虫"></a>强行爬虫</h2><p>在爬<a href="https://www.vmgirls.com/时会发现不允许爬取，那么有一个玄学的爬取方法，这个网站是通过判断代理服务来判断是不是爬虫，在requests时会发送一个爬虫请求，该网站如果发现是爬虫时，那么我们就可以把requests发送的代理服务改掉,通过在**$requests(&#39;https://vmgirls.com/&#39;,headers=&quot;本地代理&quot;)$**。" target="_blank" rel="noopener">https://www.vmgirls.com/时会发现不允许爬取，那么有一个玄学的爬取方法，这个网站是通过判断代理服务来判断是不是爬虫，在requests时会发送一个爬虫请求，该网站如果发现是爬虫时，那么我们就可以把requests发送的代理服务改掉,通过在**$requests(&#39;https://vmgirls.com/&#39;,headers=&quot;本地代理&quot;)$**。</a><br>本地代理可以在网页上查看！</p>
+<h1 id="re-findall"><a href="#re-findall" class="headerlink" title="$re.findall()$"></a>$re.findall()$</h1><p>我们一般使用这个来获取自己需要的信息。</p>
+<ol>
+<li>()括号内表示需要的信息，没有括号则表示不需要的信息</li>
+<li>[]匹配时我们需要写一个自己的字符分类，然后去选择自己的信息</li>
+<li>findall(r’’,txt)是格式,r后跟着自己的匹配方式。</li>
 </ol>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def index(head):</span><br><span class="line">    head=str(head)</span><br><span class="line">    if head[0]&gt;=&apos;a&apos;and head[0]&lt;=&apos;z&apos;:</span><br><span class="line">        return head.replace(head[0],chr(ord(head[0])-32),1)#返回一个新的字符串对象</span><br><span class="line">    return head</span><br><span class="line">L1 = [&apos;adam&apos;, &apos;LISA&apos;, &apos;barT&apos;]</span><br><span class="line">L2 = map(index,L1)</span><br><span class="line">print(list(L2))</span><br></pre></td></tr></table></figure>
+<h1 id="os"><a href="#os" class="headerlink" title="os"></a>os</h1><p>文件读写：</p>
+<ol>
+<li>对于文件读写我们一般是使用$with$ $open(“文件路径”,’读写方式’,’encoding=编码规则’) as f:$</li>
+<li>对于文件路径可以使用绝对路径，编码规则须和字符串的编码规则相同。</li>
+</ol>
+<h1 id="time"><a href="#time" class="headerlink" title="time"></a>time</h1><p>为了网站的稳定性能我们一般要去使用$time.sleep()$来控制爬取速度。</p>
+<h1 id="最后来看一下我们是如何爬取王者的："><a href="#最后来看一下我们是如何爬取王者的：" class="headerlink" title="最后来看一下我们是如何爬取王者的："></a>最后来看一下我们是如何爬取王者的：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import re</span><br><span class="line">import os</span><br><span class="line">import time</span><br><span class="line">r = requests.get(&apos;https://pvp.qq.com/web201605/herolist.shtml&apos;)</span><br><span class="line">r.encoding=&quot;gbk&quot;</span><br><span class="line">html = r.text</span><br><span class="line">http = &quot;https://pvp.qq.com/web201605/&quot;</span><br><span class="line">dirs = os.path.abspath(&apos;.&apos;)</span><br><span class="line">dir_name = re.findall(r&apos;&lt;li&gt;&lt;a href=&quot;([a-z0-9/.]*)&quot; target=&quot;_blank&quot;&gt;&lt;img+\s&apos;,html)</span><br><span class="line">for i in dir_name:</span><br><span class="line">    time.sleep(1)</span><br><span class="line">    r = requests.get(http+i)</span><br><span class="line">    r.encoding=&apos;gbk&apos;</span><br><span class="line">    html1=r.text</span><br><span class="line">    hero = re.findall(r&apos;&lt;h2 class=&quot;cover-name&quot;&gt;(.*?)&lt;/h2&gt;&apos;,html1)</span><br><span class="line">    print(hero)</span><br><span class="line">    skin = re.findall(r&apos;&lt;ul class=&quot;pic-pf-list pic-pf-list3&quot; data-imgname=&quot;([\S]*)&quot;&gt;&apos;,html1)</span><br><span class="line">    skill_name = re.findall(r&apos;&lt;p class=&quot;skill-name&quot;&gt;&lt;b&gt;(.*?)&lt;/b&gt;&lt;span&gt;(.*?)&lt;/span&gt;&lt;span&gt;(.*?)&lt;/span&gt;&lt;/p&gt;&apos;,html1)</span><br><span class="line">    skill_decs = re.findall(r&apos;&lt;p class=&quot;skill-desc&quot;&gt;(.*?)&lt;/p&gt;&apos;,html1)</span><br><span class="line">    skill_tips = re.findall(r&apos; &lt;div class=&quot;skill-tips&quot;&gt;(.*?)&lt;/div&gt;&apos;,html1)</span><br><span class="line">    lens = len(skill_tips)</span><br><span class="line">    with open(dirs+&apos;/&apos;+&apos;王者荣耀&apos;+&apos;/&apos;+hero[0]+&apos;.txt&apos;,&apos;w&apos;,encoding=&apos;gbk&apos;) as f:</span><br><span class="line">        f.write(&quot;英雄名称：&quot;+hero[0]+&apos;\n&apos;)</span><br><span class="line">        f.write(&quot;皮肤：&quot;+skin[0]+&apos;\n\n&apos;)</span><br><span class="line">        for j in range(0,lens,1):</span><br><span class="line">            f.write(&quot;技能名称：&quot;+skill_name[j][0]+&apos;\n&apos;)</span><br><span class="line">            f.write(&quot;技能冷却：&quot;+skill_name[j][1]+&apos;\n&apos;)</span><br><span class="line">            f.write(&quot;技能消耗：&quot;+skill_name[j][2]+&apos;\n&apos;)</span><br><span class="line">            f.write(&quot;技能描述：&quot;+skill_decs[j]+&apos;\n&apos;)</span><br><span class="line">            f.write(&quot;技能用途：&quot;+skill_tips[j]+&apos;\n&apos;)</span><br><span class="line">            f.write(&apos;\n&apos;)</span><br></pre></td></tr></table></figure>
+<p>还是有点不会写文件的保存格式，呜呜呜，只会狂写编码了。。。<br>最后来看一下效果：<br><img src="/2020/02/06/python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE/1.png" alt="信息"><br><img src="/2020/02/06/python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE/2.png" alt="东西"></p>
+
     </div>
 
     
@@ -313,7 +306,7 @@
       <div class="popular-posts-title"><a href="\2020\02\03\dict和set\" rel="bookmark">dict和set</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\02\06\python爬取王者数据\" rel="bookmark">python爬取王者数据</a></div>
+      <div class="popular-posts-title"><a href="\2020\02\02\python字符串\" rel="bookmark">python字符串和数组元组</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2020\02\02\python启动\" rel="bookmark">python启动</a></div>
@@ -332,13 +325,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/02/02/python%E5%90%AF%E5%8A%A8/" rel="prev" title="python启动">
-      <i class="fa fa-chevron-left"></i> python启动
+    <a href="/2020/02/05/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="prev" title="正则表达式">
+      <i class="fa fa-chevron-left"></i> 正则表达式
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/02/02/list%E5%92%8Ctuple/" rel="next" title="list和tuple">
-      list和tuple <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -399,7 +389,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串"><span class="nav-number">1.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#unicode-编码"><span class="nav-number">1.1.</span> <span class="nav-text">$unicode$编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">1.1.1.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">1.2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#len-计算字符串的字符数"><span class="nav-number">1.2.1.</span> <span class="nav-text">$len$计算字符串的字符数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#格式化输出"><span class="nav-number">1.3.</span> <span class="nav-text">格式化输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">1.4.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#requests"><span class="nav-number">1.</span> <span class="nav-text">$requests$</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#强行爬虫"><span class="nav-number">1.1.</span> <span class="nav-text">强行爬虫</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#re-findall"><span class="nav-number">2.</span> <span class="nav-text">$re.findall()$</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#os"><span class="nav-number">3.</span> <span class="nav-text">os</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#time"><span class="nav-number">4.</span> <span class="nav-text">time</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后来看一下我们是如何爬取王者的："><span class="nav-number">5.</span> <span class="nav-text">最后来看一下我们是如何爬取王者的：</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
