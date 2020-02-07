@@ -54,7 +54,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="欧拉筛欧拉函数打表简单版！">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-29T13:31:44.953Z">
+<meta property="og:updated_time" content="2020-02-07T13:16:21.688Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://dream-ak.top/2020/01/14/%E6%AC%A7%E6%8B%89%E7%AD%9B/">
@@ -209,7 +209,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-29 21:31:44" itemprop="dateModified" datetime="2020-01-29T21:31:44+08:00">2020-01-29</time>
+                <time title="修改时间：2020-02-07 21:16:21" itemprop="dateModified" datetime="2020-02-07T21:16:21+08:00">2020-02-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,7 +250,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>497</span>
+              <span>631</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -270,8 +270,11 @@
 
       
         <h1 id="欧拉筛"><a href="#欧拉筛" class="headerlink" title="欧拉筛"></a>欧拉筛</h1><p>欧拉函数打表简单版！<br><a id="more"></a></p>
-<h2 id="欧拉筛证明："><a href="#欧拉筛证明：" class="headerlink" title="欧拉筛证明："></a>欧拉筛证明：</h2><p>首先介绍一下算术基本原理：x=p1^e1 <em> p2^e2 </em> p3^e3…(p为质数，e为正数，x为任意不为1的正整数)<br>由上可以知道x=x1 <em> p(min)，(p为组成x的最小质数)。<br>所以每一个数一定可以变成一个最小质数乘上一个比这个数小的正整数；<br>那么x将会在x1处被判断，同时也将判断比x </em> j(j为比x最小质数小的所有质数)<br>那么我们可以通过枚举x值来判断每一个数字是否为质数。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void erlu(int n)&#123;</span><br><span class="line">	int i,j,k;</span><br><span class="line">  for(i=1;i&lt;=n;i++) vis[i]=pri[i]=0;</span><br><span class="line">	for(i=2;i&lt;=n;i++)&#123;//枚举x</span><br><span class="line">		if(!vis[i])&#123;</span><br><span class="line">			pri[++tot]=i;</span><br><span class="line">		&#125;</span><br><span class="line">		for(j=1;j&lt;=tot&amp;&amp;(i*pri[j]&lt;=n);j++)&#123;</span><br><span class="line">			vis[i*pri[j]]=pri[j];//保存质数表，每一个空间表示该下标的最小质数！</span><br><span class="line">			if(i%pri[j]==0) break;第一个比x小的质数</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="欧拉筛证明："><a href="#欧拉筛证明：" class="headerlink" title="欧拉筛证明："></a>欧拉筛证明：</h2><p>首先介绍一下算术基本原理：$x=p_1^{e1} <em> p_2^{e_2} </em> p_3^{e_3}$…(p为质数，e为正数，x为任意不为1的正整数)<br>由上可以知道任意一个合数都是由一个质数乘以一个其他数字组成！<br>所以我们可以通过枚举一个质数和一个其他非$1$的正整数来判断来其他合数。<br>但是为了提高其运算速率，我们想要对于任意一个合数仅判断一次时我们可以考虑，采用其最小的质数就行了，因为<strong>最小的质数只有一个且另一个非$1$正整数数仅用一次，那么任意一个合数只会判断一次</strong>咯</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void erlu(int n)&#123;</span><br><span class="line">	int i,j,k;</span><br><span class="line">  for(i=1;i&lt;=n;i++) vis[i]=pri[i]=0;</span><br><span class="line">	for(i=2;i&lt;=n;i++)&#123;枚举非1正整数</span><br><span class="line">		if(!vis[i])&#123;</span><br><span class="line">			pri[++tot]=i;</span><br><span class="line">		&#125;</span><br><span class="line">		for(j=1;j&lt;=tot&amp;&amp;(i*pri[j]&lt;=n);j++)&#123;//枚举素数</span><br><span class="line">			vis[i*pri[j]]=pri[j];//保存质数表，每一个空间表示该下标的最小质数！</span><br><span class="line">			if(i%pri[j]==0) break;//原因在下注明</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>break的原因是如果该循环继续下去的话(i*pri[j]的最小素数其实不是pri[j]，而是之前能被整除的那个素数，不break的话，一个合数的判断次数就会增加)</p>
+</blockquote>
 
     </div>
 
@@ -288,10 +291,10 @@
       <div class="popular-posts-title"><a href="\2020\02\04\python刷题\" rel="bookmark">python刷题</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\01\30\差分约束\" rel="bookmark">差分约束</a></div>
+      <div class="popular-posts-title"><a href="\2020\02\07\zoj2770差分约束\" rel="bookmark">zoj2770差分约束</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\02\01\迪杰斯特拉堆优化\" rel="bookmark">迪杰斯特拉堆优化</a></div>
+      <div class="popular-posts-title"><a href="\2020\01\30\差分约束\" rel="bookmark">差分约束</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2020\01\14\扩展欧几里得\" rel="bookmark">扩展欧几里得</a></div>
@@ -393,7 +396,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -445,12 +448,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">22k</span>
+    <span title="站点总字数">24k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">20 分钟</span>
+    <span title="站点阅读时长">22 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
   </div>
