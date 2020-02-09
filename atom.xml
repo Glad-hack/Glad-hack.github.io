@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dream-ak.top/"/>
-  <updated>2020-02-08T13:29:34.342Z</updated>
+  <updated>2020-02-09T15:18:39.828Z</updated>
   <id>https://dream-ak.top/</id>
   
   <author>
@@ -15,6 +15,61 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>差分约束系统复习</title>
+    <link href="https://dream-ak.top/2020/02/09/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/"/>
+    <id>https://dream-ak.top/2020/02/09/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F%E5%A4%8D%E4%B9%A0/</id>
+    <published>2020-02-09T15:08:02.000Z</published>
+    <updated>2020-02-09T15:18:39.828Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>spfa对于模拟队列时，队列数组要开的尽量大！</li><li>spfa对于记录一个点的松弛次数应该是入队次数，而不是松弛次数。<br>来个板子：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">bool spfa(int t)&#123;</span><br><span class="line">    int l=1,r=0;</span><br><span class="line">    que[++r]=0;</span><br><span class="line">    dis[0]=0;</span><br><span class="line">    while(l&lt;=r)&#123;</span><br><span class="line">        int u=que[l++];</span><br><span class="line">        int i;</span><br><span class="line">        vis[u]=0;</span><br><span class="line">        for(i=head[u];~i;i=ed[i].pre)&#123;</span><br><span class="line">            int v=ed[i].id,w=ed[i].w;</span><br><span class="line">            if(dis[u]+w&gt;=dis[v])&#123;</span><br><span class="line">                dis[v]=dis[u]+w;</span><br><span class="line">                if(num[v]&gt;t) return false;</span><br><span class="line">                if(vis[v]==0) que[++r]=v,vis[v]=1,num[v]++;//(num在这里重点注意);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;spfa对于模拟队列时，队列数组要开的尽量大！&lt;/li&gt;
+&lt;li&gt;spfa对于记录一个点的松弛次数应该是入队次数，而不是松弛次数。&lt;br&gt;来个板子：&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gut
+      
+    
+    </summary>
+    
+    
+      <category term="图论" scheme="https://dream-ak.top/categories/%E5%9B%BE%E8%AE%BA/"/>
+    
+    
+      <category term="ACM" scheme="https://dream-ak.top/tags/ACM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>扩展域</title>
+    <link href="https://dream-ak.top/2020/02/09/%E6%89%A9%E5%B1%95%E5%9F%9F/"/>
+    <id>https://dream-ak.top/2020/02/09/%E6%89%A9%E5%B1%95%E5%9F%9F/</id>
+    <published>2020-02-09T11:07:38.000Z</published>
+    <updated>2020-02-09T15:06:35.214Z</updated>
+    
+    <content type="html"><![CDATA[<p>看到学弟们都不会，那我就给个题解吧，免得一直不会，留漏洞！<br><!--read--></p><h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="http://poj.org/problem?id=1733" target="_blank" rel="noopener">题目链接</a></h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>题意明显就是给$[l,r]$中有奇数个1还是偶数个1，然后看它第一次在哪里自相矛盾了，输出第一次自相矛盾的位置！</p><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p><strong>首先离散化</strong>这个我就不说了，你们百度一下什么原理。<br>假设$[l,r]$中奇数个1表示为1，偶数个1表示为0。那么我们每一次合并$(l-1,r]$这个区间，这样就可以把所有数据都联系起来。<br>合并并查集：<br>如何合并？我们<br>那么我们就可以通过</p><ol><li>$x \rightarrow root1$(根节点)的值$d[x]$</li><li>$y \rightarrow root2$(根节点)的值$d[y]$</li></ol><p>得出 $x \rightarrow y$的值。<br>假设$root1$和$root2$相同则判断一下去看这组数据是否正确。<br>不同则是：</p><blockquote><p>$root1 \rightarrow root2$的值是 $d[x]$ ^ $d[y]$ ^ $n$（$n$为$x \rightarrow y$）这个就会得到关系的值</p><p>解释<br>$x \rightarrow y = n$<br>$x \rightarrow root1 = d[x]$<br>$y \rightarrow root2 = d[y]$<br>那么$root1 \rightarrow root2 = root1 \rightarrow x \rightarrow y\rightarrow root2 = d[x]$ ^ $d[y]$ ^ $n$</p></blockquote><p>怎么压缩路径</p><blockquote><p>$x \rightarrow y = d[x]$<br>$y \rightarrow root = d[y]$<br>那么$x \rightarrow root = d[x]$^$d[y]$</p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 5e3+5;</span><br><span class="line">int fa[2*N],d[2*N];</span><br><span class="line">int get(int x)</span><br><span class="line">&#123;</span><br><span class="line">    if(fa[x]==x)</span><br><span class="line">        return x;</span><br><span class="line">    int root = get(fa[x]);</span><br><span class="line">    d[x]^=d[fa[x]];</span><br><span class="line">    return fa[x] = root;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,m,i,j,k;</span><br><span class="line">    scanf(&quot;%d&quot;,&amp;m);</span><br><span class="line">    scanf(&quot;%d&quot;,&amp;n);</span><br><span class="line">    int l[N],r[N],c[N],a[N*2],b[N*2];</span><br><span class="line">    char s[5];</span><br><span class="line">    int cnt=0;</span><br><span class="line">    for(i=1; i&lt;=n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        scanf(&quot;%d %d %s&quot;,&amp;l[i],&amp;r[i],s);</span><br><span class="line">        if(s[0]==&apos;o&apos;)</span><br><span class="line">            c[i]=1;</span><br><span class="line">        else</span><br><span class="line">            c[i]=0;</span><br><span class="line">        a[++cnt]=--l[i],a[++cnt]=r[i];</span><br><span class="line">    &#125;</span><br><span class="line">    sort(a+1,a+1+cnt);</span><br><span class="line">    int cnt1=0;</span><br><span class="line">    for(i=1; i&lt;=cnt; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        if(i==1||a[i]!=a[i-1])</span><br><span class="line">            b[++cnt1]=a[i];</span><br><span class="line">    &#125;//离散化操作，我就不说了</span><br><span class="line">    for(i=0; i&lt;=cnt1; i++)</span><br><span class="line">        fa[i]=i,d[i]=0;//初始化操作</span><br><span class="line">    for(i=1; i&lt;=n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int l1=lower_bound(b+1,b+1+cnt1,l[i])-b;</span><br><span class="line">        int r1=lower_bound(b+1,b+1+cnt1,r[i])-b;</span><br><span class="line">        int fl=get(l1),fr=get(r1);</span><br><span class="line">        if(fl!=fr)//不在同一个集合，不会冲突</span><br><span class="line">        &#123;</span><br><span class="line">            fa[fr]=fl;</span><br><span class="line">            d[fr]=c[i]^d[r1]^d[l1];</span><br><span class="line">        &#125;</span><br><span class="line">        else//在同一个集合，可能冲突！</span><br><span class="line">        &#123;</span><br><span class="line">            if(d[r1]^d[l1]!=c[i])</span><br><span class="line">            &#123;</span><br><span class="line">                printf(&quot;%d\n&quot;,i-1);</span><br><span class="line">                return 0;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d\n&quot;,n);//如果全部没错，就输出最后一个答案</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;看到学弟们都不会，那我就给个题解吧，免得一直不会，留漏洞！&lt;br&gt;&lt;!--read--&gt;&lt;/p&gt;
+&lt;h1 id=&quot;题目链接&quot;&gt;&lt;a href=&quot;#题目链接&quot; class=&quot;headerlink&quot; title=&quot;题目链接&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://poj.or
+      
+    
+    </summary>
+    
+    
+      <category term="数据结构" scheme="https://dream-ak.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+    
+      <category term="ACM" scheme="https://dream-ak.top/tags/ACM/"/>
+    
+  </entry>
   
   <entry>
     <title>爬虫</title>
@@ -422,50 +477,6 @@
     
       <category term="数论" scheme="https://dream-ak.top/categories/%E6%95%B0%E8%AE%BA/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>割点</title>
-    <link href="https://dream-ak.top/2020/01/20/%E5%89%B2%E7%82%B9/"/>
-    <id>https://dream-ak.top/2020/01/20/%E5%89%B2%E7%82%B9/</id>
-    <published>2020-01-20T14:21:29.000Z</published>
-    <updated>2020-01-29T13:32:39.699Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="割点"><a href="#割点" class="headerlink" title="割点"></a>割点</h1><h3 id="割点定义："><a href="#割点定义：" class="headerlink" title="割点定义："></a>割点定义：</h3><p>对于一个无向图，如果把一个点删除后这个图的极大连通分量数增加了，那么这个点就是这个图的割点（又称割顶）。<br><br><a id="more"></a><br><img src="/2020/01/20/%E5%89%B2%E7%82%B9/bridge1.png" alt="割点"><br><br>易得割点是2号点。</p><h3 id="具体操作："><a href="#具体操作：" class="headerlink" title="具体操作："></a>具体操作：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.用dfs给每一个点打上一个时间戳，把每一个点的时间戳保存至num【】里面；</span><br><span class="line">2.通过dfs来统计每一个点能到达的最小的时间戳。&lt;br&gt;</span><br></pre></td></tr></table></figure><p><img src="/2020/01/20/%E5%89%B2%E7%82%B9/bridge2.png" alt="时间戳"><br></p><h3 id="割点的判定方式："><a href="#割点的判定方式：" class="headerlink" title="割点的判定方式："></a>割点的判定方式：<br></h3><ol><li>如果存在一个点他的子节点能到达的最小时间戳大于等于父节点的时间戳那么这个点是一个割点。(也就是不能回到祖先，那么当前点就是割点咯)</li><li>假设一个点存在两个子节点，那么该点就是割点。<br><br><img src="/2020/01/20/%E5%89%B2%E7%82%B9/bridge3.png" alt="判定2"><br><br>我们在访问 1 的儿子时候，假设先 DFS 到了 2，然后标记用过，然后递归往下，来到了 4，4 又来到了 3，当递归回溯的时候，会发现 3 已经被访问过了，所以不是割点。<br><br>更新 low 的伪代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果 v 是 u 的儿子 low[u] = min(low[u], low[v]);</span><br><span class="line">否则</span><br><span class="line">low[u] = min(low[u], num[v]);//这里是num[v]而不是low[v]的原因是如下图</span><br><span class="line">//按照节点编号从小到大遍历，4节点先到1，如果是low[v]的话，节点6的low值等于1，很明显是不可以的，所以是num</span><br></pre></td></tr></table></figure><img src="/2020/01/20/%E5%89%B2%E7%82%B9/gedian.png" alt="这是栗子"><h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><a href="https://www.luogu.com.cn/problem/P3388" target="_blank" rel="noopener">板子题</a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N=2e5+5;</span><br><span class="line">typedef long long ll;</span><br><span class="line">struct ED&#123;</span><br><span class="line">int pre,id;</span><br><span class="line">&#125;ed[N];</span><br><span class="line">int head[N],tot=1,cnt=0;</span><br><span class="line">int vis[N],num[N],low[N],inde,res,flag[N];</span><br><span class="line">void add(int u,int v)&#123;</span><br><span class="line">ed[++tot].id=v;</span><br><span class="line">ed[tot].pre=head[u];</span><br><span class="line">head[u]=tot;</span><br><span class="line">&#125;</span><br><span class="line">void tarjan(int u,int fa)&#123;</span><br><span class="line">vis[u]=1;</span><br><span class="line">low[u]=num[u]=++inde;</span><br><span class="line">int ch=0,i;</span><br><span class="line">for(i=head[u];i;i=ed[i].pre)&#123;</span><br><span class="line">int v=ed[i].id;</span><br><span class="line">if(!vis[v])&#123;</span><br><span class="line">ch++;</span><br><span class="line">tarjan(v,u);</span><br><span class="line">low[u]=min(low[u],low[v]);</span><br><span class="line">if(fa!=u&amp;&amp;low[v]&gt;=num[u]&amp;&amp;!flag[u]) flag[u]=1,res++;</span><br><span class="line">&#125;</span><br><span class="line">else if(v!=fa)&#123;</span><br><span class="line">low[u]=min(low[u],num[v]);//这里非常关键，如果写成low[u]=min(low[u],low[v])在题目里面会wa</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">if(ch&gt;= 2&amp;&amp;fa==u&amp;&amp;!flag[u])&#123;</span><br><span class="line">flag[u]=1;</span><br><span class="line">res++;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">int n,m,i,j,k;</span><br><span class="line">scanf(&quot;%d %d&quot;,&amp;n,&amp;m);</span><br><span class="line">for(i=1;i&lt;=n;i++) head[i]=0,vis[i]=0;</span><br><span class="line">int u,v;</span><br><span class="line">for(i=1;i&lt;=m;i++)&#123;</span><br><span class="line">scanf(&quot;%d %d&quot;,&amp;u,&amp;v);</span><br><span class="line">add(u,v);</span><br><span class="line">add(v,u);</span><br><span class="line">&#125;</span><br><span class="line">for(i=1;i&lt;=n;i++)&#123;</span><br><span class="line">if(!vis[i])&#123;</span><br><span class="line">inde=0;</span><br><span class="line">tarjan(i,i);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">printf(&quot;%d\n&quot;,res);</span><br><span class="line">for(i=1;i&lt;=n;i++)&#123;</span><br><span class="line">if(flag[i]) printf(&quot;%d &quot;,i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;割点&quot;&gt;&lt;a href=&quot;#割点&quot; class=&quot;headerlink&quot; title=&quot;割点&quot;&gt;&lt;/a&gt;割点&lt;/h1&gt;&lt;h3 id=&quot;割点定义：&quot;&gt;&lt;a href=&quot;#割点定义：&quot; class=&quot;headerlink&quot; title=&quot;割点定义：&quot;&gt;&lt;/a&gt;割点定义：&lt;/h3&gt;&lt;p&gt;对于一个无向图，如果把一个点删除后这个图的极大连通分量数增加了，那么这个点就是这个图的割点（又称割顶）。&lt;br&gt;&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="图论" scheme="https://dream-ak.top/categories/%E5%9B%BE%E8%AE%BA/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>扩展欧几里得</title>
-    <link href="https://dream-ak.top/2020/01/14/%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97/"/>
-    <id>https://dream-ak.top/2020/01/14/%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97/</id>
-    <published>2020-01-14T11:59:52.000Z</published>
-    <updated>2020-01-29T13:32:38.328Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h1><p>应用：计算逆元，解方程<br><a id="more"></a></p><h2 id="证明方式："><a href="#证明方式：" class="headerlink" title="证明方式："></a>证明方式：</h2><p>首先贝祖原理我大概就不解释了，直接照搬结论：<br></p><ol><li>ax+by=(a,b);贝祖原理<br></li><li>有ax+by=(b,a%b);<br></li><li>假设解为x1,y1则有a <em> x1+b </em> y1=(b,a%b)<br></li><li>由3式从右往左代替可得b <em> x1+(a%b) </em> y1 = (b,a%b);<br><br>b <em> x1 + (a-(a/b) </em> b) <em> y1 = (b,a%b);<br><br>a </em> y1 +b <em> (x1 - (a/b) </em> y1) = a <em> x + b </em> y<br><br>由上可知x = y1,y = x1 - (a/b) * y1。</li></ol><p>对于上式，我们可以比较一下欧几里得求最大公约数的算法：</p><ol><li>(a,b)=(b,a%b)，一直到b等于0时结束递归，而当b等于0时的x=1,y=0();</li></ol><p>然后又可以通过上面代数式4回退时计算出x与y的值！</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ll x,y;</span><br><span class="line">ll ex_gcd(ll a,ll b)&#123;</span><br><span class="line">if(!b)&#123;</span><br><span class="line">x=1,y=0;</span><br><span class="line">return a;</span><br><span class="line">&#125;</span><br><span class="line">ll ans=ex_gcd(b,a%b);</span><br><span class="line">ll t=x;</span><br><span class="line">x=y;</span><br><span class="line">y=t-a/b*y;</span><br><span class="line">return ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="逆元"><a href="#逆元" class="headerlink" title="逆元"></a>逆元</h3><p>当求一个数字x对于p的逆元时，我们将其写成代数式将是如下形式：</p><ol><li>a*x=1%p;</li></ol><p>对其进行化简可得a <em> x+y </em> p=1，已知x,p求a就好了化简成这样以后再看，简直就是扩展欧几里得板子！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;扩展欧几里得&quot;&gt;&lt;a href=&quot;#扩展欧几里得&quot; class=&quot;headerlink&quot; title=&quot;扩展欧几里得&quot;&gt;&lt;/a&gt;扩展欧几里得&lt;/h1&gt;&lt;p&gt;应用：计算逆元，解方程&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="数论" scheme="https://dream-ak.top/categories/%E6%95%B0%E8%AE%BA/"/>
-    
-    
-      <category term="ACM" scheme="https://dream-ak.top/tags/ACM/"/>
     
   </entry>
   
