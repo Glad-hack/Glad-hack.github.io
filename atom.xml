@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>孤独行者</title>
   
-  
+  <subtitle>心有不甘，却无以为继</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dream-ak.top/"/>
