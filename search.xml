@@ -238,7 +238,7 @@
 <ol>
 <li>pip install requests</li>
 </ol>
-<p>利用$r=requests.get()$来进行对一个网页的获取，返回一个二进制字符串，为了不把字符转乱码，我们一般使用正确的编码格式，这个编码格式一般在网页上写着！或者使用$r.apparent_encoding$的函数自动获取，不过不保证完全准确！<br>转字符串时可以使用$html=r.text$返回字符串，<strong>详情请看<a href="https://dream-ak.top/2020/02/08/爬虫">爬虫</a>这篇博客</strong></p>
+<p>利用$r=requests.get()$来进行对一个网页的获取，返回一个二进制字符串，为了不把字符转乱码，我们一般使用正确的编码格式，这个编码格式一般在网页上写着！或者使用$r.apparent_encoding$的函数自动获取，不过不保证完全准确！<br>转字符串时可以使用$html=r.text$返回字符串，<strong>详情请看<a href="https://dream-ak.top/2020/02/08/爬虫" target="_blank" rel="noopener">爬虫</a>这篇博客</strong></p>
 <h2 id="强行爬虫"><a href="#强行爬虫" class="headerlink" title="强行爬虫"></a>强行爬虫</h2><p>在爬<a href="https://www.vmgirls.com" target="_blank" rel="noopener">https://www.vmgirls.com</a> 时会发现不允许爬取，那么有一个玄学的爬取方法，这个网站是通过判断代理服务来判断是不是爬虫，在requests时会发送一个爬虫请求，该网站如果发现是爬虫时，那么我们就可以把requests发送的代理服务改掉,通过在$requests(‘<a href="https://vmgirls.com/&#39;,headers=&quot;本地代理&quot;)$。" target="_blank" rel="noopener">https://vmgirls.com/&#39;,headers=&quot;本地代理&quot;)$。</a><br>本地代理可以在网页上查看！</p>
 <h1 id="re-findall"><a href="#re-findall" class="headerlink" title="$re.findall()$"></a>$re.findall()$</h1><p>我们一般使用这个来获取自己需要的信息。</p>
 <ol>
