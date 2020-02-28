@@ -48,8 +48,9 @@
 </script>
 
   <meta name="description" content="割点割点定义：对于一个无向图，如果把一个点删除后这个图的极大连通分量数增加了，那么这个点就是这个图的割点（又称割顶）。">
+<meta name="keywords" content="ACM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="割点">
+<meta property="og:title" content="割点与割边">
 <meta property="og:url" content="https:&#x2F;&#x2F;dream-ak.top&#x2F;2020&#x2F;01&#x2F;20&#x2F;%E5%89%B2%E7%82%B9&#x2F;index.html">
 <meta property="og:site_name" content="孤独行者">
 <meta property="og:description" content="割点割点定义：对于一个无向图，如果把一个点删除后这个图的极大连通分量数增加了，那么这个点就是这个图的割点（又称割顶）。">
@@ -58,7 +59,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;dream-ak.top&#x2F;2020&#x2F;01&#x2F;20&#x2F;%E5%89%B2%E7%82%B9&#x2F;bridge2.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;dream-ak.top&#x2F;2020&#x2F;01&#x2F;20&#x2F;%E5%89%B2%E7%82%B9&#x2F;bridge3.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;dream-ak.top&#x2F;2020&#x2F;01&#x2F;20&#x2F;%E5%89%B2%E7%82%B9&#x2F;gedian.png">
-<meta property="og:updated_time" content="2020-01-29T13:32:39.699Z">
+<meta property="og:updated_time" content="2020-02-28T15:37:11.655Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;dream-ak.top&#x2F;2020&#x2F;01&#x2F;20&#x2F;%E5%89%B2%E7%82%B9&#x2F;bridge1.png">
 
@@ -74,7 +75,7 @@
   };
 </script>
 
-  <title>割点 | 孤独行者</title>
+  <title>割点与割边 | 孤独行者</title>
   
 
 
@@ -198,7 +199,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          割点
+          割点与割边
         </h1>
 
         <div class="post-meta">
@@ -215,7 +216,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-29 21:32:39" itemprop="dateModified" datetime="2020-01-29T21:32:39+08:00">2020-01-29</time>
+                <time title="修改时间：2020-02-28 23:37:11" itemprop="dateModified" datetime="2020-02-28T23:37:11+08:00">2020-02-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -282,7 +283,7 @@
 <li>如果存在一个点他的子节点能到达的最小时间戳大于等于父节点的时间戳那么这个点是一个割点。(也就是不能回到祖先，那么当前点就是割点咯)</li>
 <li>假设一个点存在两个子节点，那么该点就是割点。<br><br><img src="/2020/01/20/%E5%89%B2%E7%82%B9/bridge3.png" alt="判定2"><br><br>我们在访问 1 的儿子时候，假设先 DFS 到了 2，然后标记用过，然后递归往下，来到了 4，4 又来到了 3，当递归回溯的时候，会发现 3 已经被访问过了，所以不是割点。<br><br>更新 low 的伪代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">如果 v 是 u 的儿子 low[u] = min(low[u], low[v]);</span><br><span class="line">否则</span><br><span class="line">low[u] = min(low[u], num[v]);//这里是num[v]而不是low[v]的原因是如下图</span><br><span class="line">//按照节点编号从小到大遍历，4节点先到1，如果是low[v]的话，节点6的low值等于1，很明显是不可以的，所以是num</span><br></pre></td></tr></table></figure>
 <img src="/2020/01/20/%E5%89%B2%E7%82%B9/gedian.png" alt="这是栗子"><h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><a href="https://www.luogu.com.cn/problem/P3388" target="_blank" rel="noopener">板子题</a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N=2e5+5;</span><br><span class="line">typedef long long ll;</span><br><span class="line">struct ED&#123;</span><br><span class="line">	int pre,id;</span><br><span class="line">&#125;ed[N];</span><br><span class="line">int head[N],tot=1,cnt=0;</span><br><span class="line">int vis[N],num[N],low[N],inde,res,flag[N];</span><br><span class="line">void add(int u,int v)&#123;</span><br><span class="line">	ed[++tot].id=v;</span><br><span class="line">	ed[tot].pre=head[u];</span><br><span class="line">	head[u]=tot;</span><br><span class="line">&#125;</span><br><span class="line">void tarjan(int u,int fa)&#123;</span><br><span class="line">	vis[u]=1;</span><br><span class="line">	low[u]=num[u]=++inde;</span><br><span class="line">	int ch=0,i;</span><br><span class="line">	for(i=head[u];i;i=ed[i].pre)&#123;</span><br><span class="line">		int v=ed[i].id;</span><br><span class="line">		if(!vis[v])&#123;</span><br><span class="line">			ch++;</span><br><span class="line">			tarjan(v,u);</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">			if(fa!=u&amp;&amp;low[v]&gt;=num[u]&amp;&amp;!flag[u]) flag[u]=1,res++;</span><br><span class="line">		&#125;</span><br><span class="line">		else if(v!=fa)&#123;</span><br><span class="line">			low[u]=min(low[u],num[v]);//这里非常关键，如果写成low[u]=min(low[u],low[v])在题目里面会wa</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	if(ch&gt;= 2&amp;&amp;fa==u&amp;&amp;!flag[u])&#123;</span><br><span class="line">		flag[u]=1;</span><br><span class="line">		res++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int n,m,i,j,k;</span><br><span class="line">	scanf(&quot;%d %d&quot;,&amp;n,&amp;m);</span><br><span class="line">	for(i=1;i&lt;=n;i++) head[i]=0,vis[i]=0;</span><br><span class="line">	int u,v;</span><br><span class="line">	for(i=1;i&lt;=m;i++)&#123;</span><br><span class="line">		scanf(&quot;%d %d&quot;,&amp;u,&amp;v);</span><br><span class="line">		add(u,v);</span><br><span class="line">		add(v,u);</span><br><span class="line">	&#125;</span><br><span class="line">	for(i=1;i&lt;=n;i++)&#123;</span><br><span class="line">		if(!vis[i])&#123;</span><br><span class="line">			inde=0;</span><br><span class="line">			tarjan(i,i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	printf(&quot;%d\n&quot;,res);</span><br><span class="line">	for(i=1;i&lt;=n;i++)&#123;</span><br><span class="line">		if(flag[i]) printf(&quot;%d &quot;,i);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<h1 id="割边"><a href="#割边" class="headerlink" title="割边"></a>割边</h1>对于割边其实与割点差不多只有判断条件变了一丢丢，也就是$low[v]&gt;dfn[u]$时边$<v,u>$一定是割边。</v,u></li>
 </ol>
 
     </div>
@@ -291,9 +292,30 @@
     
     
       
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2019\11\26\IncDec序列   差分数组\" rel="bookmark">差分数组实例</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\02\04\python刷题\" rel="bookmark">python刷题</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\02\07\zoj2770差分约束\" rel="bookmark">zoj2770差分约束</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\02\16\分层图和次短路\" rel="bookmark">分层图和次短路</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\02\11\双调欧几里得旅行商问题\" rel="bookmark">双调欧几里得旅行商问题</a></div>
+    </li>
+  </ul>
 
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ACM/" rel="tag"><i class="fa fa-tag"></i> ACM</a>
+          </div>
 
         
   <div class="post-widgets">
@@ -373,7 +395,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#割点"><span class="nav-number">1.</span> <span class="nav-text">割点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#割点定义："><span class="nav-number">1.0.1.</span> <span class="nav-text">割点定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体操作："><span class="nav-number">1.0.2.</span> <span class="nav-text">具体操作：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#割点的判定方式："><span class="nav-number">1.0.3.</span> <span class="nav-text">割点的判定方式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例题"><span class="nav-number">1.0.4.</span> <span class="nav-text">例题</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#割点"><span class="nav-number">1.</span> <span class="nav-text">割点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#割点定义："><span class="nav-number">1.0.1.</span> <span class="nav-text">割点定义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体操作："><span class="nav-number">1.0.2.</span> <span class="nav-text">具体操作：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#割点的判定方式："><span class="nav-number">1.0.3.</span> <span class="nav-text">割点的判定方式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例题"><span class="nav-number">1.0.4.</span> <span class="nav-text">例题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#割边"><span class="nav-number">2.</span> <span class="nav-text">割边</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -389,7 +411,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -441,12 +463,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">36k</span>
+    <span title="站点总字数">38k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">33 分钟</span>
+    <span title="站点阅读时长">35 分钟</span>
 </div>
 
 <!--
@@ -546,6 +568,54 @@
   
 
   
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
 

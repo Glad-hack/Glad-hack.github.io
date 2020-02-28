@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dream-ak.top/"/>
-  <updated>2020-02-22T13:30:33.690Z</updated>
+  <updated>2020-02-28T15:59:21.225Z</updated>
   <id>https://dream-ak.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>强连通分量</title>
+    <link href="https://dream-ak.top/2020/02/28/%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F/"/>
+    <id>https://dream-ak.top/2020/02/28/%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F/</id>
+    <published>2020-02-28T15:36:16.000Z</published>
+    <updated>2020-02-28T15:59:21.225Z</updated>
+    
+    <content type="html"><![CDATA[<p>强连通分量一般用来对于整个图进行缩点，把一个有向图变成DAG图，这是强连通的一般用途，问题一般是询问要加多少条边能使整个图变成强连通图。<a id="more"></a></p><h1 id="tarjan算法"><a href="#tarjan算法" class="headerlink" title="tarjan算法"></a>tarjan算法</h1><p>这个算法十分强大，广泛应用于$LCA$，强连通缩点等问题，他的主要思想是给每一个点打上一个时间戳，然后$dfs$去寻找每一个点$u$所能回到的最小时间戳$v$，在这个区间$<u,v>$内的点是一个连通分量，然后进行缩点，这里的缩点有两种方式。</u,v></p><ol><li>通过数组映射缩点，同一个连通分量映射同一个值</li><li>并查集缩点，同一个连通分量指向同一个根</li></ol><h1 id="练习题目"><a href="#练习题目" class="headerlink" title="练习题目"></a>练习题目</h1><p>hdu1239<br>求加多少条边使整个图变为强连通图</p><h2 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h2><p>首先缩点，把图变成DAG图以后去看如何加最少的边使图变为强连通！<br>很明显，对于入度为0的点必须加一条边使他能到达，出度为0的边也要加边使得到了他的边能回去，要加的最少的边就是$max(入度为0,出度为0)$；</p><h2 id="题解代码"><a href="#题解代码" class="headerlink" title="题解代码"></a>题解代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N =2e5+5;</span><br><span class="line">struct ED&#123;</span><br><span class="line">    int pre,id;</span><br><span class="line">&#125;ed[N*2];</span><br><span class="line">int head[N],tot=1;</span><br><span class="line">void add(int u,int v)&#123;</span><br><span class="line">    ed[++tot].pre=head[u];</span><br><span class="line">    ed[tot].id=v;</span><br><span class="line">    head[u]=tot;</span><br><span class="line">&#125;</span><br><span class="line">int dfn[N],low[N],vis[N],dfp,sta[N],cnt=0,siz=0,col[N],in[N],out[N];</span><br><span class="line">void tarjan(int x)&#123;</span><br><span class="line">    dfn[x]=++dfp;</span><br><span class="line">    low[x]=dfp;</span><br><span class="line">    vis[x]=1;</span><br><span class="line">    sta[++cnt]=x;</span><br><span class="line">    for(int i=head[x];i;i=ed[i].pre)&#123;</span><br><span class="line">        int u=ed[i].id;</span><br><span class="line">        if(!dfn[u])&#123;</span><br><span class="line">            tarjan(u);</span><br><span class="line">            low[x]=min(low[u],low[x]);</span><br><span class="line">        &#125;</span><br><span class="line">        else if(vis[u])&#123;</span><br><span class="line">            low[x]=min(low[x],dfn[u]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(dfn[x]==low[x])&#123;</span><br><span class="line">        col[x]=++siz;</span><br><span class="line">        vis[x]=0;</span><br><span class="line">        while(sta[cnt]!=x)&#123;</span><br><span class="line">            vis[sta[cnt]]=0;</span><br><span class="line">            col[sta[cnt--]]=siz;</span><br><span class="line">        &#125;</span><br><span class="line">        cnt--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    int n,m,i,j,k,t;</span><br><span class="line">    while(scanf(&quot;%d&quot;,&amp;t)==1)&#123;</span><br><span class="line">        while(t--)&#123;</span><br><span class="line">            tot=1;</span><br><span class="line">            scanf(&quot;%d %d&quot;,&amp;n,&amp;m);</span><br><span class="line">            memset(head,0,sizeof head);</span><br><span class="line">            memset(dfn,0,sizeof dfn);</span><br><span class="line">            memset(in,0,sizeof in);</span><br><span class="line">            memset(out,0,sizeof out);</span><br><span class="line">            memset(low,0,sizeof low);</span><br><span class="line">            memset(col,0,sizeof col);</span><br><span class="line">            for(i=1;i&lt;=m;i++)&#123;</span><br><span class="line">                int u,v;</span><br><span class="line">                scanf(&quot;%d %d&quot;,&amp;u,&amp;v);</span><br><span class="line">                add(u,v);</span><br><span class="line">            &#125;</span><br><span class="line">            dfp=0,cnt=0,siz=0;</span><br><span class="line">            for(i=1;i&lt;=n;i++)&#123;</span><br><span class="line">                if(dfn[i]==0)&#123;</span><br><span class="line">                    tarjan(i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            for(i=1;i&lt;=n;i++)&#123;</span><br><span class="line">                for(j=head[i];j;j=ed[j].pre)&#123;</span><br><span class="line">                    if(col[i]!=col[ed[j].id])&#123;</span><br><span class="line">                        out[col[i]]++;</span><br><span class="line">                        in[col[ed[j].id]]++;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            int ans1=0,ans2=0;</span><br><span class="line">            for(i=1;i&lt;=siz;i++)&#123;</span><br><span class="line">                if(in[i]==0) ans1++;</span><br><span class="line">                if(out[i]==0) ans2++;</span><br><span class="line">            &#125;</span><br><span class="line">            printf(&quot;%d\n&quot;,max(ans1,ans2)==1?0:max(ans1,ans2));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>对于$tarjan$应该灵活使用并查集对其进行各种点集的合并。<br>对于$DAG$来说我们要注意的是要实现强连通只需要计算$max$(出度0，入度0)；<br>关于tarjan的题目之后还会找几个好题再写几次。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;强连通分量一般用来对于整个图进行缩点，把一个有向图变成DAG图，这是强连通的一般用途，问题一般是询问要加多少条边能使整个图变成强连通图。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="图论" scheme="https://dream-ak.top/categories/%E5%9B%BE%E8%AE%BA/"/>
+    
+    
+      <category term="ACM" scheme="https://dream-ak.top/tags/ACM/"/>
+    
+  </entry>
   
   <entry>
     <title>分层图和次短路</title>
@@ -448,29 +471,6 @@
     
     
       <category term="ACM" scheme="https://dream-ak.top/tags/ACM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vscode背景配置</title>
-    <link href="https://dream-ak.top/2020/01/30/vscode%E8%83%8C%E6%99%AF%E9%85%8D%E7%BD%AE/"/>
-    <id>https://dream-ak.top/2020/01/30/vscode%E8%83%8C%E6%99%AF%E9%85%8D%E7%BD%AE/</id>
-    <published>2020-01-30T13:00:23.000Z</published>
-    <updated>2020-02-03T08:01:28.667Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="vscode背景"><a href="#vscode背景" class="headerlink" title="vscode背景"></a>vscode背景</h1><p>vscode花里胡哨的背景怎么能却得了？我也来瞎搞俩！<br><a id="more"></a></p><h2 id="安装background"><a href="#安装background" class="headerlink" title="安装background"></a>安装background</h2><p>扩展商店安装就好了<br>这里会弹出code损坏，莫急，往下看</p><h2 id="下载-Fix-vscode-checksum"><a href="#下载-Fix-vscode-checksum" class="headerlink" title="下载 Fix vscode checksum"></a>下载 Fix vscode checksum</h2><p>扩展商店下载好以后按下ctrl+shift+p<br>输入 Fix checksum 选择apply就行了<br><img src="/2020/01/30/vscode%E8%83%8C%E6%99%AF%E9%85%8D%E7%BD%AE/2.png" alt="2"></p><h2 id="配置插件"><a href="#配置插件" class="headerlink" title="配置插件"></a>配置插件</h2><p>管理员运行vscode，打开以后按如下图操作打开setting.json<img src="/2020/01/30/vscode%E8%83%8C%E6%99%AF%E9%85%8D%E7%BD%AE/1.png" alt="1"></p><h2 id="编辑setting-json"><a href="#编辑setting-json" class="headerlink" title="编辑setting.json"></a>编辑setting.json</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;background.enabled&quot;: true,</span><br><span class="line">    &quot;background.useDefault&quot;: false,</span><br><span class="line">    &quot;background.customImages&quot;: [</span><br><span class="line">        &quot;file:///E:background/vscode.png&quot;//你的图片的绝对路径</span><br><span class="line">    ],</span><br><span class="line">  &quot;background.style&quot;: &#123;</span><br><span class="line">    &quot;content&quot;: &quot;&apos;&apos;&quot;,</span><br><span class="line">    &quot;pointer-events&quot;: &quot;none&quot;,</span><br><span class="line">    &quot;position&quot;: &quot;absolute&quot;,</span><br><span class="line">    &quot;z-index&quot;: &quot;99999&quot;,</span><br><span class="line">    &quot;width&quot;: &quot;100%&quot;,</span><br><span class="line">    &quot;height&quot;: &quot;100%&quot;,</span><br><span class="line">    &quot;background-size&quot;: &quot;cover&quot;,</span><br><span class="line">    &quot;background-position&quot;: &quot;50% 50%&quot;,</span><br><span class="line">    &quot;background-repeat&quot;: &quot;no-repeat&quot;,</span><br><span class="line">    &quot;opacity&quot;: 0.1</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;workbench.iconTheme&quot;: &quot;vscode-icons&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>接下来可能会要求你重启就完成了</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;vscode背景&quot;&gt;&lt;a href=&quot;#vscode背景&quot; class=&quot;headerlink&quot; title=&quot;vscode背景&quot;&gt;&lt;/a&gt;vscode背景&lt;/h1&gt;&lt;p&gt;vscode花里胡哨的背景怎么能却得了？我也来瞎搞俩！&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="vscode" scheme="https://dream-ak.top/categories/vscode/"/>
-    
-    
-      <category term="安装指南" scheme="https://dream-ak.top/tags/%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97/"/>
     
   </entry>
   
