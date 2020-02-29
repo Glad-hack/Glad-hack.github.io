@@ -179,6 +179,333 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.dream-ak.top/2020/02/29/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%92%8C%E6%AC%A1%E7%9F%AD%E8%B7%AF%E7%9A%84%E6%95%B0%E9%87%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/vscode.jpg">
+      <meta itemprop="name" content="无向秃">
+      <meta itemprop="description" content="屡败屡战，终有一胜！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孤独行者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/29/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%92%8C%E6%AC%A1%E7%9F%AD%E8%B7%AF%E7%9A%84%E6%95%B0%E9%87%8F/" class="post-title-link" itemprop="url">最短路和次短路的数量</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-29 17:54:30 / 修改时间：22:00:46" itemprop="dateCreated datePublished" datetime="2020-02-29T17:54:30+08:00">2020-02-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index">
+                    <span itemprop="name">图论</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/29/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%92%8C%E6%AC%A1%E7%9F%AD%E8%B7%AF%E7%9A%84%E6%95%B0%E9%87%8F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/29/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%92%8C%E6%AC%A1%E7%9F%AD%E8%B7%AF%E7%9A%84%E6%95%B0%E9%87%8F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="http://poj.org/problem?id=3463" target="_blank" rel="noopener">题目链接</a></h1><h2 id="题意："><a href="#题意：" class="headerlink" title="题意："></a>题意：</h2><p>给一个图，求1到n的最短路径和比最短路径短一个单位的路径数量有多少</p>
+<h2 id="思想和解法"><a href="#思想和解法" class="headerlink" title="思想和解法"></a>思想和解法</h2><p>首先看到这个题目，我们第一时间就会想到最短路径数量，直接就暴力跑迪杰斯特拉然后统计一下就完事了，最多加个次短路而已，我们就按照次短路生成的方式，跑迪杰斯特拉，然后记录到达每个点的最短路数量和次短路数量。</p>
+<ol>
+<li>优化最短路时就把当前次短路的数量赋值给最短路，</li>
+<li>通过次短路优化次短路时就把前一个点的次短路数量赋值给下一个点的数量</li>
+</ol>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p>想法很简单，但是这题如果大量使用空间则会爆优先队列，因此我们要注意对优先队列进行节省空间，对于每一个点能让它少入队，则少让他入队。<br>把优化最短路时最短路和次短路的这两次入队归为一次，就会节省很多空间！所以写法再次修改为如下，分为4个步骤：</p>
+<ol>
+<li>优化最短路</li>
+<li>等于最短路</li>
+<li>优化次短路</li>
+<li>等于次短路<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 2e5+5;</span><br><span class="line">struct ED&#123;</span><br><span class="line">    int pre,id,w;</span><br><span class="line">&#125;ed[N];</span><br><span class="line">int head[N],dis[N],dis2[N],tot=0,num1[N],num2[N];</span><br><span class="line">void init()&#123;</span><br><span class="line">    memset(head,-1,sizeof head);</span><br><span class="line">    memset(dis,0x3f,sizeof dis);</span><br><span class="line">    memset(dis2,0x3f,sizeof dis2);</span><br><span class="line">    memset(num1,0,sizeof num1);</span><br><span class="line">    memset(num2,0,sizeof num2);</span><br><span class="line">    tot=2;</span><br><span class="line">&#125;</span><br><span class="line">void add(int u,int v,int w)&#123;</span><br><span class="line">    ed[++tot].id=v;</span><br><span class="line">    ed[tot].pre=head[u];</span><br><span class="line">    ed[tot].w=w;</span><br><span class="line">    head[u]=tot;</span><br><span class="line">&#125;</span><br><span class="line">priority_queue&lt;pair&lt;int,int&gt; &gt;q;</span><br><span class="line">void dij(int x)&#123;</span><br><span class="line">    dis[x]=0;</span><br><span class="line">    num1[x]=1;</span><br><span class="line">    q.push(make_pair(0,x));</span><br><span class="line">    while(q.size())&#123;</span><br><span class="line">        int x=q.top().second,w = -q.top().first;</span><br><span class="line">        //printf(&quot;%d %d\n&quot;,x,w);</span><br><span class="line">        q.pop();</span><br><span class="line">        int cnt;</span><br><span class="line">        if(w&gt;dis2[x]) continue;</span><br><span class="line">        if(w == dis[x]) cnt=num1[x];</span><br><span class="line">        else if(w==dis2[x]) cnt=num2[x];</span><br><span class="line">        for(int i=head[x];~i;i=ed[i].pre)&#123;</span><br><span class="line">            int v = ed[i].id,s=ed[i].w;</span><br><span class="line">            int cost = w + s,d=cnt;</span><br><span class="line">            if(dis[v]&gt;cost)&#123;</span><br><span class="line">                dis2[v]=dis[v];</span><br><span class="line">                num2[v]=num1[v];</span><br><span class="line">                dis[v]=cost;</span><br><span class="line">                num1[v]=d;</span><br><span class="line">                //swap(dis[v],cost);</span><br><span class="line">                //swap(d,num1[v]);</span><br><span class="line">                q.push(make_pair(-dis[v],v));</span><br><span class="line">                //printf(&quot;%d %d sss\n&quot;,v,num1[v]);</span><br><span class="line">            &#125;</span><br><span class="line">            else if(dis[v]==cost)&#123;</span><br><span class="line">                num1[v]+=d;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(dis2[v]==cost)&#123;</span><br><span class="line">                num2[v]+=d;</span><br><span class="line">            &#125;</span><br><span class="line">            else if(dis2[v]&gt;cost)&#123;</span><br><span class="line">                dis2[v]=cost;</span><br><span class="line">                num2[v]=d;</span><br><span class="line">                q.push(make_pair(-cost,v));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    int n,m,i,j,k,t;</span><br><span class="line">    while(scanf(&quot;%d&quot;,&amp;t)==1)&#123;</span><br><span class="line">        while(t--)&#123;</span><br><span class="line">            scanf(&quot;%d %d&quot;,&amp;n,&amp;m);</span><br><span class="line">            init();</span><br><span class="line">            for(i=1;i&lt;=m;i++)&#123;</span><br><span class="line">                int u,v,w;</span><br><span class="line">                scanf(&quot;%d %d %d&quot;,&amp;u,&amp;v,&amp;w);</span><br><span class="line">                add(u,v,w);</span><br><span class="line">            &#125;</span><br><span class="line">            int p,q;</span><br><span class="line">            scanf(&quot;%d %d&quot;,&amp;p,&amp;q);</span><br><span class="line">            dij(p);</span><br><span class="line">            int ans=num1[q];</span><br><span class="line">            if(dis[q]==dis2[q]-1) ans+=num2[q];</span><br><span class="line">            printf(&quot;%d\n&quot;,ans);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.dream-ak.top/2020/02/29/poj3694-tarjan/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/vscode.jpg">
+      <meta itemprop="name" content="无向秃">
+      <meta itemprop="description" content="屡败屡战，终有一胜！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孤独行者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/29/poj3694-tarjan/" class="post-title-link" itemprop="url">poj3694-tarjan</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-29 17:28:47 / 修改时间：17:53:47" itemprop="dateCreated datePublished" datetime="2020-02-29T17:28:47+08:00">2020-02-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index">
+                    <span itemprop="name">图论</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/29/poj3694-tarjan/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/29/poj3694-tarjan/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="http://poj.org/problem?id=3694" target="_blank" rel="noopener">题目链接</a></h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给一个连通图，问每一次加边以后还有多少条桥！</p>
+<h2 id="思想和解法"><a href="#思想和解法" class="headerlink" title="思想和解法"></a>思想和解法</h2><p>很明显把连通图缩点成$DAG$图，(对DAG图操作)然后每一次加边后$DAG$图里强连通分量继续缩点！桥的数量就是加边前的数量减去缩掉的边的数量。</p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="问题1：缩点"><a href="#问题1：缩点" class="headerlink" title="问题1：缩点"></a>问题1：缩点</h3><p>想法很简单，操作异想天开，如果用染色法对图进行缩点，最坏情况就是一棵N个结点的树，N-1条边每一次添加一条邻边，复杂度卡到$(1+n)* \frac{n}{2}$。所以采用并查集动态缩点！</p>
+<h3 id="问题2：路径"><a href="#问题2：路径" class="headerlink" title="问题2：路径"></a>问题2：路径</h3><p>路径寻找也是一个问题，我们已经$tarjan$缩过一次点了，我们接下来是新建一个图继续跑$tarjan$离线$LCA$吗？<br>注意对于tarjan的LCA算法精髓在于哪里？他那么写的原因是经过了tarjan算法以后每个节点其实都有一个时间戳！而两个点$<u,v>$之间的$LCA$他们有一个共同的特点，那就是:</u,v></p>
+<blockquote>
+<p>$LCA$的左子树上的所有点的时间戳都小于右子树的时间戳！</p>
+</blockquote>
+<p>根据这个特点我们可以直接用记录当前点的父节点然后爬到$LCA$上去。<br>看下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">void lca(int x,int y)&#123;</span><br><span class="line">    if(dfn[x]&lt;dfn[y]) swap(x,y);</span><br><span class="line">    if(get(x)==get(y)) return ;</span><br><span class="line">    while(dfn[x]&gt;dfn[y])&#123;</span><br><span class="line">        if(join(x,pre[x])) edge--;//缩点成功则桥减一</span><br><span class="line">        x=get(pre[x]);//爬向缩点后的父节点</span><br><span class="line">    &#125;</span><br><span class="line">    while(x!=y)&#123;</span><br><span class="line">        if(join(y,pre[y])) edge--;//缩点成功则桥减一</span><br><span class="line">        y=get(pre[y]);//爬向缩点后的父节点</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>282ms<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 5e5+5;</span><br><span class="line">struct ED&#123;</span><br><span class="line">    int pre,id;</span><br><span class="line">&#125;ed[N];</span><br><span class="line">int head[N],pre[N],fa[N],dfn[N],low[N],sta[N];</span><br><span class="line">int tot=0,edge=0,tim=0;</span><br><span class="line">void add(int u,int v)&#123;</span><br><span class="line">    ed[++tot].pre=head[u];</span><br><span class="line">    ed[tot].id=v;</span><br><span class="line">    head[u]=tot;</span><br><span class="line">&#125;</span><br><span class="line">int vis[N];</span><br><span class="line">int get(int x)&#123;</span><br><span class="line">    if(fa[x]!=x) return fa[x]=get(fa[x]);</span><br><span class="line">    else return x;</span><br><span class="line">&#125;</span><br><span class="line">bool join(int x,int y</span><br><span class="line">)&#123;</span><br><span class="line">    int p=get(x),q=get(y);</span><br><span class="line">    if(p!=q)&#123;</span><br><span class="line">        fa[p]=q;//指向父节点</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line">int num=1;</span><br><span class="line">void tarjan(int x,int fath)&#123;</span><br><span class="line">    low[x]=dfn[x]=++tim;</span><br><span class="line">    vis[x]=1;</span><br><span class="line">    int flag=1;</span><br><span class="line">    for(int i=head[x];~i;i=ed[i].pre)&#123;</span><br><span class="line">        int v=ed[i].id;</span><br><span class="line">        if(v==fath&amp;&amp;flag) &#123;flag=0;continue;&#125;</span><br><span class="line">        if(!vis[v])&#123;</span><br><span class="line">            pre[v]=x;</span><br><span class="line">            tarjan(v,x);</span><br><span class="line">            low[x]=min(low[v],low[x]);</span><br><span class="line">            if(low[v]&gt;dfn[x])&#123;</span><br><span class="line">                edge++;</span><br><span class="line">            &#125;</span><br><span class="line">            else&#123;</span><br><span class="line">                join(v,x);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            low[x]=min(low[x],dfn[v]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">void lca(int x,int y)&#123;</span><br><span class="line">    if(dfn[x]&lt;dfn[y]) swap(x,y);</span><br><span class="line">    if(get(x)==get(y)) return ;</span><br><span class="line">    while(dfn[x]&gt;dfn[y])&#123;</span><br><span class="line">        if(join(x,pre[x])) edge--;</span><br><span class="line">        x=get(pre[x]);</span><br><span class="line">    &#125;</span><br><span class="line">    while(x!=y)&#123;</span><br><span class="line">        if(join(y,pre[y])) edge--;</span><br><span class="line">        y=get(pre[y]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    int n,m,i,j,k;</span><br><span class="line">    while(scanf(&quot;%d %d&quot;,&amp;n,&amp;m)&amp;&amp;(n||m))&#123;</span><br><span class="line">        for(i=1;i&lt;=n;i++) fa[i]=i;</span><br><span class="line">        for(i=1;i&lt;=n;i++) head[i]=-1,vis[i]=0,dfn[i]=0;</span><br><span class="line">        tim=edge=tot=0;</span><br><span class="line">        int u,v;</span><br><span class="line">        for(i=1;i&lt;=m;i++)&#123;</span><br><span class="line">            scanf(&quot;%d %d&quot;,&amp;u,&amp;v);</span><br><span class="line">            add(u,v);</span><br><span class="line">            add(v,u);</span><br><span class="line">        &#125;</span><br><span class="line">        tarjan(1,1);</span><br><span class="line">        pre[1]=1;</span><br><span class="line">        int q;</span><br><span class="line">        scanf(&quot;%d&quot;,&amp;q);</span><br><span class="line">        printf(&quot;Case %d:\n&quot;,num++);</span><br><span class="line">        for(i=1;i&lt;=q;i++)&#123;</span><br><span class="line">            scanf(&quot;%d %d&quot;,&amp;u,&amp;v);</span><br><span class="line">            lca(u,v);</span><br><span class="line">            printf(&quot;%d\n&quot;,edge);</span><br><span class="line">        &#125;</span><br><span class="line">        puts(&quot;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.dream-ak.top/2020/02/29/poj2763-tarjan/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/vscode.jpg">
+      <meta itemprop="name" content="无向秃">
+      <meta itemprop="description" content="屡败屡战，终有一胜！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孤独行者">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/29/poj2763-tarjan/" class="post-title-link" itemprop="url">poj2763,tarjan</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-29 16:44:56 / 修改时间：17:26:55" itemprop="dateCreated datePublished" datetime="2020-02-29T16:44:56+08:00">2020-02-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index">
+                    <span itemprop="name">图论</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/02/29/poj2763-tarjan/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/29/poj2763-tarjan/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="http://poj.org/problem?id=3728" target="_blank" rel="noopener">题目链接</a></h1><h2 id="题意："><a href="#题意：" class="headerlink" title="题意："></a>题意：</h2><p>给定一个N个节点的树，1&lt;=N&lt;=50000 每个节点都有一个权值，代表商品在这个节点的价格。商人从某个节点a移动到节点b，且只能购买并出售一次商品，问最多可以产生多大的利润。Q次询问</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/29/poj2763-tarjan/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      
+
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.dream-ak.top/2020/02/28/%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -956,344 +1283,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.dream-ak.top/2020/02/07/zoj2770%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/vscode.jpg">
-      <meta itemprop="name" content="无向秃">
-      <meta itemprop="description" content="屡败屡战，终有一胜！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤独行者">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/07/zoj2770%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F/" class="post-title-link" itemprop="url">zoj2770差分约束</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-02-07 20:54:48 / 修改时间：20:57:37" itemprop="dateCreated datePublished" datetime="2020-02-07T20:54:48+08:00">2020-02-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index">
-                    <span itemprop="name">图论</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/07/zoj2770%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/07/zoj2770%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>emmm,好久没刷题，手感都快没了，先来养下手感</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/07/zoj2770%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.dream-ak.top/2020/02/06/python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/vscode.jpg">
-      <meta itemprop="name" content="无向秃">
-      <meta itemprop="description" content="屡败屡战，终有一胜！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤独行者">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/06/python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">python爬取王者数据</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-06 18:24:34" itemprop="dateCreated datePublished" datetime="2020-02-06T18:24:34+08:00">2020-02-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-08 21:29:30" itemprop="dateModified" datetime="2020-02-08T21:29:30+08:00">2020-02-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index">
-                    <span itemprop="name">爬虫</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/06/python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/06/python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>正则已经学完了，就要开始玩爬虫了呀，我们首先爬一个王者的数据，来好好看看吧</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/06/python%E7%88%AC%E5%8F%96%E7%8E%8B%E8%80%85%E6%95%B0%E6%8D%AE/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.dream-ak.top/2020/02/05/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/vscode.jpg">
-      <meta itemprop="name" content="无向秃">
-      <meta itemprop="description" content="屡败屡战，终有一胜！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孤独行者">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/05/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" class="post-title-link" itemprop="url">正则表达式</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-05 18:48:23" itemprop="dateCreated datePublished" datetime="2020-02-05T18:48:23+08:00">2020-02-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-06 21:01:44" itemprop="dateModified" datetime="2020-02-06T21:01:44+08:00">2020-02-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index">
-                    <span itemprop="name">爬虫</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/05/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/05/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>$emmmm$，开始来学一些能够飘得的玩意了，虽然以前我玩过这个$python$的爬虫，但是今天来系统学习一下，$hhh$<br></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/05/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      
-
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1361,7 +1355,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1413,12 +1407,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">38k</span>
+    <span title="站点总字数">46k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">35 分钟</span>
+    <span title="站点阅读时长">42 分钟</span>
 </div>
 
 <!--
