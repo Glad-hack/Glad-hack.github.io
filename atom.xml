@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.dream-ak.top/"/>
-  <updated>2020-02-29T14:00:46.271Z</updated>
+  <updated>2020-02-29T15:08:11.588Z</updated>
   <id>https://www.dream-ak.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>两数之和</title>
+    <link href="https://www.dream-ak.top/2020/02/29/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
+    <id>https://www.dream-ak.top/2020/02/29/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</id>
+    <published>2020-02-29T14:22:23.000Z</published>
+    <updated>2020-02-29T15:08:11.588Z</updated>
+    
+    <content type="html"><![CDATA[<p>leetcode计划开始了，以后每天刷1道力扣题打卡，尽量不用ACM本命C与C++(除非实在不会用java或python来写了)。<br><a id="more"></a></p><h1 id="第一题：两数之和"><a href="#第一题：两数之和" class="headerlink" title="第一题：两数之和"></a>第一题：两数之和</h1><p>题意：给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。<br>对于这个题目，因为简单，所以这里提供的解法有如下几种</p><ol><li>暴力$O(n*n)$<br>每一次枚举一个i然后从i开始往后找另一个值与之相加为x的数字，找到则直接返回下标。</li><li>字典映射<br>对于每一个数字由于只有两个$(x,y)$数字，那么我们假设其中一个数字为$x$，则另一个数字一定是$target-x$<br>通过这个特性，我们可以选择建立一个dict{x:i},x为差值，i为下标，我们每一次假设一个x时则查看前面是否出现过target-x，出现了直接返回就好了，没出现则加入字典。时间复杂度$O(n*log_2n)$字典的查询自带$log_2$<br>32ms<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def twoSum(self, nums: List[int], target: int) -&gt; List[int]:</span><br><span class="line">        num=&#123;&#125;</span><br><span class="line">        pos=0</span><br><span class="line">        for i in nums:</span><br><span class="line">            x = target - i</span><br><span class="line">            if num.get(x,-1)!=-1:</span><br><span class="line">                return [num[x],pos]</span><br><span class="line">            num[i]=pos</span><br><span class="line">            pos+=1</span><br></pre></td></tr></table></figure></li><li>二分<br>建立一个$list$存储大小与下标，然后对大小从小到大排序，接下来用二分查找向后查找$target-x$时间复杂度$n*log_2 n$<br>54ms<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def twoSum(self, nums: List[int], target: int) -&gt; List[int]:</span><br><span class="line">        lenth=len(nums)</span><br><span class="line">        a=[[nums[pos],pos] for pos in range(0,lenth,1)]</span><br><span class="line">        b = sorted(a,key=lambda x: x[0])</span><br><span class="line">        for i in range(0,lenth,1):</span><br><span class="line">            x = target-b[i][0]</span><br><span class="line">            l , r = i+1,len(b)-1</span><br><span class="line">            while(l&lt;r):</span><br><span class="line">                mid=(l+r)//2</span><br><span class="line">                if b[mid][0]&gt;=x:</span><br><span class="line">                    r=mid</span><br><span class="line">                elif b[mid][0]&lt;x:</span><br><span class="line">                    l=mid+1</span><br><span class="line">            if b[l][0]==x:</span><br><span class="line">                x = [b[i][1],b[l][1]]</span><br><span class="line">                y=sorted(x)</span><br><span class="line">                return y</span><br></pre></td></tr></table></figure><h2 id="自我总结"><a href="#自我总结" class="headerlink" title="自我总结"></a>自我总结</h2>对于这一题，我的个人总结是用python实现了一次二分同时学会了排序<br>sorted函数带三个参数：</li><li>要排序数组</li><li>排序方式，是一个函数<br>写法key=一个函数，这里是lambda x:x[0]按照第一个值排序</li><li>reverse反转，让她从小到大与从大到小之间变化</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;leetcode计划开始了，以后每天刷1道力扣题打卡，尽量不用ACM本命C与C++(除非实在不会用java或python来写了)。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="https://www.dream-ak.top/categories/leetcode/"/>
+    
+    
+      <category term="ACM" scheme="https://www.dream-ak.top/tags/ACM/"/>
+    
+  </entry>
   
   <entry>
     <title>最短路和次短路的数量</title>
@@ -446,29 +469,6 @@
     <summary type="html">
     
       &lt;p&gt;对于这个list的了解我一直感觉就和C语言数组一样，但是仔细看了一下，到底不同，就让本蒟蒻带您去看看那些地方不同吧。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="python基础" scheme="https://www.dream-ak.top/categories/python%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="python" scheme="https://www.dream-ak.top/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python字符串和数组元组</title>
-    <link href="https://www.dream-ak.top/2020/02/02/python%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    <id>https://www.dream-ak.top/2020/02/02/python%E5%AD%97%E7%AC%A6%E4%B8%B2/</id>
-    <published>2020-02-02T12:21:42.000Z</published>
-    <updated>2020-02-04T03:26:12.993Z</updated>
-    
-    <content type="html"><![CDATA[<p>首先我得说一句，这里得字符串编码有点玄学，如果讲开了有点可怕，所以我就在最开始得地方放一个大佬的链接算了，方便以后查阅<a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017075323632896" target="_blank" rel="noopener">廖雪峰的笔记</a><br><a id="more"></a></p><h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><p>对于$python3$的编码格式是一个$Unicode$编码</p><h2 id="unicode-编码"><a href="#unicode-编码" class="headerlink" title="$unicode$编码"></a>$unicode$编码</h2><p>粗略解释一下，详情请访问廖雪峰的笔记：</p><blockquote><p>$Unicode$解决了各国语言的编码冲突，利用两个字节。<br>$UTF-8$编码是因为$Unicode$对于空间来说浪费高，所以折中出现了utf-8编码</p></blockquote><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>在计算机内存中，统一使用$Unicode$编码，当需要保存到硬盘或者需要传输的时候，就转换为$UTF-8$编码。</p><ol><li>用记事本编辑的时候，从文件读取的$UTF-8$字符被转换为$Unicode$字符到内存里，编辑完成后，保存的时候再把$Unicode$转换为$UTF-8$保存到文件。</li><li>浏览网页的时候，服务器会把动态生成的$Unicode$内容转换为$UTF-8$再传输到浏览器：<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2>$python3$的字符串是$Unicode$编码，也就是适合各种语言啦<blockquote><p>对于单个字符来说，我们支持$ord()$获得字符整数表示，$chr()$把编码转为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(chr(20320))</span><br><span class="line">print(ord(&apos;你&apos;))</span><br></pre></td></tr></table></figure><p>输出<br>你<br>20320</p></blockquote></li></ol><h3 id="len-计算字符串的字符数"><a href="#len-计算字符串的字符数" class="headerlink" title="$len$计算字符串的字符数"></a>$len$计算字符串的字符数</h3><p>$len(str)$返回一个整数，表示$str$所含有的字符数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">strr=&quot;我爱你&quot;</span><br><span class="line">print(len(strr))</span><br></pre></td></tr></table></figure></p><blockquote><p>$output:$<br>3</p><h2 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h2><p>$python$的格式化和C语言的大致相同<br>|占位符|替换内容|<br>|:-:|:-:|<br>|%s|字符串|<br>|%d|整数|<br>|%f|浮点数|<br>|%x|16进制整数|<br>不过有个区别我表示的重点提醒：<strong>print(“%s” % strr),不像C语言中间用逗号分隔</strong><br>顺带一个妙招，当你忘了要用什么的时候可以使用%s哦，他会自动转字符串，hhh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(&quot;%s %s&quot; % (520,False))</span><br></pre></td></tr></table></figure></p><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol><li>对于$python$里的字符中不能直接相加，需要先把它用$ord$转成数字然后再用$chr$转回来！</li><li>对于字符串里面字符修改必须使用$repalce(old,new,count)$进行生成新的字符串对象！</li></ol></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def index(head):</span><br><span class="line">    head=str(head)</span><br><span class="line">    if head[0]&gt;=&apos;a&apos;and head[0]&lt;=&apos;z&apos;:</span><br><span class="line">        return head.replace(head[0],chr(ord(head[0])-32),1)#返回一个新的字符串对象</span><br><span class="line">    return head</span><br><span class="line">L1 = [&apos;adam&apos;, &apos;LISA&apos;, &apos;barT&apos;]</span><br><span class="line">L2 = map(index,L1)</span><br><span class="line">print(list(L2))</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;首先我得说一句，这里得字符串编码有点玄学，如果讲开了有点可怕，所以我就在最开始得地方放一个大佬的链接算了，方便以后查阅&lt;a href=&quot;https://www.liaoxuefeng.com/wiki/1016959663602400/1017075323632896&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;廖雪峰的笔记&lt;/a&gt;&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
