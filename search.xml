@@ -78,7 +78,7 @@
   <entry>
     <title>最短路和次短路的数量</title>
     <url>/2020/02/29/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%92%8C%E6%AC%A1%E7%9F%AD%E8%B7%AF%E7%9A%84%E6%95%B0%E9%87%8F/</url>
-    <content><![CDATA[<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="http://poj.org/problem?id=3463" target="_blank" rel="noopener">题目链接</a></h1><h2 id="题意："><a href="#题意：" class="headerlink" title="题意："></a>题意：</h2><p>给一个图，求1到n的最短路径和比最短路径短一个单位的路径数量有多少</p>
+    <content><![CDATA[<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="http://poj.org/problem?id=3463" target="_blank" rel="noopener">题目链接</a></h1><h2 id="题意："><a href="#题意：" class="headerlink" title="题意："></a>题意：</h2><p>给一个图，求1到n的最短路径和比最短路径短一个单位的路径数量有多少<a id="more"></a></p>
 <h2 id="思想和解法"><a href="#思想和解法" class="headerlink" title="思想和解法"></a>思想和解法</h2><p>首先看到这个题目，我们第一时间就会想到最短路径数量，直接就暴力跑迪杰斯特拉然后统计一下就完事了，最多加个次短路而已，我们就按照次短路生成的方式，跑迪杰斯特拉，然后记录到达每个点的最短路数量和次短路数量。</p>
 <ol>
 <li>优化最短路时就把当前次短路的数量赋值给最短路，</li>
@@ -102,7 +102,7 @@
   <entry>
     <title>poj3694-tarjan</title>
     <url>/2020/02/29/poj3694-tarjan/</url>
-    <content><![CDATA[<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="http://poj.org/problem?id=3694" target="_blank" rel="noopener">题目链接</a></h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给一个连通图，问每一次加边以后还有多少条桥！</p>
+    <content><![CDATA[<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="http://poj.org/problem?id=3694" target="_blank" rel="noopener">题目链接</a></h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给一个连通图，问每一次加边以后还有多少条桥！<a id="more"></a></p>
 <h2 id="思想和解法"><a href="#思想和解法" class="headerlink" title="思想和解法"></a>思想和解法</h2><p>很明显把连通图缩点成$DAG$图，(对DAG图操作)然后每一次加边后$DAG$图里强连通分量继续缩点！桥的数量就是加边前的数量减去缩掉的边的数量。</p>
 <h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="问题1：缩点"><a href="#问题1：缩点" class="headerlink" title="问题1：缩点"></a>问题1：缩点</h3><p>想法很简单，操作异想天开，如果用染色法对图进行缩点，最坏情况就是一棵N个结点的树，N-1条边每一次添加一条邻边，复杂度卡到$(1+n)* \frac{n}{2}$。所以采用并查集动态缩点！</p>
 <h3 id="问题2：路径"><a href="#问题2：路径" class="headerlink" title="问题2：路径"></a>问题2：路径</h3><p>路径寻找也是一个问题，我们已经$tarjan$缩过一次点了，我们接下来是新建一个图继续跑$tarjan$离线$LCA$吗？<br>注意对于tarjan的LCA算法精髓在于哪里？他那么写的原因是经过了tarjan算法以后每个节点其实都有一个时间戳！而两个点$<u,v>$之间的$LCA$他们有一个共同的特点，那就是:</u,v></p>
