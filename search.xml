@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>求等差数列的值</title>
+    <url>/2020/03/02/%E6%B1%82%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97%E7%9A%84%E5%80%BC/</url>
+    <content><![CDATA[<p>在不用乘除，if,while,for 三目运算符的情况下求从1开始的等差数列的值<a id="more"></a></p>
+<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="https://leetcode-cn.com/problems/qiu-12n-lcof/" target="_blank" rel="noopener">题目链接</a></h1><p>对于这个题目的限制来看，他成功的把迭代方法给禁了！</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>利用公差为1和短路的原理递归答案<br>递归的话，很容易想，唯独就是不允许if来特判结束条件，在这里我们可以看到，最后一个值是0，那么我们就可以发现，</p>
+<blockquote>
+<p>如果为0的话，返回0，<br>不是0的话就继续递归</p>
+</blockquote>
+<p>那么我们就可以看到我们可以用短路，把后面不是0的部分用短路解决！<br>如果前面是0则短路后面部分，让它不运行。否则就运行<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def sumNums(self, n: int) -&gt; int:</span><br><span class="line">        return n and n+self.sumNums(n-1)</span><br></pre></td></tr></table></figure><br>由于if 和while被禁了。。。快速加无法实现，pow函数与**不知道实现方法就不写了（如果里面有乘法或除法就丢脸了）</p>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java程序基础</title>
-    <url>/2020/03/02/java%E5%BC%80%E5%AD%A6/</url>
+    <url>/2020/03/02/java/</url>
     <content><![CDATA[<p>突然学校开学了，那我就勉为其难开始学习一波Java吧，这里还是写一些对于廖雪峰大神博客的理解和课堂的理解。<br><a id="more"></a></p>
 <h1 id="Java程序基础"><a href="#Java程序基础" class="headerlink" title="Java程序基础"></a>Java程序基础</h1><h2 id="基本单位-Class"><a href="#基本单位-Class" class="headerlink" title="基本单位:Class"></a>基本单位:Class</h2><p>首先对于Java来说他的基本单位是$Class$而不像C语言基本单位是函数！<br>对于每一个类他的定义一般是：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">    public static void main()&#123;//方法名是main()</span><br><span class="line">        system.out.println()//system.out.print+line整行输出的意思</span><br><span class="line">        //单行注释</span><br><span class="line">        /*</span><br><span class="line">        多行注释</span><br><span class="line">        */</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这里的public是访问修饰符，表示Class公开</p>
 <h3 id="Class的命名规则"><a href="#Class的命名规则" class="headerlink" title="Class的命名规则"></a>Class的命名规则</h3><p>Class的命名规则与py的Class一样，使用大驼峰规则：</p>
