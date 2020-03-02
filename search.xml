@@ -19,7 +19,7 @@
 <li>java浮点数运算有误差，在比较的时候需要表示在一个容错值之中！</li>
 <li>java布尔运算的变量名为boolean，且逻辑运算和三元运算符也有相同用法</li>
 <li>java字符中和C语言字符差不多，但是由于用的Unicode编码，所以空间占两个字节，显示Unicode编码直接将char放到int就好了，由编码转Unicode编码则加上’\u’</li>
-<li>java字符串中和py的string用法相似，都是不可变变量且多行输出用法一样system.out.print(“”””…”””);</li>
+<li>java字符串中和py的string用法相似，都是不可变变量且多行输出用法一样system.out.print(“””…”””);</li>
 <li>java数组操作，对于定义一个int[] ns= new int[5]；这样就是定义一个ns数组，可以用ns.length获取数组长度</li>
 </ol>
 <h2 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h2><h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><ol>
