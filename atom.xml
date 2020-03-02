@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.dream-ak.top/"/>
-  <updated>2020-02-29T15:08:11.588Z</updated>
+  <updated>2020-03-02T03:38:14.454Z</updated>
   <id>https://www.dream-ak.top/</id>
   
   <author>
@@ -15,6 +15,50 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>java程序基础</title>
+    <link href="https://www.dream-ak.top/2020/03/02/java%E5%BC%80%E5%AD%A6/"/>
+    <id>https://www.dream-ak.top/2020/03/02/java%E5%BC%80%E5%AD%A6/</id>
+    <published>2020-03-02T02:28:49.000Z</published>
+    <updated>2020-03-02T03:38:14.454Z</updated>
+    
+    <content type="html"><![CDATA[<p>突然学校开学了，那我就勉为其难开始学习一波Java吧，这里还是写一些对于廖雪峰大神博客的理解和课堂的理解。<br><a id="more"></a></p><h1 id="Java程序基础"><a href="#Java程序基础" class="headerlink" title="Java程序基础"></a>Java程序基础</h1><h2 id="基本单位-Class"><a href="#基本单位-Class" class="headerlink" title="基本单位:Class"></a>基本单位:Class</h2><p>首先对于Java来说他的基本单位是$Class$而不像C语言基本单位是函数！<br>对于每一个类他的定义一般是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">    public static void main()&#123;//方法名是main()</span><br><span class="line">        system.out.println()//system.out.print+line整行输出的意思</span><br><span class="line">        //单行注释</span><br><span class="line">        /*</span><br><span class="line">        多行注释</span><br><span class="line">        */</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这里的public是访问修饰符，表示Class公开</p><h3 id="Class的命名规则"><a href="#Class的命名规则" class="headerlink" title="Class的命名规则"></a>Class的命名规则</h3><p>Class的命名规则与py的Class一样，使用大驼峰规则：</p><blockquote><p>Hello<br>NoteBook<br>VRPlayer</p></blockquote><h3 id="方法的命名规则"><a href="#方法的命名规则" class="headerlink" title="方法的命名规则"></a>方法的命名规则</h3><p>方法名命名规则是小驼峰：</p><blockquote><p>main<br>goodMorning<br>playVR</p></blockquote><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><ol><li>直接与C语言相比，Java的int没有变化，long long变成long，用法不变</li><li>java整数运算没有误差，与C语言没有什么变化</li><li>java浮点数运算有误差，在比较的时候需要表示在一个容错值之中！</li><li>java布尔运算的变量名为boolean，且逻辑运算和三元运算符也有相同用法</li><li>java字符中和C语言字符差不多，但是由于用的Unicode编码，所以空间占两个字节，显示Unicode编码直接将char放到int就好了，由编码转Unicode编码则加上’\u’</li><li>java字符串中和py的string用法相似，都是不可变变量且多行输出用法一样system.out.print(“”””…”””);</li><li>java数组操作，对于定义一个int[] ns= new int[5]；这样就是定义一个ns数组，可以用ns.length获取数组长度</li></ol><h2 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h2><h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><ol><li>从数组下标从0到lenth-1挨个访问</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        int[] ns = &#123; 1, 4, 9, 16, 25 &#125;;</span><br><span class="line">        for (int i=0; i&lt;ns.length; i++) &#123;</span><br><span class="line">            int n = ns[i];</span><br><span class="line">            System.out.println(n);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ol><li>用for each迭代答案</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        int[] ns = &#123; 1, 4, 9, 16, 25 &#125;;</span><br><span class="line">        for (int n : ns) &#123;</span><br><span class="line">            System.out.println(n);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>Arrays.sort(数组名称)按升序排序</p><h2 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h2><p>对于java来说，以main函数为程序入口，main(string[] args)这里的string[]是传入命令行参数的入口<br>来看代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        for (String arg : args) &#123;</span><br><span class="line">            if (&quot;-version&quot;.equals(arg)) &#123;</span><br><span class="line">                System.out.println(&quot;v 1.0&quot;);</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>操作方法：<br>首先我们先编译</p><ol><li>javac 待编译文件</li><li>java 文件名 传入参数</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;突然学校开学了，那我就勉为其难开始学习一波Java吧，这里还是写一些对于廖雪峰大神博客的理解和课堂的理解。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://www.dream-ak.top/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://www.dream-ak.top/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>两数相加</title>
+    <link href="https://www.dream-ak.top/2020/03/01/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/"/>
+    <id>https://www.dream-ak.top/2020/03/01/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</id>
+    <published>2020-03-01T03:43:51.000Z</published>
+    <updated>2020-03-02T03:48:34.320Z</updated>
+    
+    <content type="html"><![CDATA[<p>第二题，说句实在的，用py模拟的链表，因为不熟悉力扣的测试样例wa了n久，难顶！<br><a id="more"></a><br>对于这一题，说实在的没有啥算法可言，就是暴力模拟，我第一次了解py的链表，感觉还是值得一刷，就写了一下，解法就过了，没说的，竖式相加，逢十进位<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># Definition for singly-linked list.定义单链表的意思</span><br><span class="line"># class ListNode:</span><br><span class="line">#     def __init__(self, x):</span><br><span class="line">#         self.val = x</span><br><span class="line">#         self.next = None</span><br><span class="line"></span><br><span class="line">class Solution:</span><br><span class="line">    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -&gt; ListNode:</span><br><span class="line">        key=0</span><br><span class="line">        pre = ListNode(0)</span><br><span class="line">        ans = pre</span><br><span class="line">        while l1!=None and l2!=None:</span><br><span class="line">           x = ((l1.val+l2.val+key)%10)</span><br><span class="line">           cur = ListNode(x)</span><br><span class="line">           pre.next=cur</span><br><span class="line">           pre=cur</span><br><span class="line">           key = (l1.val+l2.val+key)//10</span><br><span class="line">           l1,l2=l1.next,l2.next</span><br><span class="line">        while(l1!=None):</span><br><span class="line">            x = ((l1.val+key)%10)</span><br><span class="line">            key = (l1.val+key)//10</span><br><span class="line">            cur = ListNode(x)</span><br><span class="line">            pre.next=cur</span><br><span class="line">            pre=cur</span><br><span class="line">            l1=l1.next</span><br><span class="line">        while(l2!=None):</span><br><span class="line">            x = ((l2.val+key)%10)</span><br><span class="line">            key = (l2.val+key)//10</span><br><span class="line">            cur = ListNode(x)</span><br><span class="line">            pre.next=cur</span><br><span class="line">            pre=cur</span><br><span class="line">            l2=l2.next</span><br><span class="line">        if key!=0:</span><br><span class="line">            cur = ListNode(key)</span><br><span class="line">            pre.next=cur</span><br><span class="line">        return ans.next</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;第二题，说句实在的，用py模拟的链表，因为不熟悉力扣的测试样例wa了n久，难顶！&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="leetcode" scheme="https://www.dream-ak.top/tags/leetcode/"/>
+    
+  </entry>
   
   <entry>
     <title>两数之和</title>
@@ -423,52 +467,6 @@
     <summary type="html">
     
       &lt;p&gt;$dict$我发现与$c++$的$map$十分相似,而$set$好像名字都没变，由于$c++$只学皮毛，就不瞎说了，慢慢学吧&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="python基础" scheme="https://www.dream-ak.top/categories/python%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="python" scheme="https://www.dream-ak.top/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>条件与循环</title>
-    <link href="https://www.dream-ak.top/2020/02/03/%E6%9D%A1%E4%BB%B6%E4%B8%8E%E5%BE%AA%E7%8E%AF/"/>
-    <id>https://www.dream-ak.top/2020/02/03/%E6%9D%A1%E4%BB%B6%E4%B8%8E%E5%BE%AA%E7%8E%AF/</id>
-    <published>2020-02-03T06:31:15.000Z</published>
-    <updated>2020-02-04T02:12:54.899Z</updated>
-    
-    <content type="html"><![CDATA[<p>$hhh$还记得我之前说的$python$是如何将区分作用域划分代码块吗？没错就是$’:’$这个，他会自动缩进<a id="more"></a></p><h1 id="if-判断"><a href="#if-判断" class="headerlink" title="$if$判断"></a>$if$判断</h1><p>首先我们来看一段代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">socre=int(input())</span><br><span class="line">if score&gt;=60:</span><br><span class="line">    print(&quot;pass\n&quot;)</span><br><span class="line">else :</span><br><span class="line">    print(&quot;No pass\n&quot;)</span><br></pre></td></tr></table></figure><br>这个就可以把你的分数转化成过和没过了，挂科了没，一目了然！<br>对于这段代码的解释我就对他与C语言的比较了。<br><strong>没有C语言的小括号，$if$后面全是判断一直到$’:’$</strong><br>对于else 我们也需要$’:’$<br>如果进行多次判断由C语言的$else if$ $\rightarrow$ $elif 判断:$</p><h1 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h1><h2 id="for-…-in-循环"><a href="#for-…-in-循环" class="headerlink" title="$for$ … $in$循环"></a>$for$ … $in$循环</h2><p>这种循环我们一般是用一个变量每一次迭代$in$里面的内容(可以是$list,tuple$等数据结构)，比如</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">x=(5,2,0)</span><br><span class="line">for i in x:</span><br><span class="line">    print(i)</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">&gt; $output$</span><br><span class="line">5</span><br><span class="line">2</span><br><span class="line">0</span><br><span class="line"></span><br><span class="line">## $for$ ... $in$ $range(x,y,z)$循环</span><br><span class="line">我们看这个循环 其中省略号代表变量，我们假设为$i$</span><br><span class="line">现在来解释一下参数</span><br><span class="line">1. $x$代表$i$的初始值</span><br><span class="line">2. $y$代表$i$的上界或下界,**不得小于等于$y$**</span><br><span class="line">3. $z$代表$i$的步进大小每一次加上多少</span><br><span class="line"></span><br><span class="line">来看一段代码</span><br></pre></td></tr></table></figure><p>for i in range(3,1,-1):<br>    print(i)<br>```</p><blockquote><p>$output$<br>3<br>2</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;$hhh$还记得我之前说的$python$是如何将区分作用域划分代码块吗？没错就是$’:’$这个，他会自动缩进&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="python基础" scheme="https://www.dream-ak.top/categories/python%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="python" scheme="https://www.dream-ak.top/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>list和tuple</title>
-    <link href="https://www.dream-ak.top/2020/02/02/list%E5%92%8Ctuple/"/>
-    <id>https://www.dream-ak.top/2020/02/02/list%E5%92%8Ctuple/</id>
-    <published>2020-02-02T13:34:09.000Z</published>
-    <updated>2020-02-03T06:52:06.529Z</updated>
-    
-    <content type="html"><![CDATA[<p>对于这个list的了解我一直感觉就和C语言数组一样，但是仔细看了一下，到底不同，就让本蒟蒻带您去看看那些地方不同吧。<a id="more"></a></p><h1 id="list"><a href="#list" class="headerlink" title="$list$"></a>$list$</h1><p>这种数据类型使列表<strong> $list$是一种有序的集合，可以随时添加和删除其中的元素。</strong><br>对于这个我们可以看下面这个例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a=[&apos;s&apos;,&apos;a&apos;,&apos;r&apos;,&apos;s&apos;]</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure></p><blockquote><p>$ output$:<br>$[‘s’, ‘a’, ‘r’, ‘s’]$</p></blockquote><p>而一个$list$的长度怎么看？还记得看字符串长度的$len$函数吗？<br>我们就是通过$len$来查看list的长度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(len(a))</span><br></pre></td></tr></table></figure></p><blockquote><p>$output:$<br>4</p></blockquote><p>同时我们还可以通过像C语言一样的手法访问下标来查看元素，同样不能越上界<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(a[0])</span><br><span class="line">print(a[3])</span><br><span class="line">print(a[-1])</span><br></pre></td></tr></table></figure></p><blockquote><p>$output$<br>s<br>s<br>s<br>应该发现了，可以有负数，-1的意思就是倒数第一个咯。但是也不能超过$list$的长度</p><h2 id="list-包含的数据类型"><a href="#list-包含的数据类型" class="headerlink" title="$list$包含的数据类型"></a>$list$包含的数据类型</h2><p><strong>$list$里面包含的数据类型可以混合加入</strong><br>例如我们可以在一个list里面放入数字、字符串甚至是一个$list$也行！</p></blockquote><h2 id="list-的操作"><a href="#list-的操作" class="headerlink" title="$list$的操作"></a>$list$的操作</h2><h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a.pop(0)</span><br><span class="line">print(a)</span><br><span class="line">print(a[0])</span><br></pre></td></tr></table></figure><blockquote><p>$output:$<br>$[‘a’, ‘r’, ‘s’]$<br>$a$</p></blockquote><p>我们可以看到，要删除第i个数字就是直接$pop(i)$，同时会把后面的往前面移动</p><h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a.insert(0,a)</span><br><span class="line">print(a)</span><br><span class="line">print(a[0])</span><br></pre></td></tr></table></figure><blockquote><p>$output:$<br>$[‘s’, ‘a’, ‘r’, ‘s’]$<br>$s$<br>每一次插入，我们都是把第$i$个元素之后往后移动，然后插入</p><h3 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h3><p>$a.append(strr)$默认从尾部增加元素</p><h1 id="tuple"><a href="#tuple" class="headerlink" title="$tuple$"></a>$tuple$</h1><p>$tuple$也是一种有序列表，它的特点是一旦初始化成功后就不得修改</p><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = (&apos;s&apos;,&apos;a&apos;,&apos;r&apos;,&apos;s&apos;);</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure><p>$output$<br>(‘s’, ‘a’, ‘r’, ‘s’)</p></blockquote><p>大家可能发现了，$list$的定义时中括号$[]$而$tuple$是$()$<br><strong>注意</strong>我们定义空$tuple$时我们是$a=()$,但是如果定义一个元素时例如$a=(1,)$时，我们注意要打逗号，不然会被误解为$a=1$为$int$型变量</p><h2 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h2><p>$tuple$因其不可修改的性质所以从安全角度上来说比$list$更加安全，我们一般能用$tuple$绝不用$list$</p><h2 id="一个“可变的”-tuple"><a href="#一个“可变的”-tuple" class="headerlink" title="一个“可变的”$tuple$"></a>一个“可变的”$tuple$</h2><p>首先注意引号，他还是不可变的，可为什么又可以变呢？<br>我们尝试如下定义</p><blockquote><p>$a=(‘a’,’b’,[‘a’,’b’])$</p></blockquote><p>可以发现这一个$tuple$所指向的内容含有字符和一个$list$<br>$tuple$里面的内容的确不可以变，但$list$改变了之后list的地址还是不变的，所以就改了撒，看不懂可评论。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;对于这个list的了解我一直感觉就和C语言数组一样，但是仔细看了一下，到底不同，就让本蒟蒻带您去看看那些地方不同吧。&lt;/p&gt;
     
     </summary>
     
