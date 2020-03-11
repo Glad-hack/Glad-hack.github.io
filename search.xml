@@ -1,6 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>单调栈</title>
+    <url>/2020/03/11/%E5%8D%95%E8%B0%83%E6%A0%88/</url>
+    <content><![CDATA[<p>这个题目方法貌似很多，但是我在这里介绍一个方法目前已知最快的，利用单调栈！<a id="more"></a></p>
+<h1 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a><a href="https://oi-wiki.org/ds/monotonous-stack/" target="_blank" rel="noopener">单调栈</a></h1><p>不懂请点击上面链接学习，我就不介绍什么是单调栈了。</p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a><a href="http://39.105.62.44/web/problem.php?id=1035" target="_blank" rel="noopener">题目</a></h2><p>可以到上面链接提交测试。</p>
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><blockquote>
+<p>已知一个长度为n的数组，在其中找一个长度为m的子序列，规则如下：<br>首先第一个数字尽量大，然后第二个数字尽量大，第三个数字也要尽量大，等等…. </p>
+</blockquote>
+<h2 id="思想和解法"><a href="#思想和解法" class="headerlink" title="思想和解法"></a>思想和解法</h2><p>首先按照题意来，我们先求第一个尽量大的值，为了让他能找到m个数字，我们先求1~n-m+1的最大值，那么这个值就会是第一个值，第二个值就是在第一个值的位置到n-m+2的最大值，依次类推，求出所有。<br>可以发现这是一个暴力解法，复杂度是$O(n^2)$</p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>我们利用单调栈实现一个单调不上升栈，那么第一个数就是当栈顶下标到n-m+1时的栈底值。把栈底退出(这个操作用数组模拟吧)，第二个数就是栈顶下标到n-m+2的栈底值，以此类推！</p>
+<p>解释一下：因为单调不上升，那么栈底一定最大，且栈内数字顺序没变！符合题意，当把栈底退出以后第二个值就是栈底的下标到n-m+1的最大值咯。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 1e5+5;</span><br><span class="line">int sta[N],a[N];</span><br><span class="line">int main()&#123;</span><br><span class="line">    int n,m,i,j,k;</span><br><span class="line">    while (scanf(&quot;%d %d&quot;,&amp;n,&amp;m)==2)&#123;</span><br><span class="line">        for(i=1;i&lt;=n;i++)&#123;</span><br><span class="line">            scanf(&quot;%d&quot;,&amp;a[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        int l = 0, r = 0;   </span><br><span class="line">        for(i=1;i&lt;=n-m;i++)&#123;</span><br><span class="line">            while(l&lt;r&amp;&amp;a[i]&gt;sta[r]) r--;</span><br><span class="line">            sta[++r] = a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        for(i=n-m+1;i&lt;=n;i++)&#123;</span><br><span class="line">            while(l&lt;r&amp;&amp;a[i]&gt;sta[r]) r--;</span><br><span class="line">            sta[++r] = a[i];</span><br><span class="line">            l++;</span><br><span class="line">            printf(&quot;%d%c&quot;,sta[l],l==m?&apos;\n&apos;:&apos; &apos;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="相同题型"><a href="#相同题型" class="headerlink" title="相同题型"></a>相同题型</h2><p><a href="https://nanti.jisuanke.com/t/39614" target="_blank" rel="noopener">双倍快乐</a>,单调栈的大于改小于就完事了，数据很大，卡O(nlogn)!.<br><a href="https://leetcode-cn.com/problems/create-maximum-number/solution/dan-diao-zhan-by-powcai/" target="_blank" rel="noopener">秃头快乐</a></p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java修饰符</title>
+    <url>/2020/03/11/Java%E4%BF%AE%E9%A5%B0%E7%AC%A6/</url>
+    <content><![CDATA[<p>听课听了一会，发现Java对于修饰符的用途过多，先来了解一下。<a id="more"></a><br>写在前面：本文来自对于<a href="https://www.runoob.com/java/java-modifier-types.html#protected-desc" target="_blank" rel="noopener">这篇文章</a>文章的理解</p>
+<h1 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h1><p>修饰符分为一下两种：</p>
+<ol>
+<li>访问修饰符</li>
+<li>非访问修饰符</li>
+</ol>
+<h2 id="访问控制修饰符"><a href="#访问控制修饰符" class="headerlink" title="访问控制修饰符"></a>访问控制修饰符</h2><p>Java中，可以使用访问控制符来保护对类、变量、方法和构造方法的访问。Java 支持 4 种不同的访问权限。<br>|修饰符|当前类|同一包|子孙类(同一包)|子孙类(不同包)|其他包|<br>|:—:|:—:|:—:|:—:|:—:|:—:|<br>|public|Y|Y|Y|Y|Y|<br>|protected|Y|Y|Y|Y/N(<a href="(https://www.runoob.com/java/java-modifier-types.html#protected-desc">解释请看</a>))|N|<br>|default|Y|Y|Y|N|N|<br>|private|Y|N|N|N|N|</p>
+<h2 id="非访问控制修饰符"><a href="#非访问控制修饰符" class="headerlink" title="非访问控制修饰符"></a>非访问控制修饰符</h2><h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><blockquote>
+<p>静态变量：<br>static 关键字用来声明独立于对象的静态变量，无论一个类实例化多少对象，它的静态变量只有一份拷贝。 静态变量也被称为类变量。局部变量不能被声明为 static 变量。</p>
+<p>静态方法：<br>static 关键字用来声明独立于对象的静态方法。静态方法不能使用类的非静态变量。静态方法从参数列表得到数据，然后计算这些数据。</p>
+</blockquote>
+<h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><blockquote>
+<p>final 变量<br>final 表示”最后的、最终的”含义，变量一旦赋值后，不能被重新赋值。被 final 修饰的实例变量必须显式指定初始值。</p>
+<p>final 方法<br>父类中的 final 方法可以被子类继承，但是不能被子类重写。<br>声明 final 方法的主要目的是防止该方法的内容被修改。</p>
+</blockquote>
+<h3 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h3><h4 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h4><blockquote>
+<p>抽象类不能用来实例化对象，声明抽象类的唯一目的是为了将来对该类进行扩充。</p>
+<p>一个类不能同时被 abstract 和 final 修饰。如果一个类包含抽象方法，那么该类一定要声明为抽象类，否则将出现编译错误。</p>
+<p>抽象类可以包含抽象方法和非抽象方法。</p>
+</blockquote>
+<h4 id="抽象方法"><a href="#抽象方法" class="headerlink" title="抽象方法"></a>抽象方法</h4><blockquote>
+<p>抽象方法是一种没有任何实现的方法，该方法的的具体实现由子类提供。</p>
+<p>抽象方法不能被声明成 final 和 static。</p>
+<p>任何继承抽象类的子类必须实现父类的所有抽象方法，除非该子类也是抽象类。</p>
+<p>如果一个类包含若干个抽象方法，那么该类必须声明为抽象类。抽象类可以不包含抽象方法。</p>
+</blockquote>
+<h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><p>transient 修饰符<br>volatile 修饰符<br>synchronized 修饰符</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java对象</title>
+    <url>/2020/03/11/Java%E5%AF%B9%E8%B1%A1/</url>
+    <content><![CDATA[<p>听课<a id="more"></a></p>
+<h1 id="面向对象基础"><a href="#面向对象基础" class="headerlink" title="面向对象基础"></a>面向对象基础</h1><h2 id="Java面向对象的基本组成"><a href="#Java面向对象的基本组成" class="headerlink" title="Java面向对象的基本组成"></a>Java面向对象的基本组成</h2><ol>
+<li>Java类及类的成员：属性、方法、构造器；代码块、内部类</li>
+<li>面向对象三大特征：封装、继承、多态(抽象)</li>
+<li>关键字：this、super、static、final、abstract、interface、package、import…</li>
+</ol>
+<h2 id="类和对象："><a href="#类和对象：" class="headerlink" title="类和对象："></a>类和对象：</h2><p>类是对一类事物共同特点的统一，而对象就是类的实例。(就像水果和苹果一样)<br>比如：手机需要充电，手机可以打电话，等等都是这个手机就是一个类，华为手机就是一个对象。</p>
+<h3 id="类的代码定义格式"><a href="#类的代码定义格式" class="headerlink" title="类的代码定义格式"></a>类的代码定义格式</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[修饰符] class 类名 [父类名] [implements 接口名] &#123;</span><br><span class="line">    //类体,包括属性和方法</span><br><span class="line">    //属性</span><br><span class="line">    [修饰符] 数据类型 变量名 [ = 值]</span><br><span class="line">    //方法</span><br><span class="line">    [修饰符] [返回值] 方法名([参数类型 参数名1]，[参数类型 参数名2]...)&#123;</span><br><span class="line">        方法体</span><br><span class="line">        return 返回值</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">类名 对象名 = new 类名();</span><br></pre></td></tr></table></figure>
+<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3><p>懒得开草稿文件了。。。先发布了</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>蓝桥杯校赛第九题</title>
     <url>/2020/03/10/%E8%93%9D%E6%A1%A5%E6%9D%AF%E6%A0%A1%E8%B5%9B%E7%AC%AC%E4%B9%9D%E9%A2%98/</url>
     <content><![CDATA[<p>去年蓝桥杯炸了，如果今天省赛，我可能又炸了。。。<a id="more"></a></p>
@@ -1184,7 +1265,7 @@
     <content><![CDATA[<h1 id="vscode背景"><a href="#vscode背景" class="headerlink" title="vscode背景"></a>vscode背景</h1><p>vscode花里胡哨的背景怎么能却得了？我也来瞎搞俩！<br><a id="more"></a></p>
 <h2 id="安装background"><a href="#安装background" class="headerlink" title="安装background"></a>安装background</h2><p>扩展商店安装就好了<br>这里会弹出code损坏，莫急，往下看</p>
 <h2 id="下载-Fix-vscode-checksum"><a href="#下载-Fix-vscode-checksum" class="headerlink" title="下载 Fix vscode checksum"></a>下载 Fix vscode checksum</h2><p>扩展商店下载好以后按下ctrl+shift+p<br>输入 Fix checksum 选择apply就行了<br><img src="/2020/01/30/vscode%E8%83%8C%E6%99%AF%E9%85%8D%E7%BD%AE/2.png" alt="2"></p>
-<h2 id="配置插件"><a href="#配置插件" class="headerlink" title="配置插件"></a>配置插件</h2><p>管理员运行vscode，打开以后按如下图操作打开setting.json<img src="/2020/01/30/vscode%E8%83%8C%E6%99%AF%E9%85%8D%E7%BD%AE/1.png" alt="1"></p>
+<h2 id="配置插件"><a href="#配置插件" class="headerlink" title="配置插件"></a>配置插件</h2><p>管理员运行vscode，打开以后按如下图操作打开setting.json<img src="/2020/01/30/vscode%E8%83%8C%E6%99%AF%E9%85%8D%E7%BD%AE/3.png" alt="1"></p>
 <h2 id="编辑setting-json"><a href="#编辑setting-json" class="headerlink" title="编辑setting.json"></a>编辑setting.json</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;background.enabled&quot;: true,</span><br><span class="line">    &quot;background.useDefault&quot;: false,</span><br><span class="line">    &quot;background.customImages&quot;: [</span><br><span class="line">        &quot;file:///E:background/vscode.png&quot;//你的图片的绝对路径</span><br><span class="line">    ],</span><br><span class="line">  &quot;background.style&quot;: &#123;</span><br><span class="line">    &quot;content&quot;: &quot;&apos;&apos;&quot;,</span><br><span class="line">    &quot;pointer-events&quot;: &quot;none&quot;,</span><br><span class="line">    &quot;position&quot;: &quot;absolute&quot;,</span><br><span class="line">    &quot;z-index&quot;: &quot;99999&quot;,</span><br><span class="line">    &quot;width&quot;: &quot;100%&quot;,</span><br><span class="line">    &quot;height&quot;: &quot;100%&quot;,</span><br><span class="line">    &quot;background-size&quot;: &quot;cover&quot;,</span><br><span class="line">    &quot;background-position&quot;: &quot;50% 50%&quot;,</span><br><span class="line">    &quot;background-repeat&quot;: &quot;no-repeat&quot;,</span><br><span class="line">    &quot;opacity&quot;: 0.1</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;workbench.iconTheme&quot;: &quot;vscode-icons&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>接下来可能会要求你重启就完成了</p>
 ]]></content>
