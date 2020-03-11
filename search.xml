@@ -31,7 +31,7 @@
 <li>访问修饰符</li>
 <li>非访问修饰符</li>
 </ol>
-<h2 id="访问控制修饰符"><a href="#访问控制修饰符" class="headerlink" title="访问控制修饰符"></a>访问控制修饰符</h2><p>Java中，可以使用访问控制符来保护对类、变量、方法和构造方法的访问。Java 支持 4 种不同的访问权限。<br>|修饰符|当前类|同一包|子孙类(同一包)|子孙类(不同包)|其他包|<br>|:—:|:—:|:—:|:—:|:—:|:—:|<br>|public|Y|Y|Y|Y|Y|<br>|protected|Y|Y|Y|Y/N(<a href="(https://www.runoob.com/java/java-modifier-types.html#protected-desc">解释请看</a>))|N|<br>|default|Y|Y|Y|N|N|<br>|private|Y|N|N|N|N|</p>
+<h2 id="访问控制修饰符"><a href="#访问控制修饰符" class="headerlink" title="访问控制修饰符"></a>访问控制修饰符</h2><p>Java中，可以使用访问控制符来保护对类、变量、方法和构造方法的访问。Java 支持 4 种不同的访问权限。<br>|修饰符|当前类|同一包|子孙类(同一包)|子孙类(不同包)|其他包|<br>|:—-:|:—-:|:—-:|:—-:|:—-:|:—-:|<br>|public|Y|Y|Y|Y|Y|<br>|protected|Y|Y|Y|Y/N(<a href="(https://www.runoob.com/java/java-modifier-types.html#protected-desc">解释请看</a>))|N|<br>|default|Y|Y|Y|N|N|<br>|private|Y|N|N|N|N|</p>
 <h2 id="非访问控制修饰符"><a href="#非访问控制修饰符" class="headerlink" title="非访问控制修饰符"></a>非访问控制修饰符</h2><h3 id="static"><a href="#static" class="headerlink" title="static"></a>static</h3><blockquote>
 <p>静态变量：<br>static 关键字用来声明独立于对象的静态变量，无论一个类实例化多少对象，它的静态变量只有一份拷贝。 静态变量也被称为类变量。局部变量不能被声明为 static 变量。</p>
 <p>静态方法：<br>static 关键字用来声明独立于对象的静态方法。静态方法不能使用类的非静态变量。静态方法从参数列表得到数据，然后计算这些数据。</p>
@@ -54,7 +54,7 @@
 <h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2><p>transient 修饰符<br>volatile 修饰符<br>synchronized 修饰符</p>
 ]]></content>
       <categories>
-        <category>java</category>
+        <category>Java</category>
       </categories>
       <tags>
         <tag>Java</tag>
