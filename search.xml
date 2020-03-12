@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>二分匹配最大独立集</title>
+    <url>/2020/03/12/%E4%BA%8C%E5%88%86%E5%8C%B9%E9%85%8D%E6%9C%80%E5%A4%A7%E7%8B%AC%E7%AB%8B%E9%9B%86/</url>
+    <content><![CDATA[<p>最近不知为啥老想玩，干脆来打编程游戏算了。。。<a id="more"></a></p>
+<h1 id="二分匹配图"><a href="#二分匹配图" class="headerlink" title="二分匹配图"></a>二分匹配图</h1><h2 id="二分图"><a href="#二分图" class="headerlink" title="二分图"></a>二分图</h2><blockquote>
+<p>定义：<br>把一个图的顶点划分为两个不相交集 U 和V ，使得每一条边都分别连接U、V中的顶点。如果存在这样的划分，则此图为一个二分图。</p>
+<p>另一个等价定义：<br>一个图里面不含有奇数条边的环。</p>
+<p>匹配：一个匹配是一个边的集合，其中任意两条边都没有公共点。<br>匹配边：一个匹配中，集合里的边是匹配边。<br>匹配点：一个匹配中，集合里的所有点都是匹配点<br>未匹配边：图里的非匹配边<br>未匹配点：图里的非匹配点</p>
+<p>最大匹配：一个图里面所有的匹配中，所含匹配边数最大的匹配。</p>
+<p>完美匹配：当一个图里面所有点都是匹配点时就是完美匹配，显然一个完美匹配就是最大匹配，</p>
+</blockquote>
+<p>举例：<br>举例来说：如下图所示，如果在某一对男孩和女孩之间存在相连的边，就意味着他们彼此喜欢。是否可能让所有男孩和女孩两两配对，使得每对儿都互相喜欢呢？图论中，这就是<strong>完美匹配问题</strong>。如果换一个说法：最多有多少互相喜欢的男孩/女孩可以配对儿？这就是<strong>最大匹配问题</strong>。</p>
+<h2 id="匈牙利算法"><a href="#匈牙利算法" class="headerlink" title="匈牙利算法"></a>匈牙利算法</h2><p>匈牙利算法：用来解决<strong>二分图</strong>最大匹配问题，时间复杂度$O(NM)$<br>给与两个定义为匈牙利算法服务</p>
+<blockquote>
+<p>交替路：从一个未匹配点出发，依次经过非匹配边、匹配边、非匹配边…形成的路径叫交替路。</p>
+<p>增广路：从一个未匹配点出发，走交替路，如果途径另一个未匹配点（出发的点不算），则这条交替路称为增广路（agumenting path）。</p>
+</blockquote>
+<h3 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h3><blockquote>
+<p>增广路有一个重要特点：非匹配边比匹配边多一条。因此，研究增广路的意义是改进匹配。只要把增广路中的匹配边和非匹配边的身份交换即可。由于中间的匹配节点不存在其他相连的匹配边，所以这样做不会破坏匹配的性质。交换后，图中的匹配边数目比原来多了 1 条。</p>
+<p>我们可以通过不停地找增广路来增加匹配中的匹配边和匹配点。找不到增广路时，达到最大匹配（这是增广路定理）。</p>
+</blockquote>
+<p>在这里我只写出了dfs版本的匈牙利算法</p>
+<h3 id="最大独立集-图里所有点-最大匹配点数"><a href="#最大独立集-图里所有点-最大匹配点数" class="headerlink" title="最大独立集(图里所有点-最大匹配点数)"></a>最大独立集(图里所有点-最大匹配点数)</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;string.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 5e5+5;</span><br><span class="line">struct ED&#123;</span><br><span class="line">    int pre,id;</span><br><span class="line">&#125;ed[N];</span><br><span class="line">int head[N],tot=0,vis[N],match[N];</span><br><span class="line">void add(int u,int v)&#123;</span><br><span class="line">    ed[++tot].id=v;</span><br><span class="line">    ed[tot].pre=head[u];</span><br><span class="line">    head[u]=tot;</span><br><span class="line">&#125;</span><br><span class="line">bool dfs(int x)&#123;</span><br><span class="line">    vis[x]=1;</span><br><span class="line">    for (int i = head[x]; ~i; i=ed[i].pre)&#123;</span><br><span class="line">        int v =ed[i].id;</span><br><span class="line">        if(!vis[v])&#123;//不在交替路</span><br><span class="line">            vis[v]=1;//放入交替路</span><br><span class="line">            if(match[v]==-1||dfs(match[v]))&#123;//短路操作，找到第一个非匹配点</span><br><span class="line">                match[v]=x;//对边进行交换。</span><br><span class="line">                match[x]=v;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    int n,m,i,j,k;</span><br><span class="line">    while(scanf(&quot;%d&quot;,&amp;n)==1)&#123;</span><br><span class="line">        memset(match,-1,sizeof match);</span><br><span class="line">        memset(head,-1,sizeof head);</span><br><span class="line">        tot=0;</span><br><span class="line">        for (i = 0; i &lt; n; i++)&#123;</span><br><span class="line">            int u,v,t;</span><br><span class="line">            scanf(&quot;%d: (%d)&quot;,&amp;u,&amp;t);</span><br><span class="line">            for (j = 0; j &lt; t; j++)&#123;</span><br><span class="line">                scanf(&quot;%d&quot;,&amp;v);</span><br><span class="line">                add(u,v);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int ans=0;</span><br><span class="line">        for (int i = 0; i &lt; n; i++)&#123;</span><br><span class="line">            if(match[i]==-1)&#123;</span><br><span class="line">                memset(vis,0,sizeof (int)*n);</span><br><span class="line">                if(dfs(i)) ans++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;%d\n&quot;,n-ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="补充定义"><a href="#补充定义" class="headerlink" title="补充定义"></a>补充定义</h2><p><strong>最小覆盖数</strong> ： 选取最少的点，使任意一条边至少有一个端点被选择<br><strong>最小路径覆盖数</strong>：对于一个 DAG（有向无环图），选取最少条路径，使得每个顶点属于且仅属于一条路径。路径长可以为 0（即单个点）。<br><strong>最大独立数(集)</strong>：选取最多的点，使任意所选两点均不相连。<br><strong>最大匹配数</strong>：最大匹配的匹配边的数目。</p>
+<h2 id="补充定理"><a href="#补充定理" class="headerlink" title="补充定理"></a>补充定理</h2><p>定理1：最大匹配数 = 最小点覆盖数（这是 Konig 定理）<br>&lt;/br&gt;<br>定理2：点数 - 最大匹配数= 最大独立数<br>&lt;/br&gt;<br>定理3：最小路径覆盖数 = 顶点数 - 最大匹配数</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="https://oi-wiki.org/graph/bi-graph/" target="_blank" rel="noopener"><strong>oi维基</strong></a></li>
+<li><a href="https://blog.csdn.net/qq_41730082/article/details/81456611" target="_blank" rel="noopener"><strong>二分图总结</strong></a></li>
+<li><a href="https://www.renfei.org/blog/bipartite-matching.html" target="_blank" rel="noopener"><strong>最大匹配</strong></a></li>
+</ol>
+<p>第3个里面有bfs版本的匈牙利以及两个版本的速率比较，内容详细，带图。不过最后定理错了，定理参考第二个。</p>
+]]></content>
+      <categories>
+        <category>图论</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>scanner类</title>
+    <url>/2020/03/11/scanner%E7%B1%BB/</url>
+    <content><![CDATA[<p>在做实验时候真的尴尬，我居然把Java的输入法给忘了，我记性真的是狗啊，写一篇博客来记吧。<a id="more"></a></p>
+<h1 id="Scanner"><a href="#Scanner" class="headerlink" title="Scanner"></a>Scanner</h1><p>首先Scanner对象属于java.util.*包里面<br>构造Scanner类对象，附属于System.in保准输入流里面。</p>
+<h2 id="创建Scanner类对象"><a href="#创建Scanner类对象" class="headerlink" title="创建Scanner类对象"></a>创建Scanner类对象</h2><p>创建Scanner类对象和创建其他对象过程是一样的。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Scanner  in = new Scanner(System.in);</span><br></pre></td></tr></table></figure><br>每一次要输入值的话就调用这个$in$对象就完事了</p>
+<h2 id="Scanner对象的方法"><a href="#Scanner对象的方法" class="headerlink" title="Scanner对象的方法"></a>Scanner对象的方法</h2><blockquote>
+<p>in.next()<br>输入字符串，从读到第一个有效字符开始，无效字符结束(包括空格，回车)</p>
+<p>in.nextLine()<br>输入字符串，从键盘输入第一个字符开始，遇到回车结束</p>
+<p>in.nextInt()<br>输入单个整型数字</p>
+<p>in.nextFloat<br>输入单个单精度浮点型数字</p>
+<p>in.nextDouble<br>输入单个双精度浮点型数字</p>
+<p>in.nextLong<br>输入单个长整型数字</p>
+<p>in.nextBoolean<br>输入单个布尔型变量</p>
+<p>在以上方法前加单词has后可检查后面数字扫描器的下一个标记是否为指定模式<br>例如 in.hasNextInt()则为判断下一个数字是不是int型，是则返回true，否则false；</p>
+</blockquote>
+<p>in.close()关闭扫描器</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p><a href="https://www.runoob.com/manual/jdk1.6/" target="_blank" rel="noopener">java的API文档</a></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>单调栈</title>
     <url>/2020/03/11/%E5%8D%95%E8%B0%83%E6%A0%88/</url>
     <content><![CDATA[<p>这个题目方法貌似很多，但是我在这里介绍一个方法目前已知最快的，利用单调栈！<a id="more"></a></p>
@@ -86,6 +151,9 @@
 </blockquote>
 <h3 id="final"><a href="#final" class="headerlink" title="final"></a>final</h3><blockquote>
 <p>final 变量<br>final 表示”最后的、最终的”含义，变量一旦赋值后，不能被重新赋值。被 final 修饰的实例变量必须显式指定初始值。</p>
+</blockquote>
+<p>实践部分：当定义final以后再对final变量修改值编译器会报错！</p>
+<blockquote>
 <p>final 方法<br>父类中的 final 方法可以被子类继承，但是不能被子类重写。<br>声明 final 方法的主要目的是防止该方法的内容被修改。</p>
 </blockquote>
 <h3 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h3><h4 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h4><blockquote>
