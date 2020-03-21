@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>java对象复习</title>
+    <url>/2020/03/21/java%E5%AF%B9%E8%B1%A1%E5%A4%8D%E4%B9%A0/</url>
+    <content><![CDATA[<p>完辽，没学习的欲望了，拖了几天的总结。<a id="more"></a></p>
+<h1 id="抽象类-abstract"><a href="#抽象类-abstract" class="headerlink" title="抽象类($abstract$)"></a>抽象类($abstract$)</h1><p>一个方法可以被覆写，那么如果当前类的全部方法都要被子类覆写的话，这个类我们就可以用抽象来代替。这个抽象的方法如果在它的子类里面不对该方法进行覆写的话，直接会报编译错误。<br>那么抽象类的特点：</p>
+<ol>
+<li>直接规范了子类的格式</li>
+<li>抽象类无法实例化</li>
+<li>子类的端口范围不能小于父类的端口范围</li>
+<li>抽象方法不能用$private$修饰，因为抽象方法必须被子类重写，而$private$权限对于子类来说是不能访问的，所以就会产生矛盾。</li>
+<li>抽象方法也不能用$static$修饰，如果用$static$修饰了，那么我们就可以直接通过类名调用了，而抽象方法压根没有主体，没有任何业务逻辑，这样就毫无意义了。</li>
+<li>抽象类不能被$final$修饰，因为被修饰以后就不能被继承了。</li>
+</ol>
+<h1 id="接口-interface"><a href="#接口-interface" class="headerlink" title="接口(interface)"></a>接口(interface)</h1><p>当一个抽象类里面没有字段，全是抽象方法时，我们可以将这个类定义为接口。<br>也就是说，接口里面不得有任何字段，所有方法都必须是抽象方法。也因为都是抽象，所以自动省略了$public abstract$修饰语句<br>对于一个接口来说，可以同时继承多个接口。<br>当用一个具体的类实现一个接口必须要用implement，举例：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    void run();</span><br><span class="line">    String getName();//自动省略public abstract</span><br><span class="line">&#125;</span><br><span class="line">class Student implements Person &#123;</span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    public Student(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        System.out.println(this.name + &quot; run&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return this.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="default-方法"><a href="#default-方法" class="headerlink" title="$default$方法"></a>$default$方法</h2><p>接口之中可以定义$default$方法<br>他的优点：</p>
+<ol>
+<li>实现类里面可以不必覆写该方法，但是也可以覆写，方便修改接口。</li>
+</ol>
+<p>举个例子<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Person p = new Student(&quot;Xiao Ming&quot;);</span><br><span class="line">        p.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Person &#123;</span><br><span class="line">    String getName();</span><br><span class="line">    default void run() &#123;</span><br><span class="line">        System.out.println(getName() + &quot; run&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Student implements Person &#123;</span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    public Student(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return this.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="static"><a href="#static" class="headerlink" title="$static$"></a>$static$</h1><h2 id="静态字段"><a href="#静态字段" class="headerlink" title="静态字段"></a>静态字段</h2><p>对于一个类的静态字段来说，他在这个字段里面只有一个共享空间，所有的实例都是用这一个变量。<br>举例来看<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Person ming = new Person(&quot;Xiao Ming&quot;, 12);</span><br><span class="line">        Person hong = new Person(&quot;Xiao Hong&quot;, 15);</span><br><span class="line">        ming.number = 88;</span><br><span class="line">        System.out.println(hong.number);</span><br><span class="line">        hong.number = 99;</span><br><span class="line">        System.out.println(ming.number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Person &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    public int age;</span><br><span class="line"></span><br><span class="line">    public static int number;</span><br><span class="line"></span><br><span class="line">    public Person(String name, int age) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>可以发现修改了一个实例里的静态字段以后另外一个实例里的也改变了。</p>
+<h2 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h2><p>对于一个类里面的静态方法，可以直接通过类名.方法名进行运行，但是不可以通过this.类名访问。</p>
+<h2 id="接口的静态字段"><a href="#接口的静态字段" class="headerlink" title="接口的静态字段"></a>接口的静态字段</h2><p>因为$interface$是一个纯抽象类，所以它不能定义实例字段。但是，$interface$是可以有静态字段的，并且静态字段必须为$final$类型。也因为全是$final$所以我们可以省略。</p>
+<h2 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h2><p>对于一个静态代码块来说，当我们调用该类的时候会自动将静态代码块运行一次，且仅运行一次。当往后运行时就不会再调用了。<br>一般使用这个功能时我们一般都是用来初始化的</p>
+]]></content>
+      <categories>
+        <category>true</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java多态</title>
     <url>/2020/03/17/Java%E5%A4%9A%E6%80%81/</url>
     <content><![CDATA[<p>这个在上一篇，继承的最后一点说了一丢丢，当时还不知道就是多态，小尴尬，双倍快乐吧<a id="more"></a></p>
@@ -10,6 +41,7 @@
 </blockquote>
 <p><strong>在被子类覆写的方法里面如果想要运行父类方法，可以使用<code>super</code>关键字</strong></p>
 <h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2><p>如果不想当前方法不被覆写，可以在方法名前加上final修饰符，就不会被重写了。<br>如果类不想被继承的话，用它就会绝育了。<br>变量用它后就不能修改了。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1260455778791232" target="_blank" rel="noopener">廖雪峰的java教程</a></p>
 ]]></content>
       <categories>
         <category>Java</category>
@@ -29,9 +61,10 @@
 </blockquote>
 <h2 id="protected"><a href="#protected" class="headerlink" title="$protected$"></a>$protected$</h2><p>继承一大特点：子类无法访问父类的$private$变量或$private$字段，这使得继承的作用被削弱了。为了让子类可以访问父类的字段，我们需要把$private$改为$protected$。原因<a href="https://www.dream-ak.top/2020/03/11/Java%E4%BF%AE%E9%A5%B0%E7%AC%A6/#more">可参考</a>。<br>因此，protected关键字可以把字段和方法的访问权限控制在继承树内部，一个protected字段和方法可以被其子类，以及子类的子类所访问。</p>
 <h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><p>如果父类不含有默认构造方法，那么我们需要使用$super(参数)$去自行构建。<br>含有默认构造方法的话，会自动在构造的时候加一个$super()$。</p>
-<h2 id="转型"><a href="#转型" class="headerlink" title="转型"></a>转型</h2><p>对于Java的继承时我们可以对一个引用变量进行转化。<br>用代码解释一下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Student p0 =new Student();</span><br><span class="line">Preson p1 = new Preson();</span><br><span class="line">p1 = p0;</span><br><span class="line">``` </span><br><span class="line">你会发现他成功了，而且这里的p1会丢失Student类的所有方法和属性，这就是**向上转型(子类向父类转换)**，如果要恢复的话必须要**向下转型(父类向子类转换)**。</span><br><span class="line">子类向父类转化是没啥条件的，毕竟父类本身就有子类的部分属性和方法，只不过是更加抽象而已，但是向下转型是有条件的(向下转型时需要判断它是不是要转化的子类类型，不是就会报错)</span><br><span class="line">### $instanceof$</span><br><span class="line">为了防止向下转型失败，这里提供了$instanceof$关键字来判断是否可以转型。</span><br><span class="line">$instanceof$返回$Boolean$值，true代表是后面的类型，false反之。</span><br></pre></td></tr></table></figure><br>Student p1 = new Student();<br>Preson p2 = new Preson();<br>if(p2 instanceof Student){<br>        p1 = (Student) p2;<br>}<br>```<br>这样就不会报错，防止转型失败</p>
+<h2 id="转型"><a href="#转型" class="headerlink" title="转型"></a>转型</h2><p>对于Java的继承时我们可以对一个引用变量进行转化。<br>用代码解释一下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Student p0 =new Student();</span><br><span class="line">Preson p1 = new Preson();</span><br><span class="line">p1 = p0;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">你会发现他成功了，而且这里的p1会丢失Student类的所有方法和属性，这就是**向上转型(子类向父类转换)**，如果要恢复的话必须要**向下转型(父类向子类转换)**。</span><br><span class="line">子类向父类转化是没啥条件的，毕竟父类本身就有子类的部分属性和方法，只不过是更加抽象而已，但是向下转型是有条件的(向下转型时需要判断它是不是要转化的子类类型，不是就会报错)</span><br><span class="line">### $instanceof$</span><br><span class="line">为了防止向下转型失败，这里提供了$instanceof$关键字来判断是否可以转型。</span><br><span class="line">$instanceof$返回$Boolean$值，true代表是后面的类型，false反之。</span><br></pre></td></tr></table></figure><br>Student p1 = new Student();<br>Preson p2 = new Preson();<br>if(p2 instanceof Student){<br>        p1 = (Student) p2;<br>}<br>```<br>这样就不会报错，防止转型失败</p>
 <blockquote>
 <p>对于一次向上转型来说，对于父类来说，他可以使用父类的所有属性和方法，而子类中定义的所有的方法和属性是没有办法的，但是当子类中对父类方法进行覆写时他就会调用子类覆写后的方法(动态连接)，否则就是调用父类自身方法。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1260454548196032" target="_blank" rel="noopener">廖雪峰的Java教程</a></p>
 </blockquote>
 ]]></content>
       <categories>

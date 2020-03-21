@@ -47,18 +47,18 @@
   };
 </script>
 
-  <meta name="description" content="这个题目方法貌似很多，但是我在这里介绍一个方法目前已知最快的，利用单调栈！">
-<meta name="keywords" content="ACM">
+  <meta name="description" content="完辽，没学习的欲望了，拖了几天的总结。">
+<meta name="keywords" content="Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单调栈">
-<meta property="og:url" content="https:&#x2F;&#x2F;www.dream-ak.top&#x2F;2020&#x2F;03&#x2F;11&#x2F;%E5%8D%95%E8%B0%83%E6%A0%88&#x2F;index.html">
+<meta property="og:title" content="java对象复习">
+<meta property="og:url" content="https:&#x2F;&#x2F;www.dream-ak.top&#x2F;2020&#x2F;03&#x2F;21&#x2F;java%E5%AF%B9%E8%B1%A1%E5%A4%8D%E4%B9%A0&#x2F;index.html">
 <meta property="og:site_name" content="孤独行者">
-<meta property="og:description" content="这个题目方法貌似很多，但是我在这里介绍一个方法目前已知最快的，利用单调栈！">
+<meta property="og:description" content="完辽，没学习的欲望了，拖了几天的总结。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-11T09:35:35.443Z">
+<meta property="og:updated_time" content="2020-03-21T12:22:57.733Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://www.dream-ak.top/2020/03/11/%E5%8D%95%E8%B0%83%E6%A0%88/">
+<link rel="canonical" href="https://www.dream-ak.top/2020/03/21/java%E5%AF%B9%E8%B1%A1%E5%A4%8D%E4%B9%A0/">
 
 
 <script id="page-configurations">
@@ -70,7 +70,7 @@
   };
 </script>
 
-  <title>单调栈 | 孤独行者</title>
+  <title>java对象复习 | 孤独行者</title>
   
 
 
@@ -181,7 +181,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.dream-ak.top/2020/03/11/%E5%8D%95%E8%B0%83%E6%A0%88/">
+    <link itemprop="mainEntityOfPage" href="https://www.dream-ak.top/2020/03/21/java%E5%AF%B9%E8%B1%A1%E5%A4%8D%E4%B9%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/vscode.jpg">
@@ -194,7 +194,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          单调栈
+          java对象复习
         </h1>
 
         <div class="post-meta">
@@ -205,7 +205,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-03-11 16:05:33 / 修改时间：17:35:35" itemprop="dateCreated datePublished" datetime="2020-03-11T16:05:33+08:00">2020-03-11</time>
+              <time title="创建时间：2020-03-21 19:31:07 / 修改时间：20:22:57" itemprop="dateCreated datePublished" datetime="2020-03-21T19:31:07+08:00">2020-03-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -213,8 +213,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
+                  <a href="/categories/true/" itemprop="url" rel="index">
+                    <span itemprop="name">true</span>
                   </a>
                 </span>
             </span>
@@ -235,8 +235,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/03/11/%E5%8D%95%E8%B0%83%E6%A0%88/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/11/%E5%8D%95%E8%B0%83%E6%A0%88/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/03/21/java%E5%AF%B9%E8%B1%A1%E5%A4%8D%E4%B9%A0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/21/java%E5%AF%B9%E8%B1%A1%E5%A4%8D%E4%B9%A0/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -246,14 +246,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -265,17 +265,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>这个题目方法貌似很多，但是我在这里介绍一个方法目前已知最快的，利用单调栈！<a id="more"></a></p>
-<h1 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a><a href="https://oi-wiki.org/ds/monotonous-stack/" target="_blank" rel="noopener">单调栈</a></h1><p>不懂请点击上面链接学习，我就不介绍什么是单调栈了。</p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a><a href="http://39.105.62.44/web/problem.php?id=1035" target="_blank" rel="noopener">题目</a></h2><p>可以到上面链接提交测试。</p>
-<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><blockquote>
-<p>已知一个长度为n的数组，在其中找一个长度为m的子序列，规则如下：<br>首先第一个数字尽量大，然后第二个数字尽量大，第三个数字也要尽量大，等等…. </p>
-</blockquote>
-<h2 id="思想和解法"><a href="#思想和解法" class="headerlink" title="思想和解法"></a>思想和解法</h2><p>首先按照题意来，我们先求第一个尽量大的值，为了让他能找到m个数字，我们先求1~n-m+1的最大值，那么这个值就会是第一个值，第二个值就是在第一个值的位置到n-m+2的最大值，依次类推，求出所有。<br>可以发现这是一个暴力解法，复杂度是$O(n^2)$</p>
-<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><p>我们利用单调栈实现一个单调不上升栈，那么第一个数就是当栈顶下标到n-m+1时的栈底值。把栈底退出(这个操作用数组模拟吧)，第二个数就是栈顶下标到n-m+2的栈底值，以此类推！</p>
-<p>解释一下：因为单调不上升，那么栈底一定最大，且栈内数字顺序没变！符合题意，当把栈底退出以后第二个值就是栈底的下标到n-m+1的最大值咯。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 1e5+5;</span><br><span class="line">int sta[N],a[N];</span><br><span class="line">int main()&#123;</span><br><span class="line">    int n,m,i,j,k;</span><br><span class="line">    while (scanf(&quot;%d %d&quot;,&amp;n,&amp;m)==2)&#123;</span><br><span class="line">        for(i=1;i&lt;=n;i++)&#123;</span><br><span class="line">            scanf(&quot;%d&quot;,&amp;a[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        int l = 0, r = 0;   </span><br><span class="line">        for(i=1;i&lt;=n-m;i++)&#123;</span><br><span class="line">            while(l&lt;r&amp;&amp;a[i]&gt;sta[r]) r--;</span><br><span class="line">            sta[++r] = a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        for(i=n-m+1;i&lt;=n;i++)&#123;</span><br><span class="line">            while(l&lt;r&amp;&amp;a[i]&gt;sta[r]) r--;</span><br><span class="line">            sta[++r] = a[i];</span><br><span class="line">            l++;</span><br><span class="line">            printf(&quot;%d%c&quot;,sta[l],l==m?&apos;\n&apos;:&apos; &apos;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="相同题型"><a href="#相同题型" class="headerlink" title="相同题型"></a>相同题型</h2><p><a href="https://nanti.jisuanke.com/t/39614" target="_blank" rel="noopener">双倍快乐</a>,单调栈的大于改小于就完事了，数据很大，卡O(nlogn)!.<br><a href="https://leetcode-cn.com/problems/create-maximum-number/solution/dan-diao-zhan-by-powcai/" target="_blank" rel="noopener">秃头快乐</a></p>
+        <p>完辽，没学习的欲望了，拖了几天的总结。<a id="more"></a></p>
+<h1 id="抽象类-abstract"><a href="#抽象类-abstract" class="headerlink" title="抽象类($abstract$)"></a>抽象类($abstract$)</h1><p>一个方法可以被覆写，那么如果当前类的全部方法都要被子类覆写的话，这个类我们就可以用抽象来代替。这个抽象的方法如果在它的子类里面不对该方法进行覆写的话，直接会报编译错误。<br>那么抽象类的特点：</p>
+<ol>
+<li>直接规范了子类的格式</li>
+<li>抽象类无法实例化</li>
+<li>子类的端口范围不能小于父类的端口范围</li>
+<li>抽象方法不能用$private$修饰，因为抽象方法必须被子类重写，而$private$权限对于子类来说是不能访问的，所以就会产生矛盾。</li>
+<li>抽象方法也不能用$static$修饰，如果用$static$修饰了，那么我们就可以直接通过类名调用了，而抽象方法压根没有主体，没有任何业务逻辑，这样就毫无意义了。</li>
+<li>抽象类不能被$final$修饰，因为被修饰以后就不能被继承了。</li>
+</ol>
+<h1 id="接口-interface"><a href="#接口-interface" class="headerlink" title="接口(interface)"></a>接口(interface)</h1><p>当一个抽象类里面没有字段，全是抽象方法时，我们可以将这个类定义为接口。<br>也就是说，接口里面不得有任何字段，所有方法都必须是抽象方法。也因为都是抽象，所以自动省略了$public abstract$修饰语句<br>对于一个接口来说，可以同时继承多个接口。<br>当用一个具体的类实现一个接口必须要用implement，举例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    void run();</span><br><span class="line">    String getName();//自动省略public abstract</span><br><span class="line">&#125;</span><br><span class="line">class Student implements Person &#123;</span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    public Student(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void run() &#123;</span><br><span class="line">        System.out.println(this.name + &quot; run&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return this.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="default-方法"><a href="#default-方法" class="headerlink" title="$default$方法"></a>$default$方法</h2><p>接口之中可以定义$default$方法<br>他的优点：</p>
+<ol>
+<li>实现类里面可以不必覆写该方法，但是也可以覆写，方便修改接口。</li>
+</ol>
+<p>举个例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Person p = new Student(&quot;Xiao Ming&quot;);</span><br><span class="line">        p.run();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface Person &#123;</span><br><span class="line">    String getName();</span><br><span class="line">    default void run() &#123;</span><br><span class="line">        System.out.println(getName() + &quot; run&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Student implements Person &#123;</span><br><span class="line">    private String name;</span><br><span class="line"></span><br><span class="line">    public Student(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getName() &#123;</span><br><span class="line">        return this.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="static"><a href="#static" class="headerlink" title="$static$"></a>$static$</h1><h2 id="静态字段"><a href="#静态字段" class="headerlink" title="静态字段"></a>静态字段</h2><p>对于一个类的静态字段来说，他在这个字段里面只有一个共享空间，所有的实例都是用这一个变量。<br>举例来看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Person ming = new Person(&quot;Xiao Ming&quot;, 12);</span><br><span class="line">        Person hong = new Person(&quot;Xiao Hong&quot;, 15);</span><br><span class="line">        ming.number = 88;</span><br><span class="line">        System.out.println(hong.number);</span><br><span class="line">        hong.number = 99;</span><br><span class="line">        System.out.println(ming.number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Person &#123;</span><br><span class="line">    public String name;</span><br><span class="line">    public int age;</span><br><span class="line"></span><br><span class="line">    public static int number;</span><br><span class="line"></span><br><span class="line">    public Person(String name, int age) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>可以发现修改了一个实例里的静态字段以后另外一个实例里的也改变了。</p>
+<h2 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h2><p>对于一个类里面的静态方法，可以直接通过类名.方法名进行运行，但是不可以通过this.类名访问。</p>
+<h2 id="接口的静态字段"><a href="#接口的静态字段" class="headerlink" title="接口的静态字段"></a>接口的静态字段</h2><p>因为$interface$是一个纯抽象类，所以它不能定义实例字段。但是，$interface$是可以有静态字段的，并且静态字段必须为$final$类型。也因为全是$final$所以我们可以省略。</p>
+<h2 id="静态代码块"><a href="#静态代码块" class="headerlink" title="静态代码块"></a>静态代码块</h2><p>对于一个静态代码块来说，当我们调用该类的时候会自动将静态代码块运行一次，且仅运行一次。当往后运行时就不会再调用了。<br>一般使用这个功能时我们一般都是用来初始化的</p>
 
     </div>
 
@@ -286,26 +295,26 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\03\04\1320B\" rel="bookmark">最短路径图</a></div>
+      <div class="popular-posts-title"><a href="\2020\03\11\Java修饰符\" rel="bookmark">Java修饰符</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\03\04\1305D\" rel="bookmark">交互1305D</a></div>
+      <div class="popular-posts-title"><a href="\2020\03\17\Java多态\" rel="bookmark">Java多态</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2019\11\26\IncDec序列   差分数组\" rel="bookmark">差分数组实例</a></div>
+      <div class="popular-posts-title"><a href="\2020\03\11\Java对象\" rel="bookmark">Java对象</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\02\29\poj3694-tarjan\" rel="bookmark">poj3694-tarjan</a></div>
+      <div class="popular-posts-title"><a href="\2020\03\17\Java继承\" rel="bookmark">Java继承</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\02\04\python刷题\" rel="bookmark">python刷题</a></div>
+      <div class="popular-posts-title"><a href="\2020\03\02\java\" rel="bookmark">java程序基础</a></div>
     </li>
   </ul>
 
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/ACM/" rel="tag"><i class="fa fa-tag"></i> ACM</a>
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           </div>
 
         
@@ -319,13 +328,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/03/11/Java%E4%BF%AE%E9%A5%B0%E7%AC%A6/" rel="prev" title="Java修饰符">
-      <i class="fa fa-chevron-left"></i> Java修饰符
+    <a href="/2020/03/17/Java%E5%A4%9A%E6%80%81/" rel="prev" title="Java多态">
+      <i class="fa fa-chevron-left"></i> Java多态
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/03/11/scanner%E7%B1%BB/" rel="next" title="scanner类">
-      scanner类 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -386,7 +392,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单调栈"><span class="nav-number">1.</span> <span class="nav-text">单调栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">1.2.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思想和解法"><span class="nav-number">1.3.</span> <span class="nav-text">思想和解法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">1.3.1.</span> <span class="nav-text">优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相同题型"><span class="nav-number">1.4.</span> <span class="nav-text">相同题型</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#抽象类-abstract"><span class="nav-number">1.</span> <span class="nav-text">抽象类($abstract$)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口-interface"><span class="nav-number">2.</span> <span class="nav-text">接口(interface)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#default-方法"><span class="nav-number">2.1.</span> <span class="nav-text">$default$方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#static"><span class="nav-number">3.</span> <span class="nav-text">$static$</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态字段"><span class="nav-number">3.1.</span> <span class="nav-text">静态字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态方法"><span class="nav-number">3.2.</span> <span class="nav-text">静态方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口的静态字段"><span class="nav-number">3.3.</span> <span class="nav-text">接口的静态字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态代码块"><span class="nav-number">3.4.</span> <span class="nav-text">静态代码块</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
