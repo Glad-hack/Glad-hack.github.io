@@ -15,8 +15,9 @@
 </li>
 <li><p>if(a[i].compareTo(n)&gt;=0 &amp;&amp;a[i].compareTo(m)&lt;=0)   // a[i]&gt;=n &amp;&amp; a[i]&lt;=m </p>
 </li>
-<li>所有比较可以按照string比较规则来比较<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><a href="https://www.cnblogs.com/unknownname/p/8823887.html" target="_blank" rel="noopener">biginteger</a></li>
+<li>所有比较可以按照string比较规则来比较</li>
 </ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.cnblogs.com/unknownname/p/8823887.html" target="_blank" rel="noopener">biginteger</a></p>
 ]]></content>
       <categories>
         <category>Java</category>
