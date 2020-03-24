@@ -47,18 +47,18 @@
   };
 </script>
 
-  <meta name="description" content="$dict$我发现与$c++$的$map$十分相似,而$set$好像名字都没变，由于$c++$只学皮毛，就不瞎说了，慢慢学吧">
-<meta name="keywords" content="python">
+  <meta name="description" content="不得不说，这个最短路实在是有点精妙了，看题解差点没看懂。">
+<meta name="keywords" content="ACM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dict和set">
-<meta property="og:url" content="https:&#x2F;&#x2F;www.dream-ak.top&#x2F;2020&#x2F;02&#x2F;03&#x2F;dict%E5%92%8Cset&#x2F;index.html">
+<meta property="og:title" content="codeforces1307D">
+<meta property="og:url" content="https:&#x2F;&#x2F;www.dream-ak.top&#x2F;2020&#x2F;03&#x2F;24&#x2F;codeforces1307D&#x2F;index.html">
 <meta property="og:site_name" content="孤独行者">
-<meta property="og:description" content="$dict$我发现与$c++$的$map$十分相似,而$set$好像名字都没变，由于$c++$只学皮毛，就不瞎说了，慢慢学吧">
+<meta property="og:description" content="不得不说，这个最短路实在是有点精妙了，看题解差点没看懂。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-22T06:45:45.189Z">
+<meta property="og:updated_time" content="2020-03-24T14:37:12.296Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://www.dream-ak.top/2020/02/03/dict%E5%92%8Cset/">
+<link rel="canonical" href="https://www.dream-ak.top/2020/03/24/codeforces1307D/">
 
 
 <script id="page-configurations">
@@ -70,7 +70,7 @@
   };
 </script>
 
-  <title>dict和set | 孤独行者</title>
+  <title>codeforces1307D | 孤独行者</title>
   
 
 
@@ -181,7 +181,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.dream-ak.top/2020/02/03/dict%E5%92%8Cset/">
+    <link itemprop="mainEntityOfPage" href="https://www.dream-ak.top/2020/03/24/codeforces1307D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/vscode.jpg">
@@ -194,7 +194,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          dict和set
+          codeforces1307D
         </h1>
 
         <div class="post-meta">
@@ -203,24 +203,18 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-02-03 15:01:13" itemprop="dateCreated datePublished" datetime="2020-02-03T15:01:13+08:00">2020-02-03</time>
+              <time title="创建时间：2020-03-24 22:07:50 / 修改时间：22:37:12" itemprop="dateCreated datePublished" datetime="2020-03-24T22:07:50+08:00">2020-03-24</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-22 14:45:45" itemprop="dateModified" datetime="2020-02-22T14:45:45+08:00">2020-02-22</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
-                    <span itemprop="name">python基础</span>
+                  <a href="/categories/%E5%9B%BE%E8%AE%BA/" itemprop="url" rel="index">
+                    <span itemprop="name">图论</span>
                   </a>
                 </span>
             </span>
@@ -241,8 +235,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/02/03/dict%E5%92%8Cset/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/03/dict%E5%92%8Cset/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/03/24/codeforces1307D/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/24/codeforces1307D/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -252,14 +246,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -271,53 +265,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>$dict$我发现与$c++$的$map$十分相似,而$set$好像名字都没变，由于$c++$只学皮毛，就不瞎说了，慢慢学吧<a id="more"></a></p>
-<h1 id="dict"><a href="#dict" class="headerlink" title="$dict$"></a>$dict$</h1><h2 id="dict-的结构"><a href="#dict-的结构" class="headerlink" title="$dict$的结构"></a>$dict$的结构</h2><p>这里按照廖雪峰的介绍给出两种方式</p>
-<ol>
-<li>按照字典树的方式建立一棵字典树，优点不会出现冲突，可直接使用，缺点相较于哈希来说，查找较慢</li>
-<li>直接建立一个哈希表，每一次按照$key$直接哈希地址然后得到答案，优点，查找方便。缺点：容易出现哈希冲突。</li>
-</ol>
-<p>$dict$是第二种建立方式，因此$key$的值是唯一的，不可重复，<strong>如果重复了那么就会将前面得到的数据丢失冲掉。</strong></p>
-<h2 id="dict-的建立"><a href="#dict-的建立" class="headerlink" title="$dict$的建立"></a>$dict$的建立</h2><p>首先来看一段代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a=&#123;&#125;</span><br><span class="line">a[&apos;peng&apos;] = 4</span><br><span class="line">a[&apos;我&apos;] = 5</span><br><span class="line">print(a[&apos;我&apos;])</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>$output$<br>5</p>
-</blockquote>
-<p>可以看到我们是通过大括号{}来定义一个空$dict$然后添加直接赋值就好了。调用直接访问$key$就行了，但是一定要保证这个$key$存在。<br>判断$key$存在性的办法：</p>
-<blockquote>
-<ol>
-<li>$print(‘我’\ in\ a) $<br>如果存在，返回$true$。不存在返回false。</li>
-<li>$print(a.get( ‘我’,x))$<br>当不存在‘我’时返回$x$值</li>
-</ol>
-</blockquote>
-<h2 id="dict-的删除"><a href="#dict-的删除" class="headerlink" title="$dict$的删除"></a>$dict$的删除</h2><p>这个的删除我们前提是$key$存在,如果存在，我们就可以像$list$一样删除它。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a.pop(&apos;peng&apos;)</span><br><span class="line">print(a.get(&apos;peng&apos;,777))</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>$output$<br>777</p>
-</blockquote>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>$dict$可以用在需要高速查找的很多地方，在$Python$代码中几乎无处不在，正确使用$dict$非常重要，需要牢记的第一条就是$dict$的key必须是不可变对象。</p>
-<p>这是因为$dict$根据$key$来计算$value$的存储位置，如果每次计算相同的$key$得出的结果不同，那$dict$内部就完全混乱了。这个通过$key$计算位置的算法称为哈希算法$（Hash）$。</p>
-<p>要保证$hash$的正确性，作为$key$的对象就不能变。在$Python$中，字符串、整数等都是不可变的，因此，可以放心地作为$key$。而$list$是可变的，就不能作为$key$</p>
-<h1 id="set"><a href="#set" class="headerlink" title="$set$"></a>$set$</h1><p>$set$一般用于去重和集合操作，它可以对集合进行”与”、”或”操作.</p>
-<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>创建一个空$set$<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a = set()</span><br></pre></td></tr></table></figure></p>
-<p>创建一个$set$我们一般是要一个$list$做输入集合<br>看一段代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">l = [1,1,5,9,3,8,9]</span><br><span class="line">a = set(l)</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>$output$<br>{1, 3, 5, 8, 9}</p>
-</blockquote>
-<p>很明显它自己去重了，同时<strong>不要被表面所迷惑$set$是无序的</strong></p>
-<h2 id="set-怎么添加元素？"><a href="#set-怎么添加元素？" class="headerlink" title="$set$怎么添加元素？"></a>$set$怎么添加元素？</h2><p>答案下行揭晓<br>$a.add(x)$参数$x$是你要添加的$key$<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a.add(2)</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>$output$<br>{1, 2, 3, 5, 8, 9}</p>
-</blockquote>
-<h2 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h2><p>我们一般通过$a.remove(x)$删除,$x$是你要删除的$key$<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a.remove(2)</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>$output$<br>{1, 3, 5, 8, 9}</p>
-</blockquote>
-<h2 id="集合操作"><a href="#集合操作" class="headerlink" title="集合操作"></a>集合操作</h2><p>直接&amp;或者|就好了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">b=set([1,2])</span><br><span class="line">print(a&amp;b)</span><br><span class="line">print(a|b)</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>$output$<br>{1}<br>{1, 2, 3, 5, 8, 9}</p>
-</blockquote>
-<h2 id="不可变变量"><a href="#不可变变量" class="headerlink" title="不可变变量"></a>不可变变量</h2><p>字符串属于不可变变量，同时$list$是一个可变变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = &quot;abc&quot;</span><br><span class="line">print(a.replace(&apos;a&apos;,&apos;A&apos;))</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure></p>
+        <p>不得不说，这个最短路实在是有点精妙了，看题解差点没看懂。<a id="more"></a></p>
+<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="https://codeforces.ml/problemset/problem/1307/D" target="_blank" rel="noopener">题目链接</a></h1><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>已知一个连通图，每条边b(无向边)长度都为一，给我们一些点，求在这些点里面任意取两点之间建一条边(长度为一)后，使得从1到n的最短距离最长！求该两点。<br>说白了就是加一条边后形成最长最短路，问在哪里加。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>对于这一题，毫无疑问我们先要求出该1到其他所有点的最短距离$dis1$，和n到其他所有点的最短距离$dis$。那么最短路一定是$ ans = min(dis1[a]+dis[b]+1,dis1[b]+dis[a]+1)$<br>枚举$a$与$b$找到最大的数字$ans$就好了，但是由于$a$的数字太多了，$O(n^2)$肯定不行，所以这就是该题的最难点，如何找到这个最大值！<br>首先我们可以假设</p>
+<script type="math/tex; mode=display">dis1[a]+dis[b] \leq dis1[b]+dis[a]</script><p>推导发现</p>
+<script type="math/tex; mode=display">dis1[a]-dis[a] \leq dis1[b]-dis[b]</script><p>也就是说只要前面的值小于等于后面的值，那么$ ans = min(dis1[a]+dis[b]+1,dis1[b]+dis[a]+1)$就可以化简为$ans = dis1[a]+dis[b]+1$，那么我们首先对给我们的点按照$dis1[a]-dis[a]$从小到大排序后，开始从前往后枚举点，i为枚举的下标，$ans=max(x+dis[i]+1),x=max(x,dis1[x])$，$x$代表1到枚举过的点之间的最长距离。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 4e5+5;</span><br><span class="line">typedef long long ll;</span><br><span class="line">struct ED&#123;</span><br><span class="line">    int pre,id;</span><br><span class="line">&#125;ed[N];</span><br><span class="line">int p[N];</span><br><span class="line"></span><br><span class="line">int head[N],tot=0,a[N],vis[N],dis1[N],dis[N];</span><br><span class="line">void add(int u,int v)&#123;</span><br><span class="line">    ed[++tot].id=v;</span><br><span class="line">    ed[tot].pre=head[u];</span><br><span class="line">    head[u]=tot;</span><br><span class="line">&#125;</span><br><span class="line">void dij(int x)&#123;</span><br><span class="line">    memset(dis,0x3f,sizeof(dis));</span><br><span class="line">    priority_queue&lt;pair&lt;int,int&gt; &gt;q;</span><br><span class="line">    dis[x]=0;</span><br><span class="line">    q.push(make_pair(0,x));</span><br><span class="line">    while(!q.empty())&#123;</span><br><span class="line">        int u=q.top().second;</span><br><span class="line">        q.pop();</span><br><span class="line">        if(vis[u]) continue;</span><br><span class="line">        vis[u]=1;</span><br><span class="line">        for(int i=head[u];i;i=ed[i].pre)&#123;</span><br><span class="line">            int v=ed[i].id;</span><br><span class="line">            if(dis[v]&gt;dis[u]+1)&#123;</span><br><span class="line">                dis[v]=dis[u]+1;</span><br><span class="line">                q.push(make_pair(-dis[v],v));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,m,i,j,k,t=0;</span><br><span class="line">    scanf(&quot;%d %d %d&quot;,&amp;n,&amp;m,&amp;k);</span><br><span class="line">    for(i=1;i&lt;=k;i++) scanf(&quot;%d&quot;,&amp;a[++t]);</span><br><span class="line">    for(i=1;i&lt;=m;i++)&#123;</span><br><span class="line">        int u,v;</span><br><span class="line">        scanf(&quot;%d %d&quot;,&amp;u,&amp;v);</span><br><span class="line">        add(u,v);</span><br><span class="line">        add(v,u);</span><br><span class="line">    &#125;</span><br><span class="line">    dij(1);</span><br><span class="line">    for(i=1;i&lt;=n;i++) dis1[i]=dis[i];</span><br><span class="line">    //printf(&quot;%dss\n&quot;,dis1[n]);</span><br><span class="line">    memset(vis,0,sizeof vis);</span><br><span class="line">    dij(n);</span><br><span class="line">    int sum=2e9+9;</span><br><span class="line">    vector&lt;pair&lt;int,int&gt; &gt; dat;</span><br><span class="line">    for(i=1;i&lt;=t;i++)&#123;</span><br><span class="line">        dat.push_back(make_pair(dis1[a[i]]-dis[a[i]],a[i]));</span><br><span class="line">    &#125;</span><br><span class="line">    sort(dat.begin(),dat.end());</span><br><span class="line">    int mm = -2e9+9,best=0;</span><br><span class="line">    for(i=0;i&lt;t;i++)&#123;</span><br><span class="line">        int x = dat[i].second;</span><br><span class="line">        best = max(best,mm+dis[x]);</span><br><span class="line">        mm = max(mm,dis1[x]);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d\n&quot;,min(best+1,dis1[n]));</span><br><span class="line">    //system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://codeforces.ml/blog/entry/73953" target="_blank" rel="noopener">cf题解</a></p>
 
     </div>
 
@@ -328,26 +282,26 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\02\04\map与reduce\" rel="bookmark">map与reduce</a></div>
+      <div class="popular-posts-title"><a href="\2020\03\04\1320B\" rel="bookmark">最短路径图</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\02\02\list和tuple\" rel="bookmark">list和tuple</a></div>
+      <div class="popular-posts-title"><a href="\2019\11\26\IncDec序列   差分数组\" rel="bookmark">差分数组实例</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\02\02\python启动\" rel="bookmark">python启动</a></div>
+      <div class="popular-posts-title"><a href="\2020\03\04\1305D\" rel="bookmark">交互1305D</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\02\02\python字符串\" rel="bookmark">python字符串和数组元组</a></div>
+      <div class="popular-posts-title"><a href="\2020\02\29\poj3694-tarjan\" rel="bookmark">poj3694-tarjan</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\03\06\python文件操作\" rel="bookmark">python文件操作</a></div>
+      <div class="popular-posts-title"><a href="\2020\02\04\python刷题\" rel="bookmark">python刷题</a></div>
     </li>
   </ul>
 
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+              <a href="/tags/ACM/" rel="tag"><i class="fa fa-tag"></i> ACM</a>
           </div>
 
         
@@ -361,13 +315,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/02/03/%E6%9D%A1%E4%BB%B6%E4%B8%8E%E5%BE%AA%E7%8E%AF/" rel="prev" title="条件与循环">
-      <i class="fa fa-chevron-left"></i> 条件与循环
+    <a href="/2020/03/21/Java%E7%9A%84biginteger/" rel="prev" title="Java的biginteger">
+      <i class="fa fa-chevron-left"></i> Java的biginteger
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/02/03/%E5%87%BD%E6%95%B0/" rel="next" title="函数">
-      函数 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -428,7 +379,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#dict"><span class="nav-number">1.</span> <span class="nav-text">$dict$</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dict-的结构"><span class="nav-number">1.1.</span> <span class="nav-text">$dict$的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dict-的建立"><span class="nav-number">1.2.</span> <span class="nav-text">$dict$的建立</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dict-的删除"><span class="nav-number">1.3.</span> <span class="nav-text">$dict$的删除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">1.4.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#set"><span class="nav-number">2.</span> <span class="nav-text">$set$</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建"><span class="nav-number">2.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set-怎么添加元素？"><span class="nav-number">2.2.</span> <span class="nav-text">$set$怎么添加元素？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除元素"><span class="nav-number">2.3.</span> <span class="nav-text">删除元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合操作"><span class="nav-number">2.4.</span> <span class="nav-text">集合操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不可变变量"><span class="nav-number">2.5.</span> <span class="nav-text">不可变变量</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题目链接"><span class="nav-number">1.</span> <span class="nav-text">题目链接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目大意"><span class="nav-number">1.1.</span> <span class="nav-text">题目大意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">1.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">1.3.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.4.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
