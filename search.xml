@@ -22,7 +22,8 @@
     <title>Java的biginteger</title>
     <url>/2020/03/21/Java%E7%9A%84biginteger/</url>
     <content><![CDATA[<p>哈哈哈，终于开始Java的大数模拟，以前以为python大数好，不知为啥看了以后直接有点不相信他了(时间复杂度)，所以还是看Java吧<a id="more"></a></p>
-<h2 id="1-赋值："><a href="#1-赋值：" class="headerlink" title="1.赋值："></a>1.赋值：</h2><figure class="highlight plain"><figcaption><span>a</span></figcaption><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">```BigInteger b=BigInteger.valueOf(1);</span><br></pre></td></tr></table></figure>
+<h2 id="1-赋值："><a href="#1-赋值：" class="headerlink" title="1.赋值："></a>1.赋值：</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BigInteger a=new BigInteger(&quot;1&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BigInteger b=BigInteger.valueOf(1);</span><br></pre></td></tr></table></figure>
 <h2 id="2-运算："><a href="#2-运算：" class="headerlink" title="2.运算："></a>2.运算：</h2><p>① add(); 大整数相加<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BigInteger a=new BigInteger(“23”); </span><br><span class="line">BigInteger b=new BigInteger(“34”); </span><br><span class="line">a. add(b);</span><br></pre></td></tr></table></figure></p>
 <p>②subtract(); 相减<br>③multiply(); 相乘<br>④divide(); 相除取整<br>⑤remainder(); 取余<br>⑥pow(); a.pow(b)=a^b<br>⑦gcd(); 最大公约数<br>⑧abs(); 绝对值<br>⑨negate(); 取反数<br>⑩mod(); a.mod(b)=a%b=a.remainder(b); </p>
 <h2 id="3-BigInteger构造函数："><a href="#3-BigInteger构造函数：" class="headerlink" title="3.BigInteger构造函数："></a>3.BigInteger构造函数：</h2><p>一般用到以下两种：<br><code>BigInteger(String val);</code><br>将指定字符串转换为十进制表示形式；<br><code>BigInteger(String val,int radix);</code><br>将指定基数的 BigInteger 的字符串表示形式转换为 BigInteger </p>
