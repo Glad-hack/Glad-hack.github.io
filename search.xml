@@ -458,19 +458,18 @@
 </tr>
 <tr>
 <td style="text-align:center">show tables</td>
-<td style="text-align:center">查看当前选定数据库包含表格</td>
-</tr>
-<tr>
-<td style="text-align:center">insert into name(变量名) values (变量值)</td>
-<td style="text-align:center">在name表格插入数据</td>
-</tr>
-<tr>
-<td style="text-align:center">select (变量名或者*) from name</td>
-<td style="text-align:center">从name表格中查看变量名的所有数据(*代表查看所有数据)</td>
+<td style="text-align:center">查看当前选定数据库包含的表格</td>
 </tr>
 </tbody>
 </table>
 </div>
+<h4 id="数据添加"><a href="#数据添加" class="headerlink" title="数据添加"></a>数据添加</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">insert into 表名 (字段1，字段2，...) value (值1，值2，...)</span><br></pre></td></tr></table></figure>
+<h4 id="数据修改"><a href="#数据修改" class="headerlink" title="数据修改"></a>数据修改</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">update 表名 set (字段1 = 值，字段2 = 值，...) where ...</span><br></pre></td></tr></table></figure>
+<h4 id="数据删除"><a href="#数据删除" class="headerlink" title="数据删除"></a>数据删除</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">delete from 表名 where ...</span><br></pre></td></tr></table></figure>
+<h4 id="数据查询"><a href="#数据查询" class="headerlink" title="数据查询"></a>数据查询</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select * from 表名 where ...</span><br></pre></td></tr></table></figure>
+<p>解释一下，这一句，其中的$*$是通配符，它会显示所有列，如果只要显示部分列的话，可以将其改为需要的列名。</p>
+<h4 id="where-语句"><a href="#where-语句" class="headerlink" title="$where$语句"></a>$where$语句</h4><p>$where$语句类似于C语言的$if$具有判断功能，其中的逻辑符号如下<br>|符号|意义|<br>|:-:|:-:|<br>|not|非|<br>|or|或|<br>|and|且|</p>
+<p>语句执行的优先级(无括号)：$not&gt;and&gt;or$<br>同时除了一般的大于、小于、等于的判断语句外增加了一个like语句，可以判断相似。</p>
 ]]></content>
       <categories>
         <category>数据库</category>
@@ -730,7 +729,7 @@
   <entry>
     <title>两数之和</title>
     <url>/2020/02/29/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
-    <content><![CDATA[<p>leetcode计划开始了，以后每天刷1道力扣题打卡，尽量不用ACM本命C与C++(除非实在不会用java或python来写了)。<br><a id="more"></a></p>
+    <content><![CDATA[<p>leetcode计划开始了，尽量不用ACM本命C与C++(除非实在不会用java或python来写了)。<br><a id="more"></a></p>
 <h1 id="第一题：两数之和"><a href="#第一题：两数之和" class="headerlink" title="第一题：两数之和"></a>第一题：两数之和</h1><p>题意：给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。<br>对于这个题目，因为简单，所以这里提供的解法有如下几种</p>
 <ol>
 <li>暴力$O(n*n)$<br>每一次枚举一个i然后从i开始往后找另一个值与之相加为x的数字，找到则直接返回下标。</li>
