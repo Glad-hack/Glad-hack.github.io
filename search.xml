@@ -347,7 +347,7 @@
     <content><![CDATA[<p>最近搭建了一个服务器，需要管理数据库了，嗯，其实还有是我数据库也开了课，就一起学吧。这一片单纯介绍数据库常见常用命令<a id="more"></a></p>
 <h1 id="数据库常用命令"><a href="#数据库常用命令" class="headerlink" title="数据库常用命令"></a>数据库常用命令</h1><h2 id="连接MySQL"><a href="#连接MySQL" class="headerlink" title="连接MySQL"></a>连接MySQL</h2><ol>
 <li>mysql -h 主机地址 -u 用户名 -p 用户密码<br>如果是本地登录则不需要-h的主机地址<br>如下是Linux服务器打开方式，本地登录没有h<img src="/2020/03/10/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/登录.png" alt="登录"><br>windows打开方式：<br>先要进入如图这个目录，不进入的话该命令会无效的，我就不细说，大家应该都是一个目录里面。<br><img src="/2020/03/10/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/windows.png" alt="1"><h2 id="退出MySQL"><a href="#退出MySQL" class="headerlink" title="退出MySQL"></a>退出MySQL</h2>输入exit然后回车就完事了<h2 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h2>退出MySQL以后在同一个目录使用如下命令</li>
-<li>mysqlsdmin -u root -p密码 password<br>-p密码那里是连起来的，直接回车如图<br><img src="/2020/03/10/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/修改密码.png" alt="1"><h2 id="操作命令"><a href="#操作命令" class="headerlink" title="操作命令"></a>操作命令</h2>首先写在前面：</li>
+<li>mysqladmin -u root -p密码 password<br>-p密码那里是连起来的，直接回车如图<br><img src="/2020/03/10/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/修改密码.png" alt="1"><h2 id="操作命令"><a href="#操作命令" class="headerlink" title="操作命令"></a>操作命令</h2>首先写在前面：</li>
 <li>对于一个数据库操作命令都是以一个英文分号”;”结束。</li>
 </ol>
 <p>如果你输入命令错误，可以选择先输入一个分号，让他执行错误命令，重新输入。</p>

@@ -1186,7 +1186,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #50ff93;
+  background: #ffffde;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2721,4 +2721,7 @@ body {
 }
 .content-wrap {
   opacity: 0.8;
+}
+#waifu {
+  left: 1000px;
 }
