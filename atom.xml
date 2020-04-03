@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.dream-ak.top/"/>
-  <updated>2020-03-30T09:59:58.259Z</updated>
+  <updated>2020-04-03T01:31:06.550Z</updated>
   <id>https://www.dream-ak.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>打假项目</title>
+    <link href="https://www.dream-ak.top/2020/04/03/%E6%89%93%E5%81%87%E9%A1%B9%E7%9B%AE/"/>
+    <id>https://www.dream-ak.top/2020/04/03/%E6%89%93%E5%81%87%E9%A1%B9%E7%9B%AE/</id>
+    <published>2020-04-03T00:13:32.000Z</published>
+    <updated>2020-04-03T01:31:06.550Z</updated>
+    
+    <content type="html"><![CDATA[<p>看了一下，整个项目计划非常完整，有点吓到我了，第一次参加这种项目，有点小慌。<br><a id="more"></a><br>我提出几个问题，后面也草拟了一份解决方案。</p><h1 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h1><h2 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h2><p>假设出现了一瓶假酒，我该怎么办？我记录了这瓶酒的运输路径，但是在哪里被调包了？肯定要找到这个人吧？难道这条路径上的代理商都判错？</p><h2 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h2><p>假设有一个人有多个注册的代理商$id$，那么按照层次分明的分级来看，这个人就可能有多个级别，有多个货源，这个时候该怎么办，或者说如果自己做自己的下级代理会不会造成这个防伪标签失效？</p><h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><h2 id="对于问题1"><a href="#对于问题1" class="headerlink" title="对于问题1"></a>对于问题1</h2><p>先定义一下假酒：<strong>不得到厂方认可的酒就叫假酒！</strong><br>我的想法是，$直接责任制$，在出现假酒的第一时刻我们就应该反应过来，而不是说我们后知后觉当客户用了，我们才知道，酒假了。我的方案是<strong>代理商责任制</strong></p><blockquote><p>解释一下<br>什么是代理商责任制：一单位酒从代理商出手以后，不在对这瓶酒负责，如果出现了假酒，与这个代理商无关。<br>一单位酒从入手开始，代理商应该对这瓶酒负责，出现了问题，那么就是这个代理商的问题。</p></blockquote><p>通过这个方案，优点代理商买进每一单位酒他都会自己去检查酒的防伪标签，出现问题可以及时查处。</p><h2 id="对于问题2"><a href="#对于问题2" class="headerlink" title="对于问题2"></a>对于问题2</h2><p>层次分明的代理商我们是可以做到的，但是人可以有多个代理商账号，我们是无法解决的！我这里提出几个新概念：</p><blockquote><ol><li>销售网络：每一个代理商账户都是销售网络的一个节点。(会造成层级更加不分明)</li><li>边缘销售节点：对于销售网络里面的直接向客户出售的代理商都是一个边缘销售节点</li></ol></blockquote><p>这样能解决什么？</p><ol><li>我们就把当前问题细分，得到了一个有效方案，每一个防伪标签都指向当前代理商。而在于一个边缘销售节点出手的标签应该要特殊处理，防止它不经过我们同意再次进入市场流通。目标更加明确！</li></ol><p>缺陷问题:<br>层级更加不分明！但是我个人想了一下，层级分明只是为了追责，<strong>代理商责任制</strong>把追责问题及时解决，那么追责问题也就没有了，我们也没必要给他们划分等级了。</p><p>鉴于增加一个代理商我们需要怎么做？我们可以这样设置，每一个代理商发展自己的代理商，可以向总厂请求$id$，经我方同意，将$id$设置为他的下级标签，由他分配，同时日后他发展的代理商出现假酒，他也应该负部分责任！</p><h2 id="防伪标签"><a href="#防伪标签" class="headerlink" title="防伪标签"></a>防伪标签</h2><p>对于防伪标签我的设计是两种形式，分为显式与隐式！</p><ol><li>显示是固定不变的，放到一单位酒上面，唯一指向一个隐式标记。</li><li>隐式是动态的，有三种形态，每种形态里面包含一个字符表示当前形态。</li><li>字符1表示在销售网络代理商手上时的标记</li><li>字符2表示非边缘网络节点出手后的标记</li><li>字符0表示边缘节点向客户出售后的标记，且该标签不得再次改变！</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;看了一下，整个项目计划非常完整，有点吓到我了，第一次参加这种项目，有点小慌。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="项目" scheme="https://www.dream-ak.top/categories/%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+      <category term="项目" scheme="https://www.dream-ak.top/tags/%E9%A1%B9%E7%9B%AE/"/>
+    
+  </entry>
   
   <entry>
     <title>lcs与lis</title>
@@ -450,29 +473,6 @@
     
     
       <category term="leetcode" scheme="https://www.dream-ak.top/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>两数之和</title>
-    <link href="https://www.dream-ak.top/2020/02/29/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
-    <id>https://www.dream-ak.top/2020/02/29/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</id>
-    <published>2020-02-29T14:22:23.000Z</published>
-    <updated>2020-03-26T09:19:37.536Z</updated>
-    
-    <content type="html"><![CDATA[<p>leetcode计划开始了，尽量不用ACM本命C与C++(除非实在不会用java或python来写了)。<br><a id="more"></a></p><h1 id="第一题：两数之和"><a href="#第一题：两数之和" class="headerlink" title="第一题：两数之和"></a>第一题：两数之和</h1><p>题意：给定一个整数数组 nums 和一个目标值 target，请你在该数组中找出和为目标值的那 两个 整数，并返回他们的数组下标。<br>对于这个题目，因为简单，所以这里提供的解法有如下几种</p><ol><li>暴力$O(n*n)$<br>每一次枚举一个i然后从i开始往后找另一个值与之相加为x的数字，找到则直接返回下标。</li><li>字典映射<br>对于每一个数字由于只有两个$(x,y)$数字，那么我们假设其中一个数字为$x$，则另一个数字一定是$target-x$<br>通过这个特性，我们可以选择建立一个dict{x:i},x为差值，i为下标，我们每一次假设一个x时则查看前面是否出现过target-x，出现了直接返回就好了，没出现则加入字典。时间复杂度$O(n)$,特别注意，py字典是哈希映射的，不是字典树。<br>32ms<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def twoSum(self, nums: List[int], target: int) -&gt; List[int]:</span><br><span class="line">        num=&#123;&#125;</span><br><span class="line">        pos=0</span><br><span class="line">        for i in nums:</span><br><span class="line">            x = target - i</span><br><span class="line">            if num.get(x,-1)!=-1:</span><br><span class="line">                return [num[x],pos]</span><br><span class="line">            num[i]=pos</span><br><span class="line">            pos+=1</span><br></pre></td></tr></table></figure></li><li>二分<br>建立一个$list$存储大小与下标，然后对大小从小到大排序，接下来用二分查找向后查找$target-x$时间复杂度$n*log_2 n$<br>54ms<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def twoSum(self, nums: List[int], target: int) -&gt; List[int]:</span><br><span class="line">        lenth=len(nums)</span><br><span class="line">        a=[[nums[pos],pos] for pos in range(0,lenth,1)]</span><br><span class="line">        b = sorted(a,key=lambda x: x[0])</span><br><span class="line">        for i in range(0,lenth,1):</span><br><span class="line">            x = target-b[i][0]</span><br><span class="line">            l , r = i+1,len(b)-1</span><br><span class="line">            while(l&lt;r):</span><br><span class="line">                mid=(l+r)//2</span><br><span class="line">                if b[mid][0]&gt;=x:</span><br><span class="line">                    r=mid</span><br><span class="line">                elif b[mid][0]&lt;x:</span><br><span class="line">                    l=mid+1</span><br><span class="line">            if b[l][0]==x:</span><br><span class="line">                x = [b[i][1],b[l][1]]</span><br><span class="line">                y=sorted(x)</span><br><span class="line">                return y</span><br></pre></td></tr></table></figure><h2 id="自我总结"><a href="#自我总结" class="headerlink" title="自我总结"></a>自我总结</h2>对于这一题，我的个人总结是用python实现了一次二分同时学会了排序<br>sorted函数带三个参数：</li><li>要排序数组</li><li>排序方式，是一个函数<br>写法key=一个函数，这里是lambda x:x[0]按照第一个值排序</li><li>reverse反转，让她从小到大与从大到小之间变化</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;leetcode计划开始了，尽量不用ACM本命C与C++(除非实在不会用java或python来写了)。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="leetcode" scheme="https://www.dream-ak.top/categories/leetcode/"/>
-    
-    
-      <category term="ACM" scheme="https://www.dream-ak.top/tags/ACM/"/>
     
   </entry>
   
