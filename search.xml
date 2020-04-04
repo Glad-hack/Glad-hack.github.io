@@ -6,7 +6,7 @@
     <content><![CDATA[<p>思考良久，是时候拾起以前的字符串了，动态规划先放下吧，毕竟人笨，先把部分板子搞定！<a id="more"></a></p>
 <h1 id="复习kmp算法"><a href="#复习kmp算法" class="headerlink" title="复习kmp算法"></a>复习kmp算法</h1><h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><p>该算法一般用来做字符串匹配，比如在$A$串中寻找与$B$相同的子串。</p>
 <h2 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h2><h3 id="朴素思想"><a href="#朴素思想" class="headerlink" title="朴素思想"></a>朴素思想</h3><p>枚举$A$里面所有长度与$B$相同长度的字符串进行比较，每一个都枚举出来，有的话就一定匹配成功，就会有答案。</p>
-<h4 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h4><p>枚举所有子串，复杂度$O(NlogN)$</p>
+<h4 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h4><p>枚举所有子串，复杂度$O(N*M)$</p>
 <h3 id="kmp匹配思想"><a href="#kmp匹配思想" class="headerlink" title="kmp匹配思想"></a>kmp匹配思想</h3><p>把一个匹配分成两个阶段，我先介绍完两个阶段，最后解释两个阶段的含义以及用途</p>
 <ol>
 <li>第一个阶段，对于$B$字符串我们首先对其单独进行一次处理，形成一个$next[]$数组，同时$next[i]$表示前$i-1$个字符的前缀与后缀的最长匹配。<br>“前缀”指除了最后一个字符以外，一个字符串的全部头部组合；<br>“后缀”指除了第一个字符以外，一个字符串的全部尾部组合。</li>
