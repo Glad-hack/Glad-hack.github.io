@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Java连接数据库</title>
+    <url>/2020/04/07/Java%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
+    <content><![CDATA[<p>用vscode编译Java一直乱码，我还以为是vscode的问题(毕竟vscode的乱码挺多的)。用回了eclipse以后，发现乱换ide是个不好的习惯，那玩意怎么用啊！于是疯狂捣鼓vscode，终于弄好了Java连接数据库且不乱码了。<a id="more"></a></p>
+<h1 id="Java方面报错"><a href="#Java方面报错" class="headerlink" title="Java方面报错"></a>Java方面报错</h1><p>关于Java方面报错，有个很无语的地方，就是你用控制台输入中文，他会输出空格！一个很诡异的错误，不管怎么调编码格式都没用。找了很久最后看到一个大佬的做法。</p>
+<blockquote>
+<p>第一步：<br>首先在launch.json中关于该文件的地方加上$encoding: “GBK”,$之后你就会发现输入输出都不行了，这时候进行第二步！<br><img src="/2020/04/07/Java%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/GBK.png" alt="GBK"></p>
+<p>第二步：<br>将launcher.bat文件修改一下，将@chcp.com 65001 &gt; NUL 修改成@chcp.com 936 &gt; NUL。个人建议在被修改语句前加个rem就好了，<del>怕以后出问题</del>，bat的注释符号。<br><img src="/2020/04/07/Java%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/launcher.png" alt="launcher.bat"><br><img src="/2020/04/07/Java%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/rem.png" alt="rem"></p>
+<p>第三步：<br>再次尝试运行，你就会发现好了，输入中文也不会乱码。</p>
+</blockquote>
+<h1 id="MySQL数据库的编码格式"><a href="#MySQL数据库的编码格式" class="headerlink" title="MySQL数据库的编码格式"></a>MySQL数据库的编码格式</h1><p>看到这里大家都可能明白我强调Java数据库连接且不乱码了。<br><del>我整了两天一直以为是因为他是gdk编码，怎么传怎么错，学了n久的编码与解码。。。秀的我头皮发麻</del><br>就在刚才，我发现数据库的编码格式有点诡异。<br>首先我们查看数据库的编码格式</p>
+<blockquote>
+<p>show variables like ‘character_set_database’;</p>
+</blockquote>
+<p>紧接着查看数据表的编码格式</p>
+<blockquote>
+<p>show create table &lt;表名&gt;;</p>
+</blockquote>
+<p>修改数据表的编码格式</p>
+<blockquote>
+<p>alter database &lt;数据库名&gt; character set utf8;</p>
+</blockquote>
+<p>创建表格时定义编码格式：</p>
+<blockquote>
+<p>create table tb_books (<br>    name varchar(45) not null,<br>    price double not null,<br>    bookCount int not null,<br>    author varchar(45) not null ) default charset = utf8;</p>
+</blockquote>
+<p>注意这里的编码格式要与$Java$传入参数的编码格式一样！不然会出现乱码，玄学乱码！杀手般的存在。</p>
+<p>到了这里大家伙就会发现已经把问题解决的差不多啦。<del>我解决了你们呢？</del></p>
+<p>关于vscode连接数据库的话，按照$eclipse$的教程其实也不会出多大问题，就是在加入外部包时把整个包放$lib$(没有的，可以自己建一个)文件进去后修改$.classpath$文件路径，增加该路径就差不多加入了。<br><img src="/2020/04/07/Java%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/导入外部包.png" alt=".classpath"></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.cnblogs.com/zeug/p/10516915.html" target="_blank" rel="noopener">查看mysql数据库及表编码格式</a><br><a href="http://blog.ixk.me/vscode-java-output-chinese-garbled-problem-solving.html/comment-page-1" target="_blank" rel="noopener">VSCode Java输出中文乱码问题解决</a><br><a href="http://blog.ixk.me/vscode-java-manually-imports-jar-and-source-package.html" target="_blank" rel="noopener">导入jdbc外部包</a></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>kmp与exkmp</title>
     <url>/2020/04/03/kmp%E4%B8%8Eexkmp/</url>
     <content><![CDATA[<p>思考良久，是时候拾起以前的字符串了，动态规划先放下吧，毕竟人笨，先把部分板子搞定！<a id="more"></a></p>

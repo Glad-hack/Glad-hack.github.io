@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.dream-ak.top/"/>
-  <updated>2020-04-04T02:04:00.138Z</updated>
+  <updated>2020-04-07T13:36:57.023Z</updated>
   <id>https://www.dream-ak.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java连接数据库</title>
+    <link href="https://www.dream-ak.top/2020/04/07/Java%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    <id>https://www.dream-ak.top/2020/04/07/Java%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/</id>
+    <published>2020-04-07T12:57:27.000Z</published>
+    <updated>2020-04-07T13:36:57.023Z</updated>
+    
+    <content type="html"><![CDATA[<p>用vscode编译Java一直乱码，我还以为是vscode的问题(毕竟vscode的乱码挺多的)。用回了eclipse以后，发现乱换ide是个不好的习惯，那玩意怎么用啊！于是疯狂捣鼓vscode，终于弄好了Java连接数据库且不乱码了。<a id="more"></a></p><h1 id="Java方面报错"><a href="#Java方面报错" class="headerlink" title="Java方面报错"></a>Java方面报错</h1><p>关于Java方面报错，有个很无语的地方，就是你用控制台输入中文，他会输出空格！一个很诡异的错误，不管怎么调编码格式都没用。找了很久最后看到一个大佬的做法。</p><blockquote><p>第一步：<br>首先在launch.json中关于该文件的地方加上$encoding: “GBK”,$之后你就会发现输入输出都不行了，这时候进行第二步！<br><img src="/2020/04/07/Java%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/GBK.png" alt="GBK"></p><p>第二步：<br>将launcher.bat文件修改一下，将@chcp.com 65001 &gt; NUL 修改成@chcp.com 936 &gt; NUL。个人建议在被修改语句前加个rem就好了，<del>怕以后出问题</del>，bat的注释符号。<br><img src="/2020/04/07/Java%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/launcher.png" alt="launcher.bat"><br><img src="/2020/04/07/Java%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/rem.png" alt="rem"></p><p>第三步：<br>再次尝试运行，你就会发现好了，输入中文也不会乱码。</p></blockquote><h1 id="MySQL数据库的编码格式"><a href="#MySQL数据库的编码格式" class="headerlink" title="MySQL数据库的编码格式"></a>MySQL数据库的编码格式</h1><p>看到这里大家都可能明白我强调Java数据库连接且不乱码了。<br><del>我整了两天一直以为是因为他是gdk编码，怎么传怎么错，学了n久的编码与解码。。。秀的我头皮发麻</del><br>就在刚才，我发现数据库的编码格式有点诡异。<br>首先我们查看数据库的编码格式</p><blockquote><p>show variables like ‘character_set_database’;</p></blockquote><p>紧接着查看数据表的编码格式</p><blockquote><p>show create table &lt;表名&gt;;</p></blockquote><p>修改数据表的编码格式</p><blockquote><p>alter database &lt;数据库名&gt; character set utf8;</p></blockquote><p>创建表格时定义编码格式：</p><blockquote><p>create table tb_books (<br>    name varchar(45) not null,<br>    price double not null,<br>    bookCount int not null,<br>    author varchar(45) not null ) default charset = utf8;</p></blockquote><p>注意这里的编码格式要与$Java$传入参数的编码格式一样！不然会出现乱码，玄学乱码！杀手般的存在。</p><p>到了这里大家伙就会发现已经把问题解决的差不多啦。<del>我解决了你们呢？</del></p><p>关于vscode连接数据库的话，按照$eclipse$的教程其实也不会出多大问题，就是在加入外部包时把整个包放$lib$(没有的，可以自己建一个)文件进去后修改$.classpath$文件路径，增加该路径就差不多加入了。<br><img src="/2020/04/07/Java%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/导入外部包.png" alt=".classpath"></p><h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.cnblogs.com/zeug/p/10516915.html" target="_blank" rel="noopener">查看mysql数据库及表编码格式</a><br><a href="http://blog.ixk.me/vscode-java-output-chinese-garbled-problem-solving.html/comment-page-1" target="_blank" rel="noopener">VSCode Java输出中文乱码问题解决</a><br><a href="http://blog.ixk.me/vscode-java-manually-imports-jar-and-source-package.html" target="_blank" rel="noopener">导入jdbc外部包</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;用vscode编译Java一直乱码，我还以为是vscode的问题(毕竟vscode的乱码挺多的)。用回了eclipse以后，发现乱换ide是个不好的习惯，那玩意怎么用啊！于是疯狂捣鼓vscode，终于弄好了Java连接数据库且不乱码了。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://www.dream-ak.top/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://www.dream-ak.top/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>kmp与exkmp</title>
@@ -452,29 +475,6 @@
     
     
       <category term="leetcode" scheme="https://www.dream-ak.top/tags/leetcode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java程序基础</title>
-    <link href="https://www.dream-ak.top/2020/03/02/java/"/>
-    <id>https://www.dream-ak.top/2020/03/02/java/</id>
-    <published>2020-03-02T02:28:49.000Z</published>
-    <updated>2020-03-22T04:41:12.413Z</updated>
-    
-    <content type="html"><![CDATA[<p>突然学校开学了，那我就勉为其难开始学习一波Java吧，这里还是写一些对于廖雪峰大神博客的理解和课堂的理解。<br><a id="more"></a></p><h1 id="Java程序基础"><a href="#Java程序基础" class="headerlink" title="Java程序基础"></a>Java程序基础</h1><h2 id="基本单位-Class"><a href="#基本单位-Class" class="headerlink" title="基本单位:Class"></a>基本单位:Class</h2><p>首先对于Java来说他的基本单位是$Class$而不像C语言基本单位是函数！<br>对于每一个类他的定义一般是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">    public static void main()&#123;//方法名是main()</span><br><span class="line">        system.out.println()//system.out.print+line整行输出的意思</span><br><span class="line">        //单行注释</span><br><span class="line">        /*</span><br><span class="line">        多行注释</span><br><span class="line">        */</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这里的public是访问修饰符，表示Class公开</p><h3 id="Class的命名规则"><a href="#Class的命名规则" class="headerlink" title="Class的命名规则"></a>Class的命名规则</h3><p>Class的命名规则与py的Class一样，使用大驼峰规则：</p><blockquote><p>Hello<br>NoteBook<br>VRPlayer</p></blockquote><h3 id="方法的命名规则"><a href="#方法的命名规则" class="headerlink" title="方法的命名规则"></a>方法的命名规则</h3><p>方法名命名规则是小驼峰：</p><blockquote><p>main<br>goodMorning<br>playVR</p></blockquote><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><ol><li>直接与C语言相比，Java的int没有变化，long long变成long，用法不变</li><li>java整数运算没有误差，与C语言没有什么变化</li><li>java浮点数运算有误差，在比较的时候需要表示在一个容错值之中！</li><li>java布尔运算的变量名为boolean，且逻辑运算和三元运算符也有相同用法</li><li>java字符中和C语言字符差不多，但是由于用的Unicode编码，所以空间占两个字节，显示Unicode编码直接将char放到int就好了，由编码转Unicode编码则加上’\u’</li><li>java字符串中和py的string用法相似，都是不可变变量且多行输出用法一样system.out.print(“””…”””);</li><li>java数组操作，对于定义一个int[] ns= new int[5]；这样就是定义一个ns数组，可以用ns.length获取数组长度</li></ol><h2 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h2><h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><ol><li>从数组下标从0到lenth-1挨个访问</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        int[] ns = &#123; 1, 4, 9, 16, 25 &#125;;</span><br><span class="line">        for (int i=0; i&lt;ns.length; i++) &#123;</span><br><span class="line">            int n = ns[i];</span><br><span class="line">            System.out.println(n);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ol><li>用for each迭代答案</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        int[] ns = &#123; 1, 4, 9, 16, 25 &#125;;</span><br><span class="line">        for (int n : ns) &#123;</span><br><span class="line">            System.out.println(n);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>Arrays.sort(数组名称)按升序排序</p><h2 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h2><p>对于java来说，以main函数为程序入口，main(string[] args)这里的string[]是传入命令行参数的入口<br>来看代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        for (String arg : args) &#123;</span><br><span class="line">            if (&quot;-version&quot;.equals(arg)) &#123;</span><br><span class="line">                System.out.println(&quot;v 1.0&quot;);</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>操作方法：<br>首先我们先编译</p><ol><li>javac 待编译文件</li><li>java 文件名 传入参数</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;突然学校开学了，那我就勉为其难开始学习一波Java吧，这里还是写一些对于廖雪峰大神博客的理解和课堂的理解。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Java" scheme="https://www.dream-ak.top/categories/Java/"/>
-    
-    
-      <category term="Java" scheme="https://www.dream-ak.top/tags/Java/"/>
     
   </entry>
   
