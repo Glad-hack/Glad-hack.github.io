@@ -238,6 +238,13 @@
             </span>
 
           
+            <span id="/2020/01/30/vscode%E8%83%8C%E6%99%AF%E9%85%8D%E7%BD%AE/" class="post-meta-item leancloud_visitors" data-flag-title="vscode背景配置" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -583,15 +590,15 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
     });
     new Valine({
       el: '#valine-comments',
-      verify: false,
-      notify: false,
+      verify: true,
+      notify: true,
       appId: 'pFPBehyRHA9lN8VGTr1SYmEz-gzGzoHsz',
       appKey: 'e77gs6hLgV7EFVhUryCCOGqU',
       placeholder: "有问题大家可以一起商量哦",
       avatar: 'mm',
       meta: guest,
       pageSize: '10' || 10,
-      visitor: false,
+      visitor: true,
       lang: '' || 'zh-cn',
       path: location.pathname,
       recordIP: false,

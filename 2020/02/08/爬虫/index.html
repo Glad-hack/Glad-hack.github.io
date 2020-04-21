@@ -241,6 +241,13 @@
             </span>
 
           
+            <span id="/2020/02/08/%E7%88%AC%E8%99%AB/" class="post-meta-item leancloud_visitors" data-flag-title="爬虫" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -336,10 +343,10 @@
       <div class="popular-posts-title"><a href="\2020\02\03\dict和set\" rel="bookmark">dict和set</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\02\02\list和tuple\" rel="bookmark">list和tuple</a></div>
+      <div class="popular-posts-title"><a href="\2020\02\04\map与reduce\" rel="bookmark">map与reduce</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\02\04\map与reduce\" rel="bookmark">map与reduce</a></div>
+      <div class="popular-posts-title"><a href="\2020\02\02\list和tuple\" rel="bookmark">list和tuple</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2020\02\02\python启动\" rel="bookmark">python启动</a></div>
@@ -677,15 +684,15 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
     });
     new Valine({
       el: '#valine-comments',
-      verify: false,
-      notify: false,
+      verify: true,
+      notify: true,
       appId: 'pFPBehyRHA9lN8VGTr1SYmEz-gzGzoHsz',
       appKey: 'e77gs6hLgV7EFVhUryCCOGqU',
       placeholder: "有问题大家可以一起商量哦",
       avatar: 'mm',
       meta: guest,
       pageSize: '10' || 10,
-      visitor: false,
+      visitor: true,
       lang: '' || 'zh-cn',
       path: location.pathname,
       recordIP: false,
