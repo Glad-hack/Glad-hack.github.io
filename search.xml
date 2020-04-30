@@ -1796,7 +1796,7 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">$ φ(x <em> y) = φ(x) </em> φ(y) $</td>
+<td style="text-align:center">$ φ(x * y) = φ(x) * φ(y) $</td>
 <td style="text-align:center"><strong>当且(x,y)==1</strong></td>
 </tr>
 <tr>
