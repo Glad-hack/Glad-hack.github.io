@@ -5,7 +5,7 @@
     <url>/2020/04/23/codeforces1343F-set%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<p>这道F题说句实在的，题意能把人看蒙了，看懂了倒是挺简单的，反正我一开始把题意看难了。<a id="more"></a></p>
 <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a><a href="https://codeforces.ml/contest/1343/problem/F" target="_blank" rel="noopener">题目</a></h1><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>存在一个长度为$n$的排列$a$，然后给出$n-1$个子排列，其中每个子排列的元素为$[a_l,a_{l+1},…,a_r]$，其中$r$是由$2-n$里面的数字，每一个数字必将出现一次。求原来的排列。</p>
-<h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>看到这个每一个数字必将出现一次，就可能想到一个问题了，如果我把$r$前面所有的数字全部确定了，那么第$r$个数字也应该确定了！<br>证明：假设当前确定了$1$到$r-1$的数字，那么可以发现如果把确定的数字在子排列中标记的话，那么将会<strong>出现一段子排列刚好只剩下一个数字没有标记，这就是第r个数字</strong>，同时还可以发现，这样的子排列只有一个，因为如果有<strong>两个的话，那么第r个数字就有两个，可是只有一个位置</strong>，很明显冲突了，可用作剪枝。<strong>注意这里只是一个必要条件，它不能充分保证得出的排列一定成立，但是能保证排列一定符合这个性质</strong>，所以我们还需要判断是否符合条件。其时间复杂度为$n^3*log_2 n$</p>
+<h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>看到这个每一个数字必将出现一次，就可能想到一个问题了，如果我把$r$前面所有的数字全部确定了，那么第$r$个数字也应该确定了！<br>证明：假设当前确定了$1$到$r-1$的数字，那么可以发现如果把确定的数字在子排列中标记的话，那么将会<strong>出现一段子排列刚好只剩下一个数字没有标记，这就是第r个数字</strong>，同时还可以发现，这样的子排列只有一个，因为如果有<strong>两个的话，那么第r个数字就有两个，可是只有一个位置</strong>，很明显冲突了，可用作剪枝。<strong>注意这里只是一个必要条件，它不能充分保证得出的排列一定成立，但是能保证原排列一定符合这个性质</strong>，所以我们还需要判断是否符合条件。其时间复杂度为$n^3*log_2 n$</p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>想挺容易的，做起来我真的没想到，$set$这么骚，要不是学了一点面向对象，我差点理解不了。<br>每一个子序列都可以放到一个集合里面，每一次标记都是把这个数字从集合里面删除。判断的时候直接看集合是否相同。<br>介绍几个骚操作：以$set<int> d$为例</int></p>
 <ol>
 <li><code>*d.begin()</code> 为遍历set</li>
@@ -1796,34 +1796,34 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">$φ(x <em> y) = φ(x) </em> φ(y)$</td>
+<td style="text-align:center">$ φ(x <em> y) = φ(x) </em> φ(y) $</td>
 <td style="text-align:center"><strong>当且(x,y)==1</strong></td>
 </tr>
 <tr>
-<td style="text-align:center">$φ(x) = x - 1$</td>
+<td style="text-align:center">$ φ(x) = x - 1 $</td>
 <td style="text-align:center"><strong>当且仅当x为质数时</strong></td>
 </tr>
 <tr>
-<td style="text-align:center">$φ(n) = (p-1) * p^{k-1}$</td>
+<td style="text-align:center">$ φ(n) = (p-1) * p^{k-1} $</td>
 </tr>
 <tr>
-<td style="text-align:center">$φ(n)=n∗∏(1−1/p_i)$</td>
+<td style="text-align:center">$ φ(n)=n∗∏(1−1/p_i) $</td>
 <td style="text-align:center"><strong>pi是n的质因子</strong></td>
 </tr>
 <tr>
-<td style="text-align:center">$a^{φ(m)}==1%m$</td>
+<td style="text-align:center">$ a^{φ(m)}==1%m $</td>
 <td style="text-align:center"><strong>当且仅当(a,m)==1</strong></td>
 </tr>
 <tr>
-<td style="text-align:center">$s = n * (φ(n)/2)$</td>
+<td style="text-align:center">$ s = n * (φ(n)/2) $</td>
 <td style="text-align:center"><strong>s：小于n且与n互质的数之和</strong></td>
 </tr>
 <tr>
-<td style="text-align:center">$φ(n <em> p)=φ(n) </em> p$</td>
+<td style="text-align:center">$ φ(n <em> p)=φ(n) </em> p $</td>
 <td style="text-align:center"><strong>当p为质数且n%p==0</strong></td>
 </tr>
 <tr>
-<td style="text-align:center">$φ(n <em> p)=φ(n) </em> (p-1)$</td>
+<td style="text-align:center">$ φ(n <em> p)=φ(n) </em> (p-1) $</td>
 <td style="text-align:center"><strong>当p为质数且n%p!=0</strong></td>
 </tr>
 </tbody>
