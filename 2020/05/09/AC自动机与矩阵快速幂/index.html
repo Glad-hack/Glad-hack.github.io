@@ -58,7 +58,7 @@
 <meta property="og:description" content="这一道题一周前我可能一个技能点都没有。。。太他妈真实了！,菜的真实，还是打难比赛学得快">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.dream-ak.top&#x2F;2020&#x2F;05&#x2F;09&#x2F;AC%E8%87%AA%E5%8A%A8%E6%9C%BA%E4%B8%8E%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82&#x2F;图形示意.png">
-<meta property="og:updated_time" content="2020-05-10T12:49:19.627Z">
+<meta property="og:updated_time" content="2020-05-10T12:54:46.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;www.dream-ak.top&#x2F;2020&#x2F;05&#x2F;09&#x2F;AC%E8%87%AA%E5%8A%A8%E6%9C%BA%E4%B8%8E%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82&#x2F;图形示意.png">
 
@@ -222,7 +222,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-10 20:49:19" itemprop="dateModified" datetime="2020-05-10T20:49:19+08:00">2020-05-10</time>
+                <time title="修改时间：2020-05-10 20:54:46" itemprop="dateModified" datetime="2020-05-10T20:54:46+08:00">2020-05-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -284,7 +284,7 @@
       
         <p>这一道题一周前我可能一个技能点都没有。。。太他妈真实了！,菜的真实，还是打难比赛学得快<a id="more"></a></p>
 <h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="https://vjudge.net/problem/POJ-2778" target="_blank" rel="noopener">题目链接</a></h1><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>首先给我们$x$个字符串，主要是由$A,C,T,G$四个字符组成的长度不超过10的字符串，$x \leq 10$，问由$A,C,G,T$组成的长度为$m$的字符串有多少个合法的(如果该字符串有一个子串和之前的字符串一样，则该字符非法)。$m \leq 2*10^9$</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>$m$初看很假！这么大怎么弄，不要慌，我们先慢慢来，首先一共有$x$个模式串，我们先对模式串建一个$trie$树，保留他的$tail$节点。如果把一个构造后的字符串a后面加一个字符$v$看成是从$a$这个节点引4条有向路径出去。同时$trie$树里面的$tail$节点都是尾节点，这些节点如果出现在构造后的字符串里面，那么该串也就会出现非法子串。这题意也就抽象成了构造后的字符串里面不得含有非法节点，一共有多少种构造方式。联想到AC自动机fail的性质，它可以$O(n)$的判断字典树里面节点$cur$后面添加一条边v是否会成为非法节点。(通过fail失配节点去寻找以$root \rightarrow fail$是$root \rightarrow cur$的尾串，进而判断是否是非法节点)，也就完成了建边操作。<br>再看一个矩阵定理<br>邻接矩阵$a$ <em> $a$所代表的含义是从$i$节点经过两步以后能达到$j$的方案数。以此类推$a \</em> a *a$就是三步的意思，证明的话看参考资料吧<br>从一颗字典树来看我们生成一个矩阵，表示从$u \rightarrow v$的方案数，从此观之，我们可以知道如果$mat[u][v]=0$就表示如果在由字典树到$u$的字串后加一个$v$变成了非法串。<br><img src="/2020/05/09/AC%E8%87%AA%E5%8A%A8%E6%9C%BA%E4%B8%8E%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82/图形示意.png" alt="图形示意"><br>黑色箭头表示失配指针，线条表示边，从上至下有向边。<br>模式串为$ACG$与$C$时$trie$树如上图我们就可以知道初始矩阵$mat$为：</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>$m$初看很假！这么大怎么弄，不要慌，我们先慢慢来，首先一共有$x$个模式串，我们先对模式串建一个$trie$树，保留他的$tail$节点。如果把一个构造后的字符串a后面加一个字符$v$看成是从$a$这个节点引4条有向路径出去。同时$trie$树里面的$tail$节点都是尾节点，这些节点如果出现在构造后的字符串里面，那么该串也就会出现非法子串。这题意也就抽象成了构造后的字符串里面不得含有非法节点，一共有多少种构造方式。联想到AC自动机fail的性质，它可以$O(n)$的判断字典树里面节点$cur$后面添加一条边v是否会成为非法节点。(通过fail失配节点去寻找以$root \rightarrow fail$是$root \rightarrow cur$的尾串，进而判断是否是非法节点)，也就完成了建边操作。<br>再看一个矩阵定理<br>邻接矩阵$a$ * $a$所代表的含义是从$i$节点经过两步以后能达到$j$的方案数。以此类推$a * a * a$就是三步的意思，证明的话看参考资料吧<br>从一颗字典树来看我们生成一个矩阵，表示从$u \rightarrow v$的方案数，从此观之，我们可以知道如果$mat[u][v]=0$就表示如果在由字典树到$u$的字串后加一个$v$变成了非法串。<br><img src="/2020/05/09/AC%E8%87%AA%E5%8A%A8%E6%9C%BA%E4%B8%8E%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82/图形示意.png" alt="图形示意"><br>黑色箭头表示失配指针，线条表示边，从上至下有向边。<br>模式串为$ACG$与$C$时$trie$树如上图我们就可以知道初始矩阵$mat$为：</p>
 <ol>
 <li>2 1 0 0 0<br>0 0 0 0 0<br>0 0 0 0 0<br>0 0 0 0 0<br>0 0 0 0 0</li>
 </ol>
@@ -301,10 +301,10 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\03\04\1320B\" rel="bookmark">最短路径图</a></div>
+      <div class="popular-posts-title"><a href="\2020\03\04\1305D\" rel="bookmark">交互1305D</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\03\04\1305D\" rel="bookmark">交互1305D</a></div>
+      <div class="popular-posts-title"><a href="\2020\03\04\1320B\" rel="bookmark">最短路径图</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2020\05\02\Day2\" rel="bookmark">CCPC Wannafly Winter Camp Day2</a></div>
