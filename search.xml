@@ -1,6 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>shell入门</title>
+    <url>/2020/05/12/shell%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[<p>最近Linux有课设，嗯，看了一下，蛮有意思的，准备再去买一台云服务器来搞课设，嘿嘿嘿。先来打点基础<a id="more"></a></p>
+<h1 id="shell基础"><a href="#shell基础" class="headerlink" title="shell基础"></a>shell基础</h1><h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p># 是注释号</p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>变量分为永久变量和临时变量<br>临时变量是shell内部定义，用于该shell程序，随shell程序关闭而清理。<br>永久变量是环境变量，不随shell结束而消失。<br>变量定义和python一致，直接定义就好了。<br>$ 访问变量<br>set命令是列出所有变量</p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>字符串的单引号与双引号<br>单引号不会自动访问变量，而双引号会访问该变量的值。举个例子</p>
+<blockquote>
+<p>定义一个var=’aaa’<br>a=’var’这里a是var<br>a=”var”这里a是aaa </p>
+<h2 id="特殊符号"><a href="#特殊符号" class="headerlink" title="特殊符号"></a>特殊符号</h2><p>$*($\@) 这个程序的所有参数<br>$# 几个配置参数<br>$$ 该程序的PID<br>@! 后台的pid值</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>read 从键盘输入数据</p>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>echo 输出当前包含的变量</p>
+<h2 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h2><p>shell仅支持整形运算<br>expr 整形运算(仅支持整形运算)<br>+代表加法<br>-代表减法<br>/代表除法<br>*乘法<br>所有运算都要放到反单引号里面才能成功，且<strong>运算符两边必须含有空格，等号两边不得含有空格</strong></p>
+<h2 id="test变量测试语句"><a href="#test变量测试语句" class="headerlink" title="test变量测试语句"></a>test变量测试语句</h2><h3 id="字符测试"><a href="#字符测试" class="headerlink" title="字符测试"></a>字符测试</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">test str1=str2</td>
+<td style="text-align:center">是否相等</td>
+</tr>
+<tr>
+<td style="text-align:center">test str1!=str2</td>
+<td style="text-align:center">是否不相等</td>
+</tr>
+<tr>
+<td style="text-align:center">test str1</td>
+<td style="text-align:center">是否为空</td>
+</tr>
+<tr>
+<td style="text-align:center">test -n str1</td>
+<td style="text-align:center">判断是否不为空</td>
+</tr>
+<tr>
+<td style="text-align:center">test -z str1</td>
+<td style="text-align:center">是否为空</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="数字测试"><a href="#数字测试" class="headerlink" title="数字测试"></a>数字测试</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">test int1 -eq int2</td>
+<td style="text-align:center">是否相等 (equal)</td>
+</tr>
+<tr>
+<td style="text-align:center">test int1 -ge int2 int1</td>
+<td style="text-align:center">是否大于等于int2 (great)</td>
+</tr>
+<tr>
+<td style="text-align:center">test int1 -gt int2 int1</td>
+<td style="text-align:center">是否大于int2 (great than)</td>
+</tr>
+<tr>
+<td style="text-align:center">test int1 -le int2 int1</td>
+<td style="text-align:center">是否小于等于int2 (less)</td>
+</tr>
+<tr>
+<td style="text-align:center">test int1 -lt int2 int1</td>
+<td style="text-align:center">是否小于int2 (less than)</td>
+</tr>
+<tr>
+<td style="text-align:center">test int1 -ne int2 int1</td>
+<td style="text-align:center">不相等int2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="文件测试"><a href="#文件测试" class="headerlink" title="文件测试"></a>文件测试</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">test -d -file</td>
+<td style="text-align:center">是否为目录</td>
+</tr>
+<tr>
+<td style="text-align:center">test -f file</td>
+<td style="text-align:center">指定文件是否常规文件</td>
+</tr>
+<tr>
+<td style="text-align:center">test -x file</td>
+<td style="text-align:center">指定文件是否可执行</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>test -r file |指定文件是否可读<br>test -w file |指定文件是否可写<br>test -a/e file |指定文件是否存在<br>test -s file |指定文件大小是否为0</p>
+<ol>
+<li>exit 返回，0为正常<br>流程控制语句<br>if … then … fi<br>其中 -a逻辑与，-o逻辑或<br>循环语句<br>while[逻辑语句]do…done</li>
+</ol>
+</blockquote>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>环境变量<br>书要是定义对系统操作的环境生效的系统默认环境变量如PATH等<br>环境配置文件<br>|命令|含义|<br>|:-:|:-:|<br>/etx/profile| 全局变量<br>/etx/profile.d/*.sh| 全局变量<br>~/.bash_profile |仅对当前用户有效<br>~/.bashrc |仅对当前用户有效<br>/etc/bashrc |全局变量<br><img src="/2020/05/12/shell%E5%85%A5%E9%97%A8/启动顺序.png" alt="运行顺序"><br>启动配置文件：source 配置文件或 .配置文件</p>
+<h2 id="重启命令"><a href="#重启命令" class="headerlink" title="重启命令"></a>重启命令</h2><p>init 6</p>
+]]></content>
+      <categories>
+        <category>shell</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>AC自动机与矩阵快速幂</title>
     <url>/2020/05/09/AC%E8%87%AA%E5%8A%A8%E6%9C%BA%E4%B8%8E%E7%9F%A9%E9%98%B5%E5%BF%AB%E9%80%9F%E5%B9%82/</url>
     <content><![CDATA[<p>这一道题一周前我可能一个技能点都没有。。。太他妈真实了！,菜的真实，还是打难比赛学得快<a id="more"></a></p>
