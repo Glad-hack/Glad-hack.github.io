@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>2020美团杯补题日志</title>
+    <url>/2020/05/18/2020%E7%BE%8E%E5%9B%A2%E6%9D%AF%E8%A1%A5%E9%A2%98%E6%97%A5%E5%BF%97/</url>
+    <content><![CDATA[<p>说句实在的，这一场我得好好检讨，10分钟秒出的思路被自己否决后一直没写出来就算了，还没有去开其他的题目！最大的失职，同时考虑问题还是不够周到，明明和AC代码就差个1了，还以为是自己思路错了。。。看来很久没刷题，都没有手感了！<del>cf疯狂掉分，感人肺腑:(</del><a id="more"></a></p>
+<h1 id="A题"><a href="#A题" class="headerlink" title="A题"></a>A题</h1><p>真的是写题3分钟，debug5小时，人都傻了，秒出思路后居然细节处理出现问题，样例都没过，后面疯狂想到假算法，我真是个睿智。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>因为在整个字符串里面都不能出现$xxxll$这个子序列，那么我们思考最后的修改后的结果，显然可以知道在每一个位置上其前面不得超过$2$个$x$，多余的$x$我们全部转成$l$，这样操作结果是在该位置以前一定不会有非法串，后面不能超过$1$个$l$，将多余的$l$全部转成$x$。然后枚举每一个位置得到其最小值就是答案了。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 2e5+5;</span><br><span class="line">typedef long long ll;</span><br><span class="line">#define rep(i,a,b) for(i=(a);i&lt;=b;i++)</span><br><span class="line">#define pt(a) printf(&quot;%d\n&quot;,(a))</span><br><span class="line">char a[N];</span><br><span class="line">int pre[N],nxt[N];</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int n,m,i,j,k,t=0;</span><br><span class="line">	scanf(&quot;%d&quot;,&amp;t);</span><br><span class="line">	while(t--)&#123;</span><br><span class="line">		scanf(&quot;%s&quot;,a+1);</span><br><span class="line">		int len = strlen(a+1);</span><br><span class="line">		rep(i,1,105) pre[i]=0,nxt[i]=0;</span><br><span class="line">		rep(i,1,len) pre[i]=pre[i-1]+(a[i]==&apos;x&apos;);</span><br><span class="line">		for(i=len;~i;i--) nxt[i]=nxt[i+1]+(a[i]==&apos;l&apos;);</span><br><span class="line">		int ans = 1000;</span><br><span class="line">		rep(i,1,len)&#123;</span><br><span class="line">			ans=min(ans,max(pre[i-1]-2,0)+max(0,nxt[i]-1));</span><br><span class="line">			//printf(&quot;%d %d\n&quot;,pre[i],nxt[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;%d\n&quot;,ans);</span><br><span class="line">	&#125;</span><br><span class="line">	//system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="M"><a href="#M" class="headerlink" title="M"></a>M</h1><p>一个交互题，主要是关于$sort$被卡的问题，很玄学！官方解释是sort在数据量很小时自动退化为插入排序，而qsort不会。</p>
+<h2 id="qsort使用方法"><a href="#qsort使用方法" class="headerlink" title="qsort使用方法"></a>qsort使用方法</h2><ol>
+<li>传入数组地址</li>
+<li>传入排序长度</li>
+<li>传入排序元素字节长度</li>
+<li>最重要的一点！cmp函数，格式固定，返回值为int，大于零则表示大于，小于零则表示小于。<br>这里贴一个$qsort$的版本<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &quot;lcs.h&quot;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 2e5+5;</span><br><span class="line">typedef long long ll;</span><br><span class="line">#define rep(i,a,b) for(i=(a);i&lt;=b;i++)</span><br><span class="line">#define pt(a) printf(&quot;%d\n&quot;,(a))</span><br><span class="line">int cmp(const void *a,const void *b)&#123;//此处格式固定</span><br><span class="line">	int num[2]=&#123;*(int *) a ,*(int *)b&#125;;</span><br><span class="line">	int flag = get_lcs(2,num);</span><br><span class="line">	if(flag&gt;1) flag=1;</span><br><span class="line">	else flag=-1;</span><br><span class="line">	return -flag;</span><br><span class="line">&#125;</span><br><span class="line">void find_permutation(int n, int res[])&#123;</span><br><span class="line">	int i;</span><br><span class="line">	rep(i,0,n-1)&#123;</span><br><span class="line">		res[i]=i+1;</span><br><span class="line">	&#125;</span><br><span class="line">	qsort(res,n,sizeof(int),cmp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+]]></content>
+      <categories>
+        <category>比赛日志</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>shell入门</title>
     <url>/2020/05/12/shell%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<p>最近Linux有课设，嗯，看了一下，蛮有意思的，准备再去买一台云服务器来搞课设，嘿嘿嘿。先来打点基础<a id="more"></a></p>
