@@ -49,17 +49,17 @@
   };
 </script>
 
-  <meta name="description" content="关于Linux的权限管理不得不说十分的重要，几乎很多在部署上的错误都是因为权限不够，所以这里特意写一篇来了解这个Linux的权限管理。 档案的基本权限这里为表达方便，我把文件和目录统称为档案。 档案的属性对于一个档案我们首先在目录里面使用&amp;lt;ll&amp;gt;命令，查看每一个档案的属性，下图是属性的介绍表  第一栏是档案的类型权限。第一个字元代表这个档案是『目录、档案或连结档等等』：  当为[ d">
+  <meta name="description" content="关于Linux的权限管理不得不说十分的重要，几乎很多在部署上的错误都是因为权限不够，所以这里特意写一篇来了解这个Linux的权限管理。">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux用户权限管理">
 <meta property="og:url" content="https:&#x2F;&#x2F;www.dream-ak.top&#x2F;2020&#x2F;06&#x2F;03&#x2F;Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86&#x2F;index.html">
 <meta property="og:site_name" content="添砖Java">
-<meta property="og:description" content="关于Linux的权限管理不得不说十分的重要，几乎很多在部署上的错误都是因为权限不够，所以这里特意写一篇来了解这个Linux的权限管理。 档案的基本权限这里为表达方便，我把文件和目录统称为档案。 档案的属性对于一个档案我们首先在目录里面使用&amp;lt;ll&amp;gt;命令，查看每一个档案的属性，下图是属性的介绍表  第一栏是档案的类型权限。第一个字元代表这个档案是『目录、档案或连结档等等』：  当为[ d">
+<meta property="og:description" content="关于Linux的权限管理不得不说十分的重要，几乎很多在部署上的错误都是因为权限不够，所以这里特意写一篇来了解这个Linux的权限管理。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.dream-ak.top&#x2F;2020&#x2F;06&#x2F;03&#x2F;Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86&#x2F;档案属性.gif">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.dream-ak.top&#x2F;2020&#x2F;06&#x2F;03&#x2F;Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86&#x2F;档案权限.gif">
-<meta property="og:updated_time" content="2020-06-03T12:08:55.872Z">
+<meta property="og:updated_time" content="2020-06-03T13:22:39.211Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;www.dream-ak.top&#x2F;2020&#x2F;06&#x2F;03&#x2F;Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86&#x2F;档案属性.gif">
 
@@ -217,7 +217,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-06-03 11:45:32 / 修改时间：20:08:55" itemprop="dateCreated datePublished" datetime="2020-06-03T11:45:32+08:00">2020-06-03</time>
+              <time title="创建时间：2020-06-03 11:45:32 / 修改时间：21:22:39" itemprop="dateCreated datePublished" datetime="2020-06-03T11:45:32+08:00">2020-06-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,7 +258,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.9k</span>
+              <span>5.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -277,7 +277,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>关于Linux的权限管理不得不说十分的重要，几乎很多在部署上的错误都是因为权限不够，所以这里特意写一篇来了解这个Linux的权限管理。</p>
+        <p>关于Linux的权限管理不得不说十分的重要，几乎很多在部署上的错误都是因为权限不够，所以这里特意写一篇来了解这个Linux的权限管理。<a id="more"></a></p>
 <h1 id="档案的基本权限"><a href="#档案的基本权限" class="headerlink" title="档案的基本权限"></a>档案的基本权限</h1><p>这里为表达方便，我把文件和目录统称为档案。</p>
 <h2 id="档案的属性"><a href="#档案的属性" class="headerlink" title="档案的属性"></a>档案的属性</h2><p>对于一个档案我们首先在目录里面使用&lt;<strong>ll</strong>&gt;命令，查看每一个档案的属性，下图是属性的介绍表<br><img src="/2020/06/03/Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/档案属性.gif" alt="Linux属性"></p>
 <blockquote>
@@ -330,10 +330,45 @@
 <td style="text-align:center">/boot</td>
 <td style="text-align:left">这个目录主要在放置开机会使用到的档案，包括Linux核心档案以及开机选单与开机所需设定档等等。 Linux kernel常用的档名为：vmlinuz，如果使用的是grub2这个开机管理程式，则还会存在/boot/grub2/这个目录喔！</td>
 </tr>
+<tr>
+<td style="text-align:center">/dev</td>
+<td style="text-align:left">在Linux系统上，任何装置与周边设备都是以档案的型态存在于这个目录当中的。你只要透过存取这个目录底下的某个档案，就等于存取某个装置啰～比要重要的档案有/dev/null, /dev/zero, /dev/tty , /dev/loop<em>, / dev/sd</em>等等</td>
+</tr>
+<tr>
+<td style="text-align:center">/etc</td>
+<td style="text-align:left">系统主要的设定档几乎都放置在这个目录内，例如人员的帐号密码档、各种服务的启始档等等。一般来说，这个目录下的各档案属性是可以让一般使用者查阅的，但是只有root有权力修改。FHS建议不要放置可执行档(binary)在这个目录中喔。比较重要的档案有： /etc/modprobe.d/, /etc/passwd, /etc/fstab, /etc/issue等等。另外FHS还规范几个重要的目录最好要存在/etc/目录下喔：&lt;\br&gt;/etc/opt(必要)：这个目录在放置第三方协力软体/opt的相关设定档/etc/X11/(建议)：与X Window有关的各种设定档都在这里，尤其是xorg.conf这个X Server的设定档。&lt;\br&gt;/etc/sgml/(建议)：与SGML格式有关的各项设定档&lt;\br&gt;/etc/xml/(建议)：与XML格式有关的各项设定档</td>
+</tr>
+<tr>
+<td style="text-align:center">/lib</td>
+<td style="text-align:left">系统的函式库非常的多，而/lib放置的则是在开机时会用到的函式库，以及在/bin或/sbin底下的指令会呼叫的函式库而已。什么是函式库呢？妳可以将他想成是『外挂』，某些指令必须要有这些『外挂』才能够顺利完成程式的执行之意。另外FHS还要求底下的目录必须要存在：&lt;\br&gt;/lib/modules/：这个目录主要放置可抽换式的核心相关模组(驱动程式)喔！&lt;\br&gt;/media    media是『媒体』的英文，顾名思义，这个/media底下放置的就是可移除的装置啦！ 包括软碟、光碟、DVD等等装置都暂时挂载于此。常见的档名有：/media/floppy, /media/cdrom等等。</td>
+</tr>
+<tr>
+<td style="text-align:center">/mnt</td>
+<td style="text-align:left">如果妳想要暂时挂载某些额外的装置，一般建议妳可以放置到这个目录中。在古早时候，这个目录的用途与/media相同啦！只是有了/media之后，这个目录就用来暂时挂载用了。</td>
+</tr>
+<tr>
+<td style="text-align:center">/opt</td>
+<td style="text-align:left">这个是给第三方协力软体放置的目录。什么是第三方协力软体啊？举例来说，KDE这个桌面管理系统是一个独立的计画，不过他可以安装到Linux系统中，因此KDE的软体就建议放置到此目录下了。另外，如果妳想要自行安装额外的软体(非原本的distribution提供的)，那么也能够将你的软体安装到这里来。不过，以前的Linux系统中，我们还是习惯放置在/usr/local目录下呢！</td>
+</tr>
+<tr>
+<td style="text-align:center">/run</td>
+<td style="text-align:left">早期的FHS 规定系统开机后所产生的各项资讯应该要放置到/var/run 目录下，新版的FHS 则规范到/run 底下。由于/run 可以使用记忆体来模拟，因此效能上会好很多！</td>
+</tr>
+<tr>
+<td style="text-align:center">/sbin</td>
+<td style="text-align:left">Linux有非常多指令是用来设定系统环境的，这些指令只有root才能够利用来『设定』系统，其他使用者最多只能用来『查询』而已。 放在/sbin底下的为开机过程中所需要的，里面包括了开机、修复、还原系统所需要的指令。 至于某些伺服器软体程式，一般则放置到/usr/sbin/当中。至于本机自行安装的软体所产生的系统执行档(system binary)，则放置到/usr/local/sbin/当中了。常见的指令包括：fdisk, fsck, ifconfig, mkfs等等。</td>
+</tr>
+<tr>
+<td style="text-align:center">/srv</td>
+<td style="text-align:left">srv可以视为『service』的缩写，是一些网路服务启动之后，这些服务所需要取用的资料目录。常见的服务例如WWW, FTP等等。举例来说，WWW伺服器需要的网页资料就可以放置在/srv/www/里面。不过，系统的服务资料如果尚未要提供给网际网路任何人浏览的话，预设还是建议放置到/var/lib 底下即可。</td>
+</tr>
+<tr>
+<td style="text-align:center">/tmp</td>
+<td style="text-align:left">这是让一般使用者或者是正在执行的程序暂时放置档案的地方。这个目录是任何人都能够存取的，所以你需要定期的清理一下。当然，重要资料不可放置在此目录啊！因为FHS甚至建议在开机时，应该要将/tmp下的资料都删除唷！</td>
+</tr>
 </tbody>
 </table>
 </div>
-<p>/dev|    在Linux系统上，任何装置与周边设备都是以档案的型态存在于这个目录当中的。你只要透过存取这个目录底下的某个档案，就等于存取某个装置啰～比要重要的档案有/dev/null, /dev/zero, /dev/tty , /dev/loop<em>, / dev/sd</em>等等|<br>|/etc|    系统主要的设定档几乎都放置在这个目录内，例如人员的帐号密码档、各种服务的启始档等等。一般来说，这个目录下的各档案属性是可以让一般使用者查阅的，但是只有root有权力修改。FHS建议不要放置可执行档(binary)在这个目录中喔。比较重要的档案有： /etc/modprobe.d/, /etc/passwd, /etc/fstab, /etc/issue等等。另外FHS还规范几个重要的目录最好要存在/etc/目录下喔：&lt;\br&gt;/etc/opt(必要)：这个目录在放置第三方协力软体/opt的相关设定档/etc/X11/(建议)：与X Window有关的各种设定档都在这里，尤其是xorg.conf这个X Server的设定档。&lt;\br&gt;/etc/sgml/(建议)：与SGML格式有关的各项设定档&lt;\br&gt;/etc/xml/(建议)：与XML格式有关的各项设定档|<br>|/lib|    系统的函式库非常的多，而/lib放置的则是在开机时会用到的函式库，以及在/bin或/sbin底下的指令会呼叫的函式库而已。什么是函式库呢？妳可以将他想成是『外挂』，某些指令必须要有这些『外挂』才能够顺利完成程式的执行之意。另外FHS还要求底下的目录必须要存在：&lt;\br&gt;/lib/modules/：这个目录主要放置可抽换式的核心相关模组(驱动程式)喔！&lt;\br&gt;/media    media是『媒体』的英文，顾名思义，这个/media底下放置的就是可移除的装置啦！ 包括软碟、光碟、DVD等等装置都暂时挂载于此。常见的档名有：/media/floppy, /media/cdrom等等。|<br>|/mnt|    如果妳想要暂时挂载某些额外的装置，一般建议妳可以放置到这个目录中。在古早时候，这个目录的用途与/media相同啦！只是有了/media之后，这个目录就用来暂时挂载用了。|<br>|/opt|    这个是给第三方协力软体放置的目录。什么是第三方协力软体啊？举例来说，KDE这个桌面管理系统是一个独立的计画，不过他可以安装到Linux系统中，因此KDE的软体就建议放置到此目录下了。另外，如果妳想要自行安装额外的软体(非原本的distribution提供的)，那么也能够将你的软体安装到这里来。不过，以前的Linux系统中，我们还是习惯放置在/usr/local目录下呢！|<br>|/run|    早期的FHS 规定系统开机后所产生的各项资讯应该要放置到/var/run 目录下，新版的FHS 则规范到/run 底下。由于/run 可以使用记忆体来模拟，因此效能上会好很多！|<br>|/sbin|    Linux有非常多指令是用来设定系统环境的，这些指令只有root才能够利用来『设定』系统，其他使用者最多只能用来『查询』而已。 放在/sbin底下的为开机过程中所需要的，里面包括了开机、修复、还原系统所需要的指令。 至于某些伺服器软体程式，一般则放置到/usr/sbin/当中。至于本机自行安装的软体所产生的系统执行档(system binary)，则放置到/usr/local/sbin/当中了。常见的指令包括：fdisk, fsck, ifconfig, mkfs等等。|<br>|/srv|    srv可以视为『service』的缩写，是一些网路服务启动之后，这些服务所需要取用的资料目录。常见的服务例如WWW, FTP等等。举例来说，WWW伺服器需要的网页资料就可以放置在/srv/www/里面。不过，系统的服务资料如果尚未要提供给网际网路任何人浏览的话，预设还是建议放置到/var/lib 底下即可。|<br>|/tmp|    这是让一般使用者或者是正在执行的程序暂时放置档案的地方。这个目录是任何人都能够存取的，所以你需要定期的清理一下。当然，重要资料不可放置在此目录啊！因为FHS甚至建议在开机时，应该要将/tmp下的资料都删除唷！|</p>
 
     </div>
 
