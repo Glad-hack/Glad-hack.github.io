@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>DAY3</title>
+    <title>CCPC Wannafly Winter Camp Day3</title>
     <url>/2020/05/19/DAY3/</url>
     <content><![CDATA[<p>最近比赛有点诡异，一直只有签到水准，人都没了。不禁开始思考知识面有点狭窄了，加油，继续补题。本次A题与E题不讲，补C题与G题。<a id="more"></a></p>
 <h1 id="G火山哥周游世界"><a href="#G火山哥周游世界" class="headerlink" title="G火山哥周游世界"></a>G火山哥周游世界</h1><p>赛时想到树，但是没有想到是树形dp，主要是这里的根实在太多了，看了题解，原来换根$dp$完全可以解决这种题型，而且常用于解决这些问题。<br>该类题目的特点是：给定一个树形结构，需要以每个节点为根进行一系列统计。完全符合。</p>
@@ -64,7 +64,34 @@
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>字符串的单引号与双引号<br>单引号不会自动访问变量，而双引号会访问该变量的值。举个例子</p>
 <blockquote>
 <p>定义一个var=’aaa’<br>a=’var’这里a是var<br>a=”var”这里a是aaa </p>
-<h2 id="特殊符号"><a href="#特殊符号" class="headerlink" title="特殊符号"></a>特殊符号</h2><p>$*($\@) 这个程序的所有参数<br>$# 几个配置参数<br>$$ 该程序的PID<br>@! 后台的pid值</p>
+<h2 id="特殊符号"><a href="#特殊符号" class="headerlink" title="特殊符号"></a>特殊符号</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\$*($@)</td>
+<td style="text-align:center">这个程序的所有参数</td>
+</tr>
+<tr>
+<td style="text-align:center">$#</td>
+<td style="text-align:center">几个配置参数</td>
+</tr>
+<tr>
+<td style="text-align:center">$$</td>
+<td style="text-align:center">该程序的PID</td>
+</tr>
+<tr>
+<td style="text-align:center">@!</td>
+<td style="text-align:center">后台的pid值</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>read 从键盘输入数据</p>
 <h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>echo 输出当前包含的变量</p>
 <h2 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h2><p>shell仅支持整形运算<br>expr 整形运算(仅支持整形运算)<br>+代表加法<br>-代表减法<br>/代表除法<br>*乘法<br>所有运算都要放到反单引号里面才能成功，且<strong>运算符两边必须含有空格，等号两边不得含有空格</strong></p>
@@ -165,7 +192,40 @@
 <li>exit 返回，0为正常<br>流程控制语句<br>if … then … fi<br>其中 -a逻辑与，-o逻辑或<br>循环语句<br>while[逻辑语句]do…done</li>
 </ol>
 </blockquote>
-<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>环境变量<br>书要是定义对系统操作的环境生效的系统默认环境变量如PATH等<br>环境配置文件<br>|命令|含义|<br>|:-:|:-:|<br>/etx/profile| 全局变量<br>/etx/profile.d/*.sh| 全局变量<br>~/.bash_profile |仅对当前用户有效<br>~/.bashrc |仅对当前用户有效<br>/etc/bashrc |全局变量<br><img src="/2020/05/12/shell%E5%85%A5%E9%97%A8/启动顺序.png" alt="运行顺序"><br>启动配置文件：source 配置文件或 .配置文件</p>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>环境变量<br>书要是定义对系统操作的环境生效的系统默认环境变量如PATH等<br>环境配置文件</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">/etx/profile</td>
+<td style="text-align:center">全局变量</td>
+</tr>
+<tr>
+<td style="text-align:center">/etx/profile.d/*.sh</td>
+<td style="text-align:center">全局变量</td>
+</tr>
+<tr>
+<td style="text-align:center">~/.bash_profile</td>
+<td style="text-align:center">仅对当前用户有效</td>
+</tr>
+<tr>
+<td style="text-align:center">~/.bashrc</td>
+<td style="text-align:center">仅对当前用户有效</td>
+</tr>
+<tr>
+<td style="text-align:center">/etc/bashrc</td>
+<td style="text-align:center">全局变量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="/2020/05/12/shell%E5%85%A5%E9%97%A8/启动顺序.png" alt="运行顺序"><br>启动配置文件：source 配置文件或 .配置文件</p>
 <h2 id="重启命令"><a href="#重启命令" class="headerlink" title="重启命令"></a>重启命令</h2><p>init 6</p>
 ]]></content>
       <categories>
