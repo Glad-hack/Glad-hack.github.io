@@ -1,6 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Ubuntu18.04安装docker安装酷Q</title>
+    <url>/2020/06/06/Ubuntu18%E5%AE%89%E8%A3%85%E9%85%B7Q/</url>
+    <content><![CDATA[<p>最近发现我的服务器完全闲置了，所以我决定在上面部署一个qqbot来练习自己的py爬虫。</p>
+<h1 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h1><p>这里我们首先安装Docker，关于什么是Docker，请点击<a href="https://www.zhihu.com/question/28300645" target="_blank" rel="noopener">知乎问答</a>。关于这里的说法我大致现总结一下，一家之见，如有不足，请私聊点出。<br>这里同样的以集装箱做比喻，我们在Docker上部署的每一个应用都相当于一个集装箱，每个集装箱之间互不影响，这样就解决了关于应用之间的冲突问题，所以我们部署的所有应用都可以使用一艘船(服务器)去进行运输，节省了开支与时间。</p>
+<h2 id="卸载旧docker"><a href="#卸载旧docker" class="headerlink" title="卸载旧docker"></a>卸载旧docker</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get remove docker docker-engine docker.io containerd runc</span><br></pre></td></tr></table></figure>
+<h2 id="使用存储库安装"><a href="#使用存储库安装" class="headerlink" title="使用存储库安装"></a>使用存储库安装</h2><ol>
+<li><p>更新apt软件包索引并安装软件包以允许apt通过HTTPS使用存储库：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install \</span><br><span class="line">    apt-transport-https \</span><br><span class="line">    ca-certificates \</span><br><span class="line">    curl \</span><br><span class="line">    gnupg-agent \</span><br><span class="line">    software-properties-common</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加Docker的官方GPG密钥：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88通过搜索指纹的后8个字符，验证您现在是否拥有带有指纹的密钥 。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo apt-key fingerprint 0EBFCD88</span><br><span class="line"></span><br><span class="line">pub   rsa4096 2017-02-22 [SCEA]</span><br><span class="line">      9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88</span><br><span class="line">uid           [ unknown] Docker Release (CE deb) &lt;docker@docker.com&gt;</span><br><span class="line">sub   rsa4096 2017-02-22 [S]</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装docker引擎"><a href="#安装docker引擎" class="headerlink" title="安装docker引擎"></a>安装docker引擎</h2><ol>
+<li>更新apt程序包索引，并安装最新版本的Docker Engine和容器，或转到下一步以安装特定版本：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install docker-ce</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="检验docker是否成功"><a href="#检验docker是否成功" class="headerlink" title="检验docker是否成功"></a>检验docker是否成功</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ docker version</span><br></pre></td></tr></table></figure>
+<h1 id="拉取酷Q镜像"><a href="#拉取酷Q镜像" class="headerlink" title="拉取酷Q镜像"></a>拉取酷Q镜像</h1><h2 id="拉取命令"><a href="#拉取命令" class="headerlink" title="拉取命令"></a>拉取命令</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker pull coolq/wine-coolq</span><br></pre></td></tr></table></figure>
+<h2 id="查看是否成功"><a href="#查看是否成功" class="headerlink" title="查看是否成功"></a>查看是否成功</h2><p>镜像名称是：$coolq/wine-coolq$<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker images   (查看镜像)</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">## 运行命令</span><br></pre></td></tr></table></figure><br>docker run —name=coolq -d -p 9000:9000 -v /home/wt/coolq/coolq-data:/home/user/coolq -e VNC_PASSWD=12345678 -e COOLQ_ACCOUNT=905584041 coolq/wine-coolq<br>```<br>释义</p>
+<blockquote>
+<p>—name=coolq是将镜像命名为coolq</p>
+<p>9000:9000是开放9000端口</p>
+<p>/home/wt/coolq/coolq-data:/home/user/coolq 宿主机路径：酷q数据文件路径。</p>
+<p>VNC_PASSWD=12345678:网页登陆密码</p>
+<p>COOLQ_ACCOUNT=905584041登陆的qq好</p>
+<p>coolq/wine-coolq 部署的镜像名称</p>
+</blockquote>
+<h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><p>关于docker的报错，今天一共出现三种，如下：</p>
+<ol>
+<li>部署的端口冲突，我们改一下端口就好了</li>
+<li>部署的应用的image已存在，两种修复办法，第一改掉名称，第二先暂停重复的应用<code>(docker stop (container id))</code>然后删除它<code>(docker remove (container id))</code>。</li>
+<li>部署完以后无效，我这里是因为云服务器没有打开部署的端口号，到服务器找到安全组打开端口以后运行流畅。</li>
+</ol>
+<h2 id="部分docker命令"><a href="#部分docker命令" class="headerlink" title="部分docker命令"></a>部分docker命令</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">功能</th>
+<th style="text-align:center">命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">部署</td>
+<td style="text-align:center">docker pull 应用名</td>
+</tr>
+<tr>
+<td style="text-align:center">查看部署状态</td>
+<td style="text-align:center">docker ps -a</td>
+</tr>
+<tr>
+<td style="text-align:center">暂停应用</td>
+<td style="text-align:center">(docker stop (container id))</td>
+</tr>
+<tr>
+<td style="text-align:center">删除已部署应用</td>
+<td style="text-align:center">(docker remove (container id))</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>看了一下官方部署文档里面的下载命令，说真的，我居然没看懂，所以我要在这里写下来他们的差异。</p>
+<blockquote>
+<p>install与rpm： 关于这两个的差异的话呢，主要体现在对于安装有依赖包的软件，用yum命令特别方便，如果用rpm命令，就必须要先装依赖包再装软件包，而yum命令会直接匹配依赖包然后直接安装。</p>
+<p>dokg与apt-get：dpkg只能安装已经下载到本地机器上的deb包. apt-get能在线下载并安装deb包,能更新系统,<br>且还能自动处理包与包之间的依赖问题,这个是dpkg工具所不具备的。</p>
+<p>apt方式安装<br>apt-get是debian，ubuntu发行版的包管理工具，与红帽中的yum工具非常类似。<br>apt-get命令一般需要root权限执行，所以一般跟着sudo命令例sudo apt-get xxxx<br>apt-get install packagename——安装一个新软件包（参见下文的aptitude）<br>apt-get remove packagename——卸载一个已安装的软件包（保留配置文件）<br>apt-get —purge remove packagename——卸载一个已安装的软件包（删除配置文件）<br>dpkg —force-all —purge packagename ——有些软件很难卸载，而且还阻止了别的软件的应用，就可以用这个，不过有点冒险。<br>apt-get autoremove——因为apt会把已装或已卸的软件都备份在硬盘上，所以如果需要空间的话，可以让这个命令来删除你已经删掉的软件。<br>apt-get autoclean——定期运行这个命令来清除那些已经卸载的软件包的.deb文件。通过这种方式，可以释放大量的磁盘空间。如果需求十分迫切，可以使用apt-get clean以释放更多空间。这个命令会将已安装软件包裹的.deb文件一并删除。<br>apt-get clean——这个命令会把安装的软件的备份也删除，不过这样不会影响软件的使用的。<br>apt-get upgrade——更新所有已安装的软件包<br>apt-get dist-upgrade——将系统升级到新版本<br>apt-cache search string——在软件包列表中搜索字符串<br>apt-cache showpkg pkgs——显示软件包信息。<br>apt-cache stats——查看库里有多少软件<br>apt-cache dumpavail——打印可用软件包列表。<br>apt-cache show pkgs——显示软件包记录，类似于dpkg –print-avail。<br>apt-cache pkgnames——打印软件包列表中所有软件包的名称</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li><a href="https://blog.csdn.net/qq_38901815/article/details/102978391" target="_blank" rel="noopener">16.04部署酷Q</a></li>
+<li><a href="https://docs.docker.com/engine/install/ubuntu/" target="_blank" rel="noopener">docker官方部署文档</a></li>
+<li><a href="https://blog.csdn.net/zyjustin9/article/details/84536663?utm_medium=distribute.pc_relevant.none-task-blog-baidujs-2" target="_blank" rel="noopener">linux的多种安装方式</a></li>
+</ol>
+</blockquote>
+]]></content>
+      <categories>
+        <category>配置环境</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Calendar类</title>
     <url>/2020/06/05/Calenda/</url>
     <content><![CDATA[<p>自己做的日历轮子终究比不上Java的Calendar类啊，至少不用思考那么多的有关越界问题。接下来我们就来了解一下Calendar类。<a id="more"></a></p>
@@ -438,10 +521,10 @@
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>修改文件位置的话，看下这张图片吧，文件放得太深了。<br><img src="/2020/04/22/next%E6%B7%BB%E5%8A%A0%E9%82%AE%E7%AE%B1%E4%B8%8Eqq/TIM截图20200422120636.png" alt="文件位置"><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;%- if theme.social %&#125;</span><br><span class="line">  &lt;div class=&quot;links-of-author motion-element&quot;&gt;</span><br><span class="line">    &#123;%- for name, link in theme.social %&#125;</span><br><span class="line">      &lt;span class=&quot;links-of-author-item&quot;&gt;</span><br><span class="line">      &#123;%- set sidebarURL = link.split(&apos;||&apos;)[0] | trim %&#125;//获取添加的链接</span><br><span class="line">      &#123;%- if theme.social_icons.enable %&#125;</span><br><span class="line">        &#123;%- set sidebarIcon = &apos;&lt;i class=&quot;fa fa-fw fa-&apos; + link.split(&apos;||&apos;)[1] | trim + &apos;&quot;&gt;&lt;/i&gt;&apos; %&#125;//获取添加的小图标</span><br><span class="line">      &#123;%- else %&#125;</span><br><span class="line">        &#123;%- set sidebarIcon = &apos;&apos; %&#125;//没有则为空</span><br><span class="line">      &#123;%- endif %&#125;</span><br><span class="line">      &#123;%- if theme.social_icons.enable and theme.social_icons.icons_only %&#125;</span><br><span class="line">        &#123;%- set sidebarText = &apos;&apos; %&#125;</span><br><span class="line">      &#123;%- else %&#125;</span><br><span class="line">        &#123;%- set sidebarText = name %&#125;</span><br><span class="line">      &#123;%- endif %&#125;</span><br><span class="line">      &#123;%- if name == &apos;E-Mail&apos; %&#125;//我添加E-Mail的解决办法</span><br><span class="line">      &lt;a href=&quot;&#123;&#123; sidebarURL &#125;&#125;&quot; rel=&quot;alternate&quot; title=&quot;E-Mail&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt; &lt;i class=&quot;fa fa-fw fa-envelope&quot;&gt;&lt;/i&gt; E-Mail&lt;/a&gt;</span><br><span class="line">      &#123;%- elif name == &apos;QQ&apos; %&#125;//我添加的QQ解决办法</span><br><span class="line">      &lt;a href=&quot;&#123;&#123; sidebarURL &#125;&#125;&quot; rel=&quot;alternate&quot; title=&quot;QQ&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt; &lt;i class=&quot;fa fa-fw fa-qq&quot;&gt;&lt;/i&gt;QQ&lt;/a&gt;</span><br><span class="line">      &#123;%- else %&#125;</span><br><span class="line">      &#123;&#123; next_url(sidebarURL, sidebarIcon + sidebarText, &#123;title: name + &apos; → &apos; + sidebarURL&#125;) &#125;&#125;//原本的解决办法，这个貌似只能处理链接为http或https开头的链接</span><br><span class="line">      &#123;%- endif %&#125;</span><br><span class="line">      &lt;/span&gt;</span><br><span class="line">    &#123;%- endfor %&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure><br>由于本人对于swig一知半解，为深入学习，对这个的理解写在注释了，注释方法可能错了(用的是C语言的注释法)，注意删除(不是不想写对，实在百度不到他的只是方案，有途径大佬会的话，可以留言或私聊我，欢迎斧正，对了也可以告诉我哦)。</p>
 ]]></content>
       <categories>
-        <category>hexo</category>
+        <category>环境配置</category>
       </categories>
       <tags>
-        <tag>前端</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -498,7 +581,7 @@
 <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.cnblogs.com/zeug/p/10516915.html" target="_blank" rel="noopener">查看mysql数据库及表编码格式</a><br><a href="http://blog.ixk.me/vscode-java-output-chinese-garbled-problem-solving.html/comment-page-1" target="_blank" rel="noopener">VSCode Java输出中文乱码问题解决</a><br><a href="http://blog.ixk.me/vscode-java-manually-imports-jar-and-source-package.html" target="_blank" rel="noopener">导入jdbc外部包</a><br><a href="https://blog.csdn.net/QingtaiSensei/article/details/105430845" target="_blank" rel="noopener">导入包</a> (按照博主说法，可以直接导入，我还没有尝试直接导入)。</p>
 ]]></content>
       <categories>
-        <category>Java</category>
+        <category>环境配置</category>
       </categories>
       <tags>
         <tag>Java</tag>
@@ -2158,10 +2241,10 @@
 <p>接下来可能会要求你重启就完成了</p>
 ]]></content>
       <categories>
-        <category>vscode</category>
+        <category>环境配置</category>
       </categories>
       <tags>
-        <tag>安装指南</tag>
+        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -2184,10 +2267,10 @@
 </ol>
 ]]></content>
       <categories>
-        <category>vscode</category>
+        <category>环境配置</category>
       </categories>
       <tags>
-        <tag>安装指南</tag>
+        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
