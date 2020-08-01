@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>杭电2020第一场补题</title>
+    <url>/2020/07/31/%E6%9D%AD%E7%94%B52020%E7%AC%AC%E4%B8%80%E5%9C%BA%E8%A1%A5%E9%A2%98/</url>
+    <content><![CDATA[<p>身体不适，这个暑假补题怕是只能尽量了。<a id="more"></a></p>
+<h1 id="1005"><a href="#1005" class="headerlink" title="1005"></a>1005</h1><h2 id="前置知识点"><a href="#前置知识点" class="headerlink" title="前置知识点"></a>前置知识点</h2><ol>
+<li>二次剩余，对于$\sqrt5$去进行取模时对$\sqrt5$实数化。</li>
+<li>欧拉降幂($a^b \equiv a^{b\%(mod-1)}\%mod$)</li>
+<li>斐波拉契通项式：$F(n) = \frac{1}{\sqrt5}* (\frac{1+\sqrt5}{2}-\frac{1-\sqrt5}{2})$</li>
+</ol>
+<p>由于这题的化简过程有点复杂，字有点丑，就不发截图了。直接上的代码。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 2e5+5;</span><br><span class="line">typedef long long ll;</span><br><span class="line">#define rep(i,a,b) for(i=(a);i&lt;=b;i++)</span><br><span class="line">#define pt(a) printf(&quot;%d\n&quot;,(a))</span><br><span class="line">#define fli freopen(&quot;D://code//ACM//std.txt&quot;,&quot;r&quot;,stdin);</span><br><span class="line">const int mod = 1e9+9;</span><br><span class="line">const int sqr_5 = 383008016;</span><br><span class="line">const int A = 691504013;//(1+sqr_5)*inv(2)</span><br><span class="line">const int B = 308495997;//(1-sqr_5)*inv(2)</span><br><span class="line">const int A1 = 276601605;//inv(sqr_5)</span><br><span class="line">int noc[N],inoc[N],cura[N],curb[N];</span><br><span class="line">int qpow(int a,int b)&#123;</span><br><span class="line">    int tmp = a,ans = 1;</span><br><span class="line">    while(b)&#123;</span><br><span class="line">        if(b&amp;1)&#123;</span><br><span class="line">            ans = 1ll*ans*tmp%mod; </span><br><span class="line">        &#125;</span><br><span class="line">        tmp=1ll*tmp*tmp%mod;</span><br><span class="line">        b&gt;&gt;=1;</span><br><span class="line">    &#125;</span><br><span class="line">    return ans%mod;</span><br><span class="line">&#125;</span><br><span class="line">void init()&#123;</span><br><span class="line">    noc[0]=1,inoc[0]=1;//noc是阶乘，inoc是结成的逆元。</span><br><span class="line">    int i;</span><br><span class="line">    rep(i,1,N-1)&#123;</span><br><span class="line">        noc[i]=(1ll*noc[i-1]*i)%mod;</span><br><span class="line">        inoc[i]=qpow(noc[i],mod-2)%mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int Com(int n,int m)&#123;</span><br><span class="line">    if(m&gt;n) return 0;</span><br><span class="line">    return (1ll*noc[n]*inoc[m]%mod*inoc[n-m]%mod)%mod;  </span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int m,i,j,t=0,k;</span><br><span class="line">    ll n,c;</span><br><span class="line">    scanf(&quot;%d&quot;,&amp;t);</span><br><span class="line">    init();</span><br><span class="line">    while(t--)&#123;</span><br><span class="line">        scanf(&quot;%lld %lld %d&quot;,&amp;n,&amp;c,&amp;k);</span><br><span class="line">        int ans = 0;</span><br><span class="line">        int a=qpow(A,c%(mod-1)),b=qpow(B,c%(mod-1));//欧拉降幂</span><br><span class="line">        //printf(&quot;%d %d\n&quot;,a,b);</span><br><span class="line">        cura[0]=curb[0]=1;</span><br><span class="line">        for(i=1;i&lt;=k;i++)&#123;</span><br><span class="line">            cura[i]=1ll*cura[i-1]*a%mod;</span><br><span class="line">            curb[i]=1ll*curb[i-1]*b%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        for(i=0;i&lt;=k;i++)&#123;</span><br><span class="line">            int q = 1ll*cura[k-i]*curb[i]%mod;//公比</span><br><span class="line">            int tmp=0;</span><br><span class="line">            if(q==1)&#123;</span><br><span class="line">                tmp = n%mod;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                tmp = 1ll*q * (qpow(q,(n%(mod-1)))-1)%mod*(qpow(q-1,mod-2))%mod;</span><br><span class="line">            &#125;</span><br><span class="line">            //printf(&quot;%d %dssss\n&quot;,q,tmp);</span><br><span class="line">            int flag=1;</span><br><span class="line">            if(i&amp;1) flag=-1;</span><br><span class="line">            ans = (ans+1ll*flag*Com(k,i)%mod*tmp)%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;%d\n&quot;,(1ll*(ans%mod+mod)%mod*qpow(A1, k)%mod+mod)%mod);</span><br><span class="line">    &#125;</span><br><span class="line">    //system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>比赛日志</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu18.04安装docker安装酷Q</title>
     <url>/2020/06/06/Ubuntu18%E5%AE%89%E8%A3%85%E9%85%B7Q/</url>
     <content><![CDATA[<p>最近发现我的服务器完全闲置了，所以我决定在上面部署一个qqbot来练习自己的py爬虫。<a id="more"></a></p>
@@ -33,7 +51,7 @@
 <h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><p>关于docker的报错，今天一共出现三种，如下：</p>
 <ol>
 <li>部署的端口冲突，我们改一下端口就好了</li>
-<li>部署的应用的image已存在，两种修复办法，第一改掉名称，第二先暂停重复的应用<code>(docker stop (container id))</code>然后删除它<code>(docker remove (container id))</code>。</li>
+<li>部署的应用的image已存在，两种修复办法，第一改掉名称，第二先暂停重复的应用<code>(docker stop (container id))</code>然后删除它<code>(docker rm (container id))</code>。</li>
 <li>部署完以后无效，我这里是因为云服务器没有打开部署的端口号，到服务器找到安全组打开端口以后运行流畅。</li>
 </ol>
 <h2 id="部分docker命令"><a href="#部分docker命令" class="headerlink" title="部分docker命令"></a>部分docker命令</h2><div class="table-container">
@@ -59,7 +77,7 @@
 </tr>
 <tr>
 <td style="text-align:center">删除已部署应用</td>
-<td style="text-align:center">(docker remove (container id))</td>
+<td style="text-align:center">(docker rm (container id))</td>
 </tr>
 </tbody>
 </table>
@@ -77,7 +95,7 @@
 </blockquote>
 ]]></content>
       <categories>
-        <category>配置环境</category>
+        <category>环境配置</category>
       </categories>
       <tags>
         <tag>Linux</tag>
