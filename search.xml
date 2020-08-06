@@ -4,7 +4,7 @@
     <title>杭电2020第一场补题</title>
     <url>/2020/07/31/%E6%9D%AD%E7%94%B52020%E7%AC%AC%E4%B8%80%E5%9C%BA%E8%A1%A5%E9%A2%98/</url>
     <content><![CDATA[<p>身体不适，这个暑假补题怕是只能尽量了。<a id="more"></a></p>
-<h1 id="1005"><a href="#1005" class="headerlink" title="1005"></a>1005</h1><h2 id="前置知识点"><a href="#前置知识点" class="headerlink" title="前置知识点"></a>前置知识点</h2><ol>
+<h2 id="1005"><a href="#1005" class="headerlink" title="1005"></a>1005</h2><h3 id="前置知识点"><a href="#前置知识点" class="headerlink" title="前置知识点"></a>前置知识点</h3><ol>
 <li>二次剩余，对于$\sqrt5$去进行取模时对$\sqrt5$实数化。</li>
 <li>欧拉降幂($a^b \equiv a^{b\%(mod-1)}\%mod$)</li>
 <li>斐波拉契通项式：$F(n) = \frac{1}{\sqrt5}* (\frac{1+\sqrt5}{2}-\frac{1-\sqrt5}{2})$</li>
