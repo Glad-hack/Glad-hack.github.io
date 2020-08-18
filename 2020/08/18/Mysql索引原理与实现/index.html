@@ -49,16 +49,18 @@
   };
 </script>
 
-  <meta name="description" content="心有不甘，却无以为继">
-<meta property="og:type" content="website">
-<meta property="og:title" content="添砖Java">
-<meta property="og:url" content="https:&#x2F;&#x2F;www.dream-ak.top&#x2F;archives&#x2F;2020&#x2F;03&#x2F;page&#x2F;2&#x2F;index.html">
+  <meta name="description" content="最近要对数据库优化查询速度，于是来了解一下索引。">
+<meta name="keywords" content="数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql索引原理与实现">
+<meta property="og:url" content="https:&#x2F;&#x2F;www.dream-ak.top&#x2F;2020&#x2F;08&#x2F;18&#x2F;Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0&#x2F;index.html">
 <meta property="og:site_name" content="添砖Java">
-<meta property="og:description" content="心有不甘，却无以为继">
+<meta property="og:description" content="最近要对数据库优化查询速度，于是来了解一下索引。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-18T14:39:44.314Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://www.dream-ak.top/archives/2020/03/page/2/">
+<link rel="canonical" href="https://www.dream-ak.top/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/">
 
 
 <script id="page-configurations">
@@ -66,11 +68,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false
+    isPost: true
   };
 </script>
 
-  <title>归档 | 添砖Java</title>
+  <title>Mysql索引原理与实现 | 添砖Java</title>
   
 
 
@@ -183,217 +185,166 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.dream-ak.top/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/vscode.jpg">
+      <meta itemprop="name" content="无向秃">
+      <meta itemprop="description" content="心有不甘，却无以为继">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="添砖Java">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mysql索引原理与实现
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-18 22:05:43 / 修改时间：22:39:44" itemprop="dateCreated datePublished" datetime="2020-08-18T22:05:43+08:00">2020-08-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        <span class="collection-header">不错! 目前共计 67 篇日志。 继续努力。</span>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>440</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
+        <p>最近要对数据库优化查询速度，于是来了解一下索引。<a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p>索引：是存储引擎快速找到记录的数据结构。</p>
+</blockquote>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><a href="https://www.cnblogs.com/songwenjie/p/9415016.html" target="_blank" rel="noopener">请参考该篇文章</a></p>
+<p>我在这里仅写一点观后感</p>
+<h3 id="MyISAM"><a href="#MyISAM" class="headerlink" title="MyISAM"></a>MyISAM</h3><p>对于这个存储引擎，所用的数据结构是B+Tree，每一次按存入顺序给每一个数据编号，在需要查询时，对主键进行索引得到编号后带入表中得到数据。可以发现，在存储引擎里面并没有数据，索引和数据分开了，是非聚集索引。</p>
+<h3 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h3><p>它所使用的数据结构也是B+Tree，但是它本身就是数据文件，支持聚簇索引。<br><strong>优点：</strong></p>
+<ol>
+<li>数据访问快。</li>
+<li>把相关数据放到一起，减少磁盘io。</li>
+<li>使用索引覆盖时，可以直接使用页结点的主键值。</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol>
+<li>插入速度严重依赖插入顺序。</li>
+<li>更新聚簇索引代价高。</li>
+<li>基于聚簇索引的表在插入新行，或者主键被更新导致需要移动行的时候，可能会导致“页分裂”。当行的主键值要求必须将这一行插入到已满的页中时，存储引擎会将该页分裂为两个页面来容纳该行，这就是一次页分裂操作，页分裂会导致表占用更多的存储空间。</li>
+</ol>
+<blockquote>
+<p>由最后一点可知为了加速插入速度，我们主键可以使用自增的无关元素。</p>
+</blockquote>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-11T10:11:29+08:00"
-              content="2020-03-11">
-          03-11
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/11/Java%E5%AF%B9%E8%B1%A1/" itemprop="url">
-            <span itemprop="name">Java对象</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-10T20:24:09+08:00"
-              content="2020-03-10">
-          03-10
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/10/%E8%93%9D%E6%A1%A5%E6%9D%AF%E6%A0%A1%E8%B5%9B%E7%AC%AC%E4%B9%9D%E9%A2%98/" itemprop="url">
-            <span itemprop="name">蓝桥杯校赛第九题</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-10T09:35:16+08:00"
-              content="2020-03-10">
-          03-10
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/10/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C/" itemprop="url">
-            <span itemprop="name">数据库操作</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-06T09:41:54+08:00"
-              content="2020-03-06">
-          03-06
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/06/python%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" itemprop="url">
-            <span itemprop="name">python文件操作</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-04T18:46:38+08:00"
-              content="2020-03-04">
-          03-04
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/04/1320B/" itemprop="url">
-            <span itemprop="name">最短路径图</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-04T18:41:03+08:00"
-              content="2020-03-04">
-          03-04
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/04/1305D/" itemprop="url">
-            <span itemprop="name">交互1305D</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-02T20:09:21+08:00"
-              content="2020-03-02">
-          03-02
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/02/%E6%B1%82%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97%E7%9A%84%E5%80%BC/" itemprop="url">
-            <span itemprop="name">求等差数列的值</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-02T10:28:49+08:00"
-              content="2020-03-02">
-          03-02
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/02/java/" itemprop="url">
-            <span itemprop="name">java程序基础</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-03-01T11:43:51+08:00"
-              content="2020-03-01">
-          03-01
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/03/01/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" itemprop="url">
-            <span itemprop="name">两数相加</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\03\10\数据库操作\" rel="bookmark">数据库操作</a></div>
+    </li>
+  </ul>
 
 
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"><i class="fa fa-tag"></i> 数据库</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
     </div>
   </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/07/%E6%9D%AD%E7%94%B52020%E5%A4%9A%E6%A0%A1%E7%AC%AC%E5%85%AD%E5%9C%BA%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" rel="prev" title="杭电2020多校第六场部分题解">
+      <i class="fa fa-chevron-left"></i> 杭电2020多校第六场部分题解
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
   
   
   
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2020/03/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/archives/2020/03/">1</a><span class="page-number current">2</span>
-  </nav>
-
+  </div>
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -440,6 +391,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyISAM"><span class="nav-number">2.1.</span> <span class="nav-text">MyISAM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB"><span class="nav-number">2.2.</span> <span class="nav-text">InnoDB</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
