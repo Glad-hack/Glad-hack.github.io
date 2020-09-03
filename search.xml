@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Http简述</title>
+    <url>/2020/09/03/Http%E7%AE%80%E8%BF%B0/</url>
+    <content><![CDATA[<p>下学期开网络编程和Web，我发现学完这里貌似就可以开发web了。<a id="more"></a></p>
+<h1 id="关于HTTP协议"><a href="#关于HTTP协议" class="headerlink" title="关于HTTP协议"></a>关于HTTP协议</h1><blockquote>
+<p>HTTP: 全称HyperText Transfer Protocol 超文本传输协议</p>
+</blockquote>
+<h2 id="协议概述"><a href="#协议概述" class="headerlink" title="协议概述"></a>协议概述</h2><p>HTTP是一个客户端终端（用户）和服务器端（网站）请求和应答的标准（TCP）。通过使用网页浏览器、网络爬虫或者其它的工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80）。我们称这个客户端为用户代理程序（user agent）。应答的服务器上存储着一些资源，比如HTML文件和图像。我们称这个应答服务器为源服务器（origin server）。在用户代理和源服务器中间可能存在多个“中间层”，比如代理服务器、网关或者隧道（tunnel）。</p>
+<p>尽管TCP/IP协议是互联网上最流行的应用，HTTP协议中，并没有规定必须使用它或它支持的层。事实上，HTTP可以在任何互联网协议上，或其他网络上实现。HTTP假定其下层协议提供可靠的传输。因此，任何能够提供这种保证的协议都可以被其使用。因此也就是其在TCP/IP协议族使用TCP作为其传输层。</p>
+<p>通常，由HTTP客户端发起一个请求，创建一个到服务器指定端口（默认是80端口）的TCP连接。HTTP服务器则在那个端口监听客户端的请求。一旦收到请求，服务器会向客户端返回一个状态，比如”HTTP/1.1 200 OK”，以及返回的内容，如请求的文件、错误消息、或者其它信息。</p>
+<p>在HTTP1.0中每一次做数据传输时都需要重新建立连接，而HTTP1.1中建立的连接可以进行复用，直到没有数据传输而断开。</p>
+<h2 id="HTTP请求流程"><a href="#HTTP请求流程" class="headerlink" title="HTTP请求流程"></a>HTTP请求流程</h2><ol>
+<li><p>客户端连接到Web服务器<br>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。例如，<a href="http://dream-ak.top。" target="_blank" rel="noopener">http://dream-ak.top。</a></p>
+</li>
+<li><p>发送HTTP请求<br>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求体4部分组成。</p>
+</li>
+<li><p>服务器接受请求并返回HTTP响应<br>Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</p>
+</li>
+<li><p>释放连接TCP连接<br>若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;</p>
+</li>
+<li><p>客户端浏览器解析HTML内容<br>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</p>
+</li>
+</ol>
+<h2 id="关于请求报文"><a href="#关于请求报文" class="headerlink" title="关于请求报文"></a>关于请求报文</h2><blockquote>
+<p>一个请求报文由请求行、请求头部、请求空行和请求体4部分组成。</p>
+</blockquote>
+<ol>
+<li><p>请求行：请求方式+请求Url+使用协议/版本</p>
+</li>
+<li><p>请求头部：提供本身的一些信息</p>
+</li>
+<li><p>请求空行：将请求头部与请求体分隔开</p>
+</li>
+<li><p>请求体：包含请求数据</p>
+</li>
+</ol>
+<h2 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h2><blockquote>
+<p>1xx消息——请求已被服务器接收，继续处理<br>2xx成功——请求已成功被服务器接收、理解、并接受<br>3xx重定向——需要后续操作才能完成这一请求<br>4xx请求错误——请求含有词法错误或者无法被执行<br>5xx服务器错误——服务器在处理某个正确请求时发生错误</p>
+</blockquote>
+<p><strong><a href="https://www.cnblogs.com/an-wen/p/11180076.html" target="_blank" rel="noopener">有关请求方式请求，请求格式请参考这个</a></strong></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.cnblogs.com/an-wen/p/11180076.html" target="_blank" rel="noopener">HTTP超级详解</a></p>
+]]></content>
+      <categories>
+        <category>网络编程</category>
+      </categories>
+      <tags>
+        <tag>Http</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mysql索引原理与实现</title>
     <url>/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<p>最近要对数据库优化查询速度，于是来了解一下索引。<a id="more"></a></p>
@@ -25,7 +74,17 @@
 <blockquote>
 <p>由最后一点可知为了加速插入速度，我们主键可以使用自增的无关元素。</p>
 </blockquote>
-]]></content>
+<h2 id="底层数据结构"><a href="#底层数据结构" class="headerlink" title="底层数据结构"></a>底层数据结构</h2><p>$MyISAM$与$InnoDB$的底层都是$B+Tree$($BTree$把非叶子节点的data域去掉后在叶子节点直间加双向指针形成)。<br>总的来看就是$BTree$，按照索引从前到后去建立$B+Tree$。该结构形成了最左原则的规定，也就是联合索引$abc$，如果索引时没有$a$的话，在执行索引的时候就不清楚该怎么走,可能出现，无法使用索引。</p>
+<h2 id="索引功能"><a href="#索引功能" class="headerlink" title="索引功能"></a>索引功能</h2><p><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/Mysql索引原理与实现\数据.png" alt="数据"><br><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/Mysql索引原理与实现\无索引.png" alt="无索引"><br>可以看到，在没有索引的时候，查询张三的时候我们一共影响了6行<br><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/Mysql索引原理与实现\有索引.png" alt="有索引"><br>添加了索引以后只影响了1行。</p>
+<h2 id="索引操作"><a href="#索引操作" class="headerlink" title="索引操作"></a>索引操作</h2><h3 id="索引的创建"><a href="#索引的创建" class="headerlink" title="索引的创建"></a>索引的创建</h3><blockquote>
+<p>alter table table_name add index (column);</p>
+</blockquote>
+<h3 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h3><blockquote>
+<p>drop index index_name on table_name</p>
+</blockquote>
+<h2 id="索引执行机制"><a href="#索引执行机制" class="headerlink" title="索引执行机制"></a>索引执行机制</h2><p>索引执行最左原则也就是最左边的一定要出现，否则不会使用索引(覆盖查询除外)。具体可以看下图。<br><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/Mysql索引原理与实现\索引.png" alt="索引"><br>这是典型的abc联合索引，然后我做了一个ac联合索引与bc联合索引的测试。<br><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/Mysql索引原理与实现\使用索引.png" alt="ac"><br>可以看到，它使用了索引$idx$。</p>
+<p><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0/Mysql索引原理与实现\bc使用索引.png" alt="bc"><br>可以看到利用bc查询时，它的key是空，没有使用索引。</p>
+<h2 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h2>]]></content>
       <categories>
         <category>数据库</category>
       </categories>
@@ -822,7 +881,11 @@
     <title>Java多态</title>
     <url>/2020/03/17/Java%E5%A4%9A%E6%80%81/</url>
     <content><![CDATA[<p>这个在上一篇，继承的最后一点说了一丢丢，当时还不知道就是多态，小尴尬，双倍快乐吧<a id="more"></a></p>
-<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><h2 id="覆写"><a href="#覆写" class="headerlink" title="覆写"></a>覆写</h2><p>子类对于父类的方法进行的修改就叫覆写(Override)。<br>覆写的方式是在子类中定义一个与父类<strong>方法名相同、返回值和参数一样</strong>的方法，就会变成覆写。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">## 多态</span><br><span class="line">多态是指，针对某个类型的方法调用，其真正执行的方法取决于运行时期实际类型的方法。</span><br><span class="line">**当一个子类向上转型为父类以后，那么如果父类中有方法被该子类覆写了，调用该方法是会动态调用子类中覆写的方法。**</span><br><span class="line">通过这个性质，对于同一个类的同一个方法就会出现不同的实现方式。例如以下代码：</span><br></pre></td></tr></table></figure><br>public class Main {<br>        public static void main(String[] args){<br>                Preson p1 = new Student();<br>                Preson p2 = new Teacher();<br>                p1.speak();<br>                p2.speak();<br>                p1.speak();<br>        }<br>}<br>public class Preson<br>{<br>    public int age=10;<br>    void speak() {<br>        System.out.println(“父类”);<br>    }<br>}<br>public class Student extends Preson<br>{    @Override//覆写<br>    void speak(){<br>        System.out.println(“学生”);<br>    }<br>}<br>public class Teacher extends Preson<br>{<br>    @Override//覆写<br>    void speak(){<br>        System.out.println(“老师”);<br>    }<br>}<br>```<br>同样都是Person类执行同一个方法输出却是：</p>
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><h2 id="覆写"><a href="#覆写" class="headerlink" title="覆写"></a>覆写</h2><p>子类对于父类的方法进行的修改就叫覆写(Override)。<br>覆写的方式是在子类中定义一个与父类<strong>方法名相同、返回值和参数一样</strong>的方法，就会变成覆写。</p>
+<blockquote>
+<p>@Override 能够检查覆写是否正确。</p>
+</blockquote>
+<h2 id="多态-1"><a href="#多态-1" class="headerlink" title="多态"></a>多态</h2><p>多态是指，针对某个类型的方法调用，其真正执行的方法取决于运行时期实际类型的方法。<br><strong>当一个子类向上转型为父类以后，那么如果父类中有方法被该子类覆写了，调用该方法是会动态调用子类中覆写的方法。</strong><br>通过这个性质，对于同一个类的同一个方法就会出现不同的实现方式。例如以下代码：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Main &#123;</span><br><span class="line">        public static void main(String[] args)&#123; </span><br><span class="line">                Preson p1 = new Student();</span><br><span class="line">                Preson p2 = new Teacher();</span><br><span class="line">                p1.speak();</span><br><span class="line">                p2.speak();</span><br><span class="line">                p1.speak();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Preson</span><br><span class="line">&#123;</span><br><span class="line">    public int age=10;</span><br><span class="line">	void speak() &#123;</span><br><span class="line">		System.out.println(&quot;父类&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Student extends Preson</span><br><span class="line">&#123;	@Override//覆写</span><br><span class="line">	void speak()&#123;</span><br><span class="line">		System.out.println(&quot;学生&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Teacher extends Preson</span><br><span class="line">&#123;	</span><br><span class="line">    @Override//覆写</span><br><span class="line">	void speak()&#123;</span><br><span class="line">		System.out.println(&quot;老师&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>同样都是Person类执行同一个方法输出却是：</p>
 <blockquote>
 <p>学生<br>老师<br>学生</p>
 </blockquote>
