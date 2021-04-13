@@ -388,31 +388,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java继承</title>
-    <url>/2020/03/17/Java%E7%BB%A7%E6%89%BF/</url>
-    <content><![CDATA[<p>对于Java继承的存在意义的话，可以把代码规模减少，加快编码速度咯。正确的使用继承和多态就会出现很多不可思议的东西<a id="more"></a></p>
-<h1 id="Java继承"><a href="#Java继承" class="headerlink" title="Java继承"></a>Java继承</h1><h2 id="extends"><a href="#extends" class="headerlink" title="$extends$"></a>$extends$</h2><p>继承是面向对象编程中非常强大的一种机制，它首先可以复用代码。当我们让$Student$从$Person$继承时，$Student$就获得了$Person$的所有功能，我们只需要为$Student$编写新增的功能。<br>继承的关键字是<strong>extends</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Preson</span><br><span class="line">&#123;</span><br><span class="line">    public int age=10;</span><br><span class="line">	void speak() &#123;</span><br><span class="line">		System.out.println(age);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Student extends Preson//继承Preson类</span><br><span class="line">&#123;	</span><br><span class="line">	public String meat;</span><br><span class="line">	void eat(String x)&#123;</span><br><span class="line">		System.out.println(x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Main &#123;</span><br><span class="line">        public static void main(String[] args)&#123; </span><br><span class="line">                Student p = new Student();</span><br><span class="line">                p.age = 1;</span><br><span class="line">                p.eat(&quot;Apple&quot;);</span><br><span class="line">                p.speak();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>从以上代码可以看出，我们的$Student$类完全可以调用$Person$类的$speak()$方法，也可以自己写方法(譬如$eat()$方法)。<br>在OOP的术语中，我们把$Person$称为超类（super class），父类（parent class），基类（base class），把$Student$称为子类（subclass），扩展类（extended class）。</p>
-<h2 id="继承树"><a href="#继承树" class="headerlink" title="继承树"></a>继承树</h2><p>可以发现上面我们的代码$Person$类是没有$extends$的。不过要注意，他还是有父类，是$Object$类，<strong>在Java里面一切不定义extends的类都有一个Object父类</strong>但是Object没有父类。<br>了解了这个以后我们来看一下继承树：<script type="math/tex">Student \rightarrow Preson \rightarrow Object</script></p>
-<blockquote>
-<p>注意：继承树的根是$Object$，上一个节点就是他的父类</p>
-</blockquote>
-<h2 id="protected"><a href="#protected" class="headerlink" title="$protected$"></a>$protected$</h2><p>继承一大特点：子类无法访问父类的$private$变量或$private$字段，这使得继承的作用被削弱了。为了让子类可以访问父类的字段，我们需要把$private$改为$protected$。原因<a href="https://www.dream-ak.top/2020/03/11/Java%E4%BF%AE%E9%A5%B0%E7%AC%A6/#more" target="_blank" rel="noopener">可参考</a>。<br>因此，protected关键字可以把字段和方法的访问权限控制在继承树内部，一个protected字段和方法可以被其子类，以及子类的子类所访问。</p>
-<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><p>如果父类不含有默认构造方法，那么我们需要使用$super(参数)$去自行构建。<br>含有默认构造方法的话，会自动在构造的时候加一个$super()$。</p>
-<h2 id="转型"><a href="#转型" class="headerlink" title="转型"></a>转型</h2><p>对于Java的继承时我们可以对一个引用变量进行转化。<br>用代码解释一下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Student p0 =new Student();</span><br><span class="line">Preson p1 = new Preson();</span><br><span class="line">p1 = p0;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">你会发现他成功了，而且这里的p1会丢失Student类的所有方法和属性，这就是**向上转型(子类向父类转换)**，如果要恢复的话必须要**向下转型(父类向子类转换)**。</span><br><span class="line">子类向父类转化是没啥条件的，毕竟父类本身就有子类的部分属性和方法，只不过是更加抽象而已，但是向下转型是有条件的(向下转型时需要判断它是不是要转化的子类类型，不是就会报错)</span><br><span class="line">### $instanceof$</span><br><span class="line">为了防止向下转型失败，这里提供了$instanceof$关键字来判断是否可以转型。</span><br><span class="line">$instanceof$返回$Boolean$值，true代表是后面的类型，false反之。</span><br></pre></td></tr></table></figure><br>Student p1 = new Student();<br>Preson p2 = new Preson();<br>if(p2 instanceof Student){<br>        p1 = (Student) p2;<br>}<br>```<br>这样就不会报错，防止转型失败</p>
-<blockquote>
-<p>对于一次向上转型来说，对于父类来说，他可以使用父类的所有属性和方法，而子类中定义的所有的方法和属性是没有办法的，但是当子类中对父类方法进行覆写时他就会调用子类覆写后的方法(动态连接)，否则就是调用父类自身方法。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1260454548196032" target="_blank" rel="noopener">廖雪峰的Java教程</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java连接数据库</title>
     <url>/2020/04/07/Java%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
     <content><![CDATA[<p>用vscode编译Java一直乱码，我还以为是vscode的问题(毕竟vscode的乱码挺多的)。用回了eclipse以后，发现乱换ide是个不好的习惯，那玩意怎么用啊！于是疯狂捣鼓vscode，终于弄好了Java连接数据库且不乱码了。<a id="more"></a></p>
@@ -449,6 +424,75 @@
       </categories>
       <tags>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java继承</title>
+    <url>/2020/03/17/Java%E7%BB%A7%E6%89%BF/</url>
+    <content><![CDATA[<p>对于Java继承的存在意义的话，可以把代码规模减少，加快编码速度咯。正确的使用继承和多态就会出现很多不可思议的东西<a id="more"></a></p>
+<h1 id="Java继承"><a href="#Java继承" class="headerlink" title="Java继承"></a>Java继承</h1><h2 id="extends"><a href="#extends" class="headerlink" title="$extends$"></a>$extends$</h2><p>继承是面向对象编程中非常强大的一种机制，它首先可以复用代码。当我们让$Student$从$Person$继承时，$Student$就获得了$Person$的所有功能，我们只需要为$Student$编写新增的功能。<br>继承的关键字是<strong>extends</strong><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Preson</span><br><span class="line">&#123;</span><br><span class="line">    public int age=10;</span><br><span class="line">	void speak() &#123;</span><br><span class="line">		System.out.println(age);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Student extends Preson//继承Preson类</span><br><span class="line">&#123;	</span><br><span class="line">	public String meat;</span><br><span class="line">	void eat(String x)&#123;</span><br><span class="line">		System.out.println(x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public class Main &#123;</span><br><span class="line">        public static void main(String[] args)&#123; </span><br><span class="line">                Student p = new Student();</span><br><span class="line">                p.age = 1;</span><br><span class="line">                p.eat(&quot;Apple&quot;);</span><br><span class="line">                p.speak();</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从以上代码可以看出，我们的$Student$类完全可以调用$Person$类的$speak()$方法，也可以自己写方法(譬如$eat()$方法)。<br>在OOP的术语中，我们把$Person$称为超类（super class），父类（parent class），基类（base class），把$Student$称为子类（subclass），扩展类（extended class）。</p>
+<h2 id="继承树"><a href="#继承树" class="headerlink" title="继承树"></a>继承树</h2><p>可以发现上面我们的代码$Person$类是没有$extends$的。不过要注意，他还是有父类，是$Object$类，<strong>在Java里面一切不定义extends的类都有一个Object父类</strong>但是Object没有父类。<br>了解了这个以后我们来看一下继承树：<script type="math/tex">Student \rightarrow Preson \rightarrow Object</script></p>
+<blockquote>
+<p>注意：继承树的根是$Object$，上一个节点就是他的父类</p>
+</blockquote>
+<h2 id="protected"><a href="#protected" class="headerlink" title="$protected$"></a>$protected$</h2><p>继承一大特点：子类无法访问父类的$private$变量或$private$字段，这使得继承的作用被削弱了。为了让子类可以访问父类的字段，我们需要把$private$改为$protected$。原因<a href="https://www.dream-ak.top/2020/03/11/Java%E4%BF%AE%E9%A5%B0%E7%AC%A6/#more" target="_blank" rel="noopener">可参考</a>。<br>因此，protected关键字可以把字段和方法的访问权限控制在继承树内部，一个protected字段和方法可以被其子类，以及子类的子类所访问。</p>
+<h2 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h2><p>如果父类不含有默认构造方法，那么我们需要使用$super(参数)$去自行构建。<br>含有默认构造方法的话，会自动在构造的时候加一个$super()$。</p>
+<h2 id="转型"><a href="#转型" class="headerlink" title="转型"></a>转型</h2><p>对于Java的继承时我们可以对一个引用变量进行转化。<br>用代码解释一下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Student p0 =new Student();</span><br><span class="line">Preson p1 = new Preson();</span><br><span class="line">p1 = p0;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">你会发现他成功了，而且这里的p1会丢失Student类的所有方法和属性，这就是**向上转型(子类向父类转换)**，如果要恢复的话必须要**向下转型(父类向子类转换)**。</span><br><span class="line">子类向父类转化是没啥条件的，毕竟父类本身就有子类的部分属性和方法，只不过是更加抽象而已，但是向下转型是有条件的(向下转型时需要判断它是不是要转化的子类类型，不是就会报错)</span><br><span class="line">### $instanceof$</span><br><span class="line">为了防止向下转型失败，这里提供了$instanceof$关键字来判断是否可以转型。</span><br><span class="line">$instanceof$返回$Boolean$值，true代表是后面的类型，false反之。</span><br></pre></td></tr></table></figure><br>Student p1 = new Student();<br>Preson p2 = new Preson();<br>if(p2 instanceof Student){<br>        p1 = (Student) p2;<br>}<br>```<br>这样就不会报错，防止转型失败</p>
+<blockquote>
+<p>对于一次向上转型来说，对于父类来说，他可以使用父类的所有属性和方法，而子类中定义的所有的方法和属性是没有办法的，但是当子类中对父类方法进行覆写时他就会调用子类覆写后的方法(动态连接)，否则就是调用父类自身方法。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1260454548196032" target="_blank" rel="noopener">廖雪峰的Java教程</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mysql索引原理与实现</title>
+    <url>/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<p>最近要对数据库优化查询速度，于是来了解一下索引。<a id="more"></a></p>
+<h1 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p>索引：是存储引擎快速找到记录的数据结构。</p>
+</blockquote>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><a href="https://www.cnblogs.com/songwenjie/p/9415016.html" target="_blank" rel="noopener">请参考该篇文章</a></p>
+<p>我在这里仅写一点观后感</p>
+<h3 id="MyISAM"><a href="#MyISAM" class="headerlink" title="MyISAM"></a>MyISAM</h3><p>对于这个存储引擎，所用的数据结构是B+Tree，每一次按存入顺序给每一个数据编号，在需要查询时，对主键进行索引得到编号后带入表中得到数据。可以发现，在存储引擎里面并没有数据，索引和数据分开了，是非聚集索引。</p>
+<h3 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h3><p>它所使用的数据结构也是$B+Tree$，但是它本身就是数据文件，支持聚簇索引。</p>
+<p><strong>优点：</strong></p>
+<ol>
+<li>数据访问快。</li>
+<li>把相关数据放到一起，减少磁盘io。</li>
+<li>使用索引覆盖时，可以直接使用页结点的主键值。</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol>
+<li>插入速度严重依赖插入顺序。</li>
+<li>更新聚簇索引代价高。</li>
+<li>基于聚簇索引的表在插入新行，或者主键被更新导致需要移动行的时候，可能会导致“页分裂”。当行的主键值要求必须将这一行插入到已满的页中时，存储引擎会将该页分裂为两个页面来容纳该行，这就是一次页分裂操作，页分裂会导致表占用更多的存储空间。</li>
+</ol>
+<blockquote>
+<p>由最后一点可知为了加速插入速度，我们主键可以使用自增的无关元素。</p>
+</blockquote>
+<h2 id="底层数据结构"><a href="#底层数据结构" class="headerlink" title="底层数据结构"></a>底层数据结构</h2><p>$MyISAM$与$InnoDB$的底层都是$B+Tree$($BTree$把非叶子节点的data域去掉后在叶子节点直间加双向指针形成)。<br>总的来看就是$BTree$，按照索引从前到后去建立$B+Tree$。该结构形成了最左原则的规定，也就是联合索引$abc$，如果索引时没有$a$的话，在执行索引的时候就不清楚该怎么走,可能出现，无法使用索引。</p>
+<h2 id="索引功能"><a href="#索引功能" class="headerlink" title="索引功能"></a>索引功能</h2><p><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/数据.png" alt="数据"><br><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/无索引.png" alt="无索引"><br>可以看到，在没有索引的时候，查询张三的时候我们一共影响了6行<br><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/有索引.png" alt="有索引"><br>添加了索引以后只影响了1行。</p>
+<h2 id="索引操作"><a href="#索引操作" class="headerlink" title="索引操作"></a>索引操作</h2><h3 id="索引的创建"><a href="#索引的创建" class="headerlink" title="索引的创建"></a>索引的创建</h3><blockquote>
+<p>alter table table_name add index (column);</p>
+</blockquote>
+<h3 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h3><blockquote>
+<p>drop index index_name on table_name</p>
+</blockquote>
+<h2 id="索引执行机制"><a href="#索引执行机制" class="headerlink" title="索引执行机制"></a>索引执行机制</h2><p>索引执行最左原则也就是最左边的一定要出现，否则不会使用索引(覆盖查询除外)。具体可以看下图。<br><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/索引.png" alt="索引"><br>这是典型的abc联合索引，然后我做了一个ac联合索引与bc联合索引的测试。<br><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/使用索引.png" alt="ac"><br>可以看到，它使用了索引$idx$。</p>
+<p><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/bc使用索引.png" alt="bc"><br>可以看到利用bc查询时，它的key是空，没有使用索引。</p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
       </tags>
   </entry>
   <entry>
@@ -553,50 +597,6 @@
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mysql索引原理与实现</title>
-    <url>/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<p>最近要对数据库优化查询速度，于是来了解一下索引。<a id="more"></a></p>
-<h1 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
-<p>索引：是存储引擎快速找到记录的数据结构。</p>
-</blockquote>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><a href="https://www.cnblogs.com/songwenjie/p/9415016.html" target="_blank" rel="noopener">请参考该篇文章</a></p>
-<p>我在这里仅写一点观后感</p>
-<h3 id="MyISAM"><a href="#MyISAM" class="headerlink" title="MyISAM"></a>MyISAM</h3><p>对于这个存储引擎，所用的数据结构是B+Tree，每一次按存入顺序给每一个数据编号，在需要查询时，对主键进行索引得到编号后带入表中得到数据。可以发现，在存储引擎里面并没有数据，索引和数据分开了，是非聚集索引。</p>
-<h3 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h3><p>它所使用的数据结构也是$B+Tree$，但是它本身就是数据文件，支持聚簇索引。</p>
-<p><strong>优点：</strong></p>
-<ol>
-<li>数据访问快。</li>
-<li>把相关数据放到一起，减少磁盘io。</li>
-<li>使用索引覆盖时，可以直接使用页结点的主键值。</li>
-</ol>
-<p><strong>缺点：</strong></p>
-<ol>
-<li>插入速度严重依赖插入顺序。</li>
-<li>更新聚簇索引代价高。</li>
-<li>基于聚簇索引的表在插入新行，或者主键被更新导致需要移动行的时候，可能会导致“页分裂”。当行的主键值要求必须将这一行插入到已满的页中时，存储引擎会将该页分裂为两个页面来容纳该行，这就是一次页分裂操作，页分裂会导致表占用更多的存储空间。</li>
-</ol>
-<blockquote>
-<p>由最后一点可知为了加速插入速度，我们主键可以使用自增的无关元素。</p>
-</blockquote>
-<h2 id="底层数据结构"><a href="#底层数据结构" class="headerlink" title="底层数据结构"></a>底层数据结构</h2><p>$MyISAM$与$InnoDB$的底层都是$B+Tree$($BTree$把非叶子节点的data域去掉后在叶子节点直间加双向指针形成)。<br>总的来看就是$BTree$，按照索引从前到后去建立$B+Tree$。该结构形成了最左原则的规定，也就是联合索引$abc$，如果索引时没有$a$的话，在执行索引的时候就不清楚该怎么走,可能出现，无法使用索引。</p>
-<h2 id="索引功能"><a href="#索引功能" class="headerlink" title="索引功能"></a>索引功能</h2><p><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/数据.png" alt="数据"><br><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/无索引.png" alt="无索引"><br>可以看到，在没有索引的时候，查询张三的时候我们一共影响了6行<br><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/有索引.png" alt="有索引"><br>添加了索引以后只影响了1行。</p>
-<h2 id="索引操作"><a href="#索引操作" class="headerlink" title="索引操作"></a>索引操作</h2><h3 id="索引的创建"><a href="#索引的创建" class="headerlink" title="索引的创建"></a>索引的创建</h3><blockquote>
-<p>alter table table_name add index (column);</p>
-</blockquote>
-<h3 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h3><blockquote>
-<p>drop index index_name on table_name</p>
-</blockquote>
-<h2 id="索引执行机制"><a href="#索引执行机制" class="headerlink" title="索引执行机制"></a>索引执行机制</h2><p>索引执行最左原则也就是最左边的一定要出现，否则不会使用索引(覆盖查询除外)。具体可以看下图。<br><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/索引.png" alt="索引"><br>这是典型的abc联合索引，然后我做了一个ac联合索引与bc联合索引的测试。<br><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/使用索引.png" alt="ac"><br>可以看到，它使用了索引$idx$。</p>
-<p><img src="/2020/08/18/Mysql%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86/bc使用索引.png" alt="bc"><br>可以看到利用bc查询时，它的key是空，没有使用索引。</p>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>数据库</tag>
       </tags>
   </entry>
   <entry>
@@ -729,6 +729,24 @@
       </tags>
   </entry>
   <entry>
+    <title>codeforces1307D</title>
+    <url>/2020/03/24/codeforces1307D/</url>
+    <content><![CDATA[<p>不得不说，这个最短路实在是有点精妙了，看题解差点没看懂。<a id="more"></a></p>
+<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="https://codeforces.ml/problemset/problem/1307/D" target="_blank" rel="noopener">题目链接</a></h1><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>已知一个连通图，每条边b(无向边)长度都为一，给我们一些点，求在这些点里面任意取两点之间建一条边(长度为一)后，使得从1到n的最短距离最长！求该两点。<br>说白了就是加一条边后形成最长最短路，问在哪里加。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>对于这一题，毫无疑问我们先要求出该1到其他所有点的最短距离$dis1$，和n到其他所有点的最短距离$dis$。那么最短路一定是$ ans = min(dis1[a]+dis[b]+1,dis1[b]+dis[a]+1)$<br>枚举$a$与$b$找到最大的数字$ans$就好了，但是由于$a$的数字太多了，$O(n^2)$肯定不行，所以这就是该题的最难点，如何找到这个最大值！<br>首先我们可以假设</p>
+<script type="math/tex; mode=display">dis1[a]+dis[b] \leq dis1[b]+dis[a]</script><p>推导发现</p>
+<script type="math/tex; mode=display">dis1[a]-dis[a] \leq dis1[b]-dis[b]</script><p>也就是说只要左边的差值<strong>小于等于</strong>右边的差值，那么:<br>$ans = min(dis1[a]+dis[b]+1,dis1[b]+dis[a]+1)$化简为$ans = dis1[a]+dis[b]+1$，<br>可以发现首先对给我们的点按照$dis1[a]-dis[a]$从小到大排序后，开始从前往后枚举点，i为枚举的下标，$ans=max(x+dis[i]+1),x=max(x,dis1[x])$，$x$代表1到枚举过的点之间的最长距离。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 4e5+5;</span><br><span class="line">typedef long long ll;</span><br><span class="line">struct ED&#123;</span><br><span class="line">    int pre,id;</span><br><span class="line">&#125;ed[N];</span><br><span class="line">int p[N];</span><br><span class="line"></span><br><span class="line">int head[N],tot=0,a[N],vis[N],dis1[N],dis[N];</span><br><span class="line">void add(int u,int v)&#123;</span><br><span class="line">    ed[++tot].id=v;</span><br><span class="line">    ed[tot].pre=head[u];</span><br><span class="line">    head[u]=tot;</span><br><span class="line">&#125;</span><br><span class="line">void dij(int x)&#123;</span><br><span class="line">    memset(dis,0x3f,sizeof(dis));</span><br><span class="line">    priority_queue&lt;pair&lt;int,int&gt; &gt;q;</span><br><span class="line">    dis[x]=0;</span><br><span class="line">    q.push(make_pair(0,x));</span><br><span class="line">    while(!q.empty())&#123;</span><br><span class="line">        int u=q.top().second;</span><br><span class="line">        q.pop();</span><br><span class="line">        if(vis[u]) continue;</span><br><span class="line">        vis[u]=1;</span><br><span class="line">        for(int i=head[u];i;i=ed[i].pre)&#123;</span><br><span class="line">            int v=ed[i].id;</span><br><span class="line">            if(dis[v]&gt;dis[u]+1)&#123;</span><br><span class="line">                dis[v]=dis[u]+1;</span><br><span class="line">                q.push(make_pair(-dis[v],v));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,m,i,j,k,t=0;</span><br><span class="line">    scanf(&quot;%d %d %d&quot;,&amp;n,&amp;m,&amp;k);</span><br><span class="line">    for(i=1;i&lt;=k;i++) scanf(&quot;%d&quot;,&amp;a[++t]);</span><br><span class="line">    for(i=1;i&lt;=m;i++)&#123;</span><br><span class="line">        int u,v;</span><br><span class="line">        scanf(&quot;%d %d&quot;,&amp;u,&amp;v);</span><br><span class="line">        add(u,v);</span><br><span class="line">        add(v,u);</span><br><span class="line">    &#125;</span><br><span class="line">    dij(1);</span><br><span class="line">    for(i=1;i&lt;=n;i++) dis1[i]=dis[i];</span><br><span class="line">    //printf(&quot;%dss\n&quot;,dis1[n]);</span><br><span class="line">    memset(vis,0,sizeof vis);</span><br><span class="line">    dij(n);</span><br><span class="line">    int sum=2e9+9;</span><br><span class="line">    vector&lt;pair&lt;int,int&gt; &gt; dat;</span><br><span class="line">    for(i=1;i&lt;=t;i++)&#123;</span><br><span class="line">        dat.push_back(make_pair(dis1[a[i]]-dis[a[i]],a[i]));</span><br><span class="line">    &#125;</span><br><span class="line">    sort(dat.begin(),dat.end());</span><br><span class="line">    int mm = -2e9+9,best=0;</span><br><span class="line">    for(i=0;i&lt;t;i++)&#123;</span><br><span class="line">        int x = dat[i].second;</span><br><span class="line">        best = max(best,mm+dis[x]);</span><br><span class="line">        mm = max(mm,dis1[x]);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d\n&quot;,min(best+1,dis1[n]));</span><br><span class="line">    //system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://codeforces.ml/blog/entry/73953" target="_blank" rel="noopener">cf题解</a></p>
+]]></content>
+      <categories>
+        <category>图论</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu18.04安装docker安装酷Q</title>
     <url>/2020/06/06/Ubuntu18%E5%AE%89%E8%A3%85%E9%85%B7Q/</url>
     <content><![CDATA[<p>最近发现我的服务器完全闲置了，所以我决定在上面部署一个qqbot来练习自己的py爬虫。<a id="more"></a></p>
@@ -809,24 +827,6 @@
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>codeforces1307D</title>
-    <url>/2020/03/24/codeforces1307D/</url>
-    <content><![CDATA[<p>不得不说，这个最短路实在是有点精妙了，看题解差点没看懂。<a id="more"></a></p>
-<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="https://codeforces.ml/problemset/problem/1307/D" target="_blank" rel="noopener">题目链接</a></h1><h2 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h2><p>已知一个连通图，每条边b(无向边)长度都为一，给我们一些点，求在这些点里面任意取两点之间建一条边(长度为一)后，使得从1到n的最短距离最长！求该两点。<br>说白了就是加一条边后形成最长最短路，问在哪里加。</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>对于这一题，毫无疑问我们先要求出该1到其他所有点的最短距离$dis1$，和n到其他所有点的最短距离$dis$。那么最短路一定是$ ans = min(dis1[a]+dis[b]+1,dis1[b]+dis[a]+1)$<br>枚举$a$与$b$找到最大的数字$ans$就好了，但是由于$a$的数字太多了，$O(n^2)$肯定不行，所以这就是该题的最难点，如何找到这个最大值！<br>首先我们可以假设</p>
-<script type="math/tex; mode=display">dis1[a]+dis[b] \leq dis1[b]+dis[a]</script><p>推导发现</p>
-<script type="math/tex; mode=display">dis1[a]-dis[a] \leq dis1[b]-dis[b]</script><p>也就是说只要左边的差值<strong>小于等于</strong>右边的差值，那么:<br>$ans = min(dis1[a]+dis[b]+1,dis1[b]+dis[a]+1)$化简为$ans = dis1[a]+dis[b]+1$，<br>可以发现首先对给我们的点按照$dis1[a]-dis[a]$从小到大排序后，开始从前往后枚举点，i为枚举的下标，$ans=max(x+dis[i]+1),x=max(x,dis1[x])$，$x$代表1到枚举过的点之间的最长距离。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 4e5+5;</span><br><span class="line">typedef long long ll;</span><br><span class="line">struct ED&#123;</span><br><span class="line">    int pre,id;</span><br><span class="line">&#125;ed[N];</span><br><span class="line">int p[N];</span><br><span class="line"></span><br><span class="line">int head[N],tot=0,a[N],vis[N],dis1[N],dis[N];</span><br><span class="line">void add(int u,int v)&#123;</span><br><span class="line">    ed[++tot].id=v;</span><br><span class="line">    ed[tot].pre=head[u];</span><br><span class="line">    head[u]=tot;</span><br><span class="line">&#125;</span><br><span class="line">void dij(int x)&#123;</span><br><span class="line">    memset(dis,0x3f,sizeof(dis));</span><br><span class="line">    priority_queue&lt;pair&lt;int,int&gt; &gt;q;</span><br><span class="line">    dis[x]=0;</span><br><span class="line">    q.push(make_pair(0,x));</span><br><span class="line">    while(!q.empty())&#123;</span><br><span class="line">        int u=q.top().second;</span><br><span class="line">        q.pop();</span><br><span class="line">        if(vis[u]) continue;</span><br><span class="line">        vis[u]=1;</span><br><span class="line">        for(int i=head[u];i;i=ed[i].pre)&#123;</span><br><span class="line">            int v=ed[i].id;</span><br><span class="line">            if(dis[v]&gt;dis[u]+1)&#123;</span><br><span class="line">                dis[v]=dis[u]+1;</span><br><span class="line">                q.push(make_pair(-dis[v],v));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,m,i,j,k,t=0;</span><br><span class="line">    scanf(&quot;%d %d %d&quot;,&amp;n,&amp;m,&amp;k);</span><br><span class="line">    for(i=1;i&lt;=k;i++) scanf(&quot;%d&quot;,&amp;a[++t]);</span><br><span class="line">    for(i=1;i&lt;=m;i++)&#123;</span><br><span class="line">        int u,v;</span><br><span class="line">        scanf(&quot;%d %d&quot;,&amp;u,&amp;v);</span><br><span class="line">        add(u,v);</span><br><span class="line">        add(v,u);</span><br><span class="line">    &#125;</span><br><span class="line">    dij(1);</span><br><span class="line">    for(i=1;i&lt;=n;i++) dis1[i]=dis[i];</span><br><span class="line">    //printf(&quot;%dss\n&quot;,dis1[n]);</span><br><span class="line">    memset(vis,0,sizeof vis);</span><br><span class="line">    dij(n);</span><br><span class="line">    int sum=2e9+9;</span><br><span class="line">    vector&lt;pair&lt;int,int&gt; &gt; dat;</span><br><span class="line">    for(i=1;i&lt;=t;i++)&#123;</span><br><span class="line">        dat.push_back(make_pair(dis1[a[i]]-dis[a[i]],a[i]));</span><br><span class="line">    &#125;</span><br><span class="line">    sort(dat.begin(),dat.end());</span><br><span class="line">    int mm = -2e9+9,best=0;</span><br><span class="line">    for(i=0;i&lt;t;i++)&#123;</span><br><span class="line">        int x = dat[i].second;</span><br><span class="line">        best = max(best,mm+dis[x]);</span><br><span class="line">        mm = max(mm,dis1[x]);</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d\n&quot;,min(best+1,dis1[n]));</span><br><span class="line">    //system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://codeforces.ml/blog/entry/73953" target="_blank" rel="noopener">cf题解</a></p>
-]]></content>
-      <categories>
-        <category>图论</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -1042,51 +1042,6 @@
       </tags>
   </entry>
   <entry>
-    <title>list和tuple</title>
-    <url>/2020/02/02/list%E5%92%8Ctuple/</url>
-    <content><![CDATA[<p>对于这个list的了解我一直感觉就和C语言数组一样，但是仔细看了一下，到底不同，就让本蒟蒻带您去看看那些地方不同吧。<a id="more"></a></p>
-<h1 id="list"><a href="#list" class="headerlink" title="$list$"></a>$list$</h1><p>这种数据类型使列表<strong> $list$是一种有序的集合，可以随时添加和删除其中的元素。</strong><br>对于这个我们可以看下面这个例子<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a=[&apos;s&apos;,&apos;a&apos;,&apos;r&apos;,&apos;s&apos;]</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>$ output$:<br>$[‘s’, ‘a’, ‘r’, ‘s’]$</p>
-</blockquote>
-<p>而一个$list$的长度怎么看？还记得看字符串长度的$len$函数吗？<br>我们就是通过$len$来查看list的长度<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(len(a))</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>$output:$<br>4</p>
-</blockquote>
-<p>同时我们还可以通过像C语言一样的手法访问下标来查看元素，同样不能越上界<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(a[0])</span><br><span class="line">print(a[3])</span><br><span class="line">print(a[-1])</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>$output$<br>s<br>s<br>s<br>应该发现了，可以有负数，-1的意思就是倒数第一个咯。但是也不能超过$list$的长度</p>
-<h2 id="list-包含的数据类型"><a href="#list-包含的数据类型" class="headerlink" title="$list$包含的数据类型"></a>$list$包含的数据类型</h2><p><strong>$list$里面包含的数据类型可以混合加入</strong><br>例如我们可以在一个list里面放入数字、字符串甚至是一个$list$也行！</p>
-</blockquote>
-<h2 id="list-的操作"><a href="#list-的操作" class="headerlink" title="$list$的操作"></a>$list$的操作</h2><h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.pop(0)</span><br><span class="line">print(a)</span><br><span class="line">print(a[0])</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>$output:$<br>$[‘a’, ‘r’, ‘s’]$<br>$a$</p>
-</blockquote>
-<p>我们可以看到，要删除第i个数字就是直接$pop(i)$，同时会把后面的往前面移动</p>
-<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.insert(0,a)</span><br><span class="line">print(a)</span><br><span class="line">print(a[0])</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>$output:$<br>$[‘s’, ‘a’, ‘r’, ‘s’]$<br>$s$<br>每一次插入，我们都是把第$i$个元素之后往后移动，然后插入</p>
-<h3 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h3><p>$a.append(strr)$默认从尾部增加元素</p>
-<h1 id="tuple"><a href="#tuple" class="headerlink" title="$tuple$"></a>$tuple$</h1><p>$tuple$也是一种有序列表，它的特点是一旦初始化成功后就不得修改</p>
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a = (&apos;s&apos;,&apos;a&apos;,&apos;r&apos;,&apos;s&apos;);</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
-<p>$output$<br>(‘s’, ‘a’, ‘r’, ‘s’)</p>
-</blockquote>
-<p>大家可能发现了，$list$的定义时中括号$[]$而$tuple$是$()$<br><strong>注意</strong>我们定义空$tuple$时我们是$a=()$,但是如果定义一个元素时例如$a=(1,)$时，我们注意要打逗号，不然会被误解为$a=1$为$int$型变量</p>
-<h2 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h2><p>$tuple$因其不可修改的性质所以从安全角度上来说比$list$更加安全，我们一般能用$tuple$绝不用$list$</p>
-<h2 id="一个“可变的”-tuple"><a href="#一个“可变的”-tuple" class="headerlink" title="一个“可变的”$tuple$"></a>一个“可变的”$tuple$</h2><p>首先注意引号，他还是不可变的，可为什么又可以变呢？<br>我们尝试如下定义</p>
-<blockquote>
-<p>$a=(‘a’,’b’,[‘a’,’b’])$</p>
-</blockquote>
-<p>可以发现这一个$tuple$所指向的内容含有字符和一个$list$<br>$tuple$里面的内容的确不可以变，但$list$改变了之后list的地址还是不变的，所以就改了撒，看不懂可评论。</p>
-]]></content>
-      <categories>
-        <category>python基础</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>lcs与lis</title>
     <url>/2020/03/29/lcs%E4%B8%8Elis/</url>
     <content><![CDATA[<p>最近看到很多这种lcs与lis得题目，就来写一个关于这种题目的一个总结<br>更新<br>经我仔细思考，之前有以下漏洞：</p>
@@ -1129,6 +1084,51 @@
       </categories>
       <tags>
         <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>list和tuple</title>
+    <url>/2020/02/02/list%E5%92%8Ctuple/</url>
+    <content><![CDATA[<p>对于这个list的了解我一直感觉就和C语言数组一样，但是仔细看了一下，到底不同，就让本蒟蒻带您去看看那些地方不同吧。<a id="more"></a></p>
+<h1 id="list"><a href="#list" class="headerlink" title="$list$"></a>$list$</h1><p>这种数据类型使列表<strong> $list$是一种有序的集合，可以随时添加和删除其中的元素。</strong><br>对于这个我们可以看下面这个例子<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a=[&apos;s&apos;,&apos;a&apos;,&apos;r&apos;,&apos;s&apos;]</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>$ output$:<br>$[‘s’, ‘a’, ‘r’, ‘s’]$</p>
+</blockquote>
+<p>而一个$list$的长度怎么看？还记得看字符串长度的$len$函数吗？<br>我们就是通过$len$来查看list的长度<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(len(a))</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>$output:$<br>4</p>
+</blockquote>
+<p>同时我们还可以通过像C语言一样的手法访问下标来查看元素，同样不能越上界<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print(a[0])</span><br><span class="line">print(a[3])</span><br><span class="line">print(a[-1])</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>$output$<br>s<br>s<br>s<br>应该发现了，可以有负数，-1的意思就是倒数第一个咯。但是也不能超过$list$的长度</p>
+<h2 id="list-包含的数据类型"><a href="#list-包含的数据类型" class="headerlink" title="$list$包含的数据类型"></a>$list$包含的数据类型</h2><p><strong>$list$里面包含的数据类型可以混合加入</strong><br>例如我们可以在一个list里面放入数字、字符串甚至是一个$list$也行！</p>
+</blockquote>
+<h2 id="list-的操作"><a href="#list-的操作" class="headerlink" title="$list$的操作"></a>$list$的操作</h2><h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.pop(0)</span><br><span class="line">print(a)</span><br><span class="line">print(a[0])</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>$output:$<br>$[‘a’, ‘r’, ‘s’]$<br>$a$</p>
+</blockquote>
+<p>我们可以看到，要删除第i个数字就是直接$pop(i)$，同时会把后面的往前面移动</p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a.insert(0,a)</span><br><span class="line">print(a)</span><br><span class="line">print(a[0])</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>$output:$<br>$[‘s’, ‘a’, ‘r’, ‘s’]$<br>$s$<br>每一次插入，我们都是把第$i$个元素之后往后移动，然后插入</p>
+<h3 id="增加"><a href="#增加" class="headerlink" title="增加"></a>增加</h3><p>$a.append(strr)$默认从尾部增加元素</p>
+<h1 id="tuple"><a href="#tuple" class="headerlink" title="$tuple$"></a>$tuple$</h1><p>$tuple$也是一种有序列表，它的特点是一旦初始化成功后就不得修改</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a = (&apos;s&apos;,&apos;a&apos;,&apos;r&apos;,&apos;s&apos;);</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+<p>$output$<br>(‘s’, ‘a’, ‘r’, ‘s’)</p>
+</blockquote>
+<p>大家可能发现了，$list$的定义时中括号$[]$而$tuple$是$()$<br><strong>注意</strong>我们定义空$tuple$时我们是$a=()$,但是如果定义一个元素时例如$a=(1,)$时，我们注意要打逗号，不然会被误解为$a=1$为$int$型变量</p>
+<h2 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h2><p>$tuple$因其不可修改的性质所以从安全角度上来说比$list$更加安全，我们一般能用$tuple$绝不用$list$</p>
+<h2 id="一个“可变的”-tuple"><a href="#一个“可变的”-tuple" class="headerlink" title="一个“可变的”$tuple$"></a>一个“可变的”$tuple$</h2><p>首先注意引号，他还是不可变的，可为什么又可以变呢？<br>我们尝试如下定义</p>
+<blockquote>
+<p>$a=(‘a’,’b’,[‘a’,’b’])$</p>
+</blockquote>
+<p>可以发现这一个$tuple$所指向的内容含有字符和一个$list$<br>$tuple$里面的内容的确不可以变，但$list$改变了之后list的地址还是不变的，所以就改了撒，看不懂可评论。</p>
+]]></content>
+      <categories>
+        <category>python基础</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -1187,6 +1187,20 @@
       </tags>
   </entry>
   <entry>
+    <title>next添加邮箱与qq</title>
+    <url>/2020/04/22/next%E6%B7%BB%E5%8A%A0%E9%82%AE%E7%AE%B1%E4%B8%8Eqq/</url>
+    <content><![CDATA[<p>昨天受大佬启发，感觉还是需要添加一些个人的链接放到博客上面，于是兴冲冲的开始去设置了，最后直接爆炸。<a id="more"></a></p>
+<h1 id="next添加邮箱"><a href="#next添加邮箱" class="headerlink" title="next添加邮箱"></a>next添加邮箱</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>我们按照普遍方法在$social$里面添加了地址后，部署到$coding$后发现，在邮件和qq前面自动添加了一堆前缀网址(因为已经修好了，所以展示不出来，如果你也出现了这个问题，你会一眼看出来的)，使原本网址无效了，可能是版本原因还是怎么，查了很久，一直出错，最后没办法改了$hexo$的源码，在这里发出来。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>修改文件位置的话，看下这张图片吧，文件放得太深了。<br><img src="/2020/04/22/next%E6%B7%BB%E5%8A%A0%E9%82%AE%E7%AE%B1%E4%B8%8Eqq/TIM截图20200422120636.png" alt="文件位置"><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;%- if theme.social %&#125;</span><br><span class="line">  &lt;div class=&quot;links-of-author motion-element&quot;&gt;</span><br><span class="line">    &#123;%- for name, link in theme.social %&#125;</span><br><span class="line">      &lt;span class=&quot;links-of-author-item&quot;&gt;</span><br><span class="line">      &#123;%- set sidebarURL = link.split(&apos;||&apos;)[0] | trim %&#125;//获取添加的链接</span><br><span class="line">      &#123;%- if theme.social_icons.enable %&#125;</span><br><span class="line">        &#123;%- set sidebarIcon = &apos;&lt;i class=&quot;fa fa-fw fa-&apos; + link.split(&apos;||&apos;)[1] | trim + &apos;&quot;&gt;&lt;/i&gt;&apos; %&#125;//获取添加的小图标</span><br><span class="line">      &#123;%- else %&#125;</span><br><span class="line">        &#123;%- set sidebarIcon = &apos;&apos; %&#125;//没有则为空</span><br><span class="line">      &#123;%- endif %&#125;</span><br><span class="line">      &#123;%- if theme.social_icons.enable and theme.social_icons.icons_only %&#125;</span><br><span class="line">        &#123;%- set sidebarText = &apos;&apos; %&#125;</span><br><span class="line">      &#123;%- else %&#125;</span><br><span class="line">        &#123;%- set sidebarText = name %&#125;</span><br><span class="line">      &#123;%- endif %&#125;</span><br><span class="line">      &#123;%- if name == &apos;E-Mail&apos; %&#125;//我添加E-Mail的解决办法</span><br><span class="line">      &lt;a href=&quot;&#123;&#123; sidebarURL &#125;&#125;&quot; rel=&quot;alternate&quot; title=&quot;E-Mail&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt; &lt;i class=&quot;fa fa-fw fa-envelope&quot;&gt;&lt;/i&gt; E-Mail&lt;/a&gt;</span><br><span class="line">      &#123;%- elif name == &apos;QQ&apos; %&#125;//我添加的QQ解决办法</span><br><span class="line">      &lt;a href=&quot;&#123;&#123; sidebarURL &#125;&#125;&quot; rel=&quot;alternate&quot; title=&quot;QQ&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt; &lt;i class=&quot;fa fa-fw fa-qq&quot;&gt;&lt;/i&gt;QQ&lt;/a&gt;</span><br><span class="line">      &#123;%- else %&#125;</span><br><span class="line">      &#123;&#123; next_url(sidebarURL, sidebarIcon + sidebarText, &#123;title: name + &apos; → &apos; + sidebarURL&#125;) &#125;&#125;//原本的解决办法，这个貌似只能处理链接为http或https开头的链接</span><br><span class="line">      &#123;%- endif %&#125;</span><br><span class="line">      &lt;/span&gt;</span><br><span class="line">    &#123;%- endfor %&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure><br>由于本人对于swig一知半解，为深入学习，对这个的理解写在注释了，注释方法可能错了(用的是C语言的注释法)，注意删除(不是不想写对，实在百度不到他的只是方案，有途径大佬会的话，可以留言或私聊我，欢迎斧正，对了也可以告诉我哦)。</p>
+]]></content>
+      <categories>
+        <category>环境配置</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>poj2763,tarjan</title>
     <url>/2020/02/29/poj2763-tarjan/</url>
     <content><![CDATA[<h1 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a href="http://poj.org/problem?id=3728" target="_blank" rel="noopener">题目链接</a></h1><h2 id="题意："><a href="#题意：" class="headerlink" title="题意："></a>题意：</h2><p>给定一个N个节点的树，1&lt;=N&lt;=50000 每个节点都有一个权值，代表商品在这个节点的价格。商人从某个节点a移动到节点b，且只能购买并出售一次商品，问最多可以产生多大的利润。Q次询问<a id="more"></a></p>
@@ -1208,20 +1222,6 @@
       </categories>
       <tags>
         <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>next添加邮箱与qq</title>
-    <url>/2020/04/22/next%E6%B7%BB%E5%8A%A0%E9%82%AE%E7%AE%B1%E4%B8%8Eqq/</url>
-    <content><![CDATA[<p>昨天受大佬启发，感觉还是需要添加一些个人的链接放到博客上面，于是兴冲冲的开始去设置了，最后直接爆炸。<a id="more"></a></p>
-<h1 id="next添加邮箱"><a href="#next添加邮箱" class="headerlink" title="next添加邮箱"></a>next添加邮箱</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>我们按照普遍方法在$social$里面添加了地址后，部署到$coding$后发现，在邮件和qq前面自动添加了一堆前缀网址(因为已经修好了，所以展示不出来，如果你也出现了这个问题，你会一眼看出来的)，使原本网址无效了，可能是版本原因还是怎么，查了很久，一直出错，最后没办法改了$hexo$的源码，在这里发出来。</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>修改文件位置的话，看下这张图片吧，文件放得太深了。<br><img src="/2020/04/22/next%E6%B7%BB%E5%8A%A0%E9%82%AE%E7%AE%B1%E4%B8%8Eqq/TIM截图20200422120636.png" alt="文件位置"><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;%- if theme.social %&#125;</span><br><span class="line">  &lt;div class=&quot;links-of-author motion-element&quot;&gt;</span><br><span class="line">    &#123;%- for name, link in theme.social %&#125;</span><br><span class="line">      &lt;span class=&quot;links-of-author-item&quot;&gt;</span><br><span class="line">      &#123;%- set sidebarURL = link.split(&apos;||&apos;)[0] | trim %&#125;//获取添加的链接</span><br><span class="line">      &#123;%- if theme.social_icons.enable %&#125;</span><br><span class="line">        &#123;%- set sidebarIcon = &apos;&lt;i class=&quot;fa fa-fw fa-&apos; + link.split(&apos;||&apos;)[1] | trim + &apos;&quot;&gt;&lt;/i&gt;&apos; %&#125;//获取添加的小图标</span><br><span class="line">      &#123;%- else %&#125;</span><br><span class="line">        &#123;%- set sidebarIcon = &apos;&apos; %&#125;//没有则为空</span><br><span class="line">      &#123;%- endif %&#125;</span><br><span class="line">      &#123;%- if theme.social_icons.enable and theme.social_icons.icons_only %&#125;</span><br><span class="line">        &#123;%- set sidebarText = &apos;&apos; %&#125;</span><br><span class="line">      &#123;%- else %&#125;</span><br><span class="line">        &#123;%- set sidebarText = name %&#125;</span><br><span class="line">      &#123;%- endif %&#125;</span><br><span class="line">      &#123;%- if name == &apos;E-Mail&apos; %&#125;//我添加E-Mail的解决办法</span><br><span class="line">      &lt;a href=&quot;&#123;&#123; sidebarURL &#125;&#125;&quot; rel=&quot;alternate&quot; title=&quot;E-Mail&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt; &lt;i class=&quot;fa fa-fw fa-envelope&quot;&gt;&lt;/i&gt; E-Mail&lt;/a&gt;</span><br><span class="line">      &#123;%- elif name == &apos;QQ&apos; %&#125;//我添加的QQ解决办法</span><br><span class="line">      &lt;a href=&quot;&#123;&#123; sidebarURL &#125;&#125;&quot; rel=&quot;alternate&quot; title=&quot;QQ&quot; rel=&quot;noopener&quot; target=&quot;_blank&quot;&gt; &lt;i class=&quot;fa fa-fw fa-qq&quot;&gt;&lt;/i&gt;QQ&lt;/a&gt;</span><br><span class="line">      &#123;%- else %&#125;</span><br><span class="line">      &#123;&#123; next_url(sidebarURL, sidebarIcon + sidebarText, &#123;title: name + &apos; → &apos; + sidebarURL&#125;) &#125;&#125;//原本的解决办法，这个貌似只能处理链接为http或https开头的链接</span><br><span class="line">      &#123;%- endif %&#125;</span><br><span class="line">      &lt;/span&gt;</span><br><span class="line">    &#123;%- endfor %&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure><br>由于本人对于swig一知半解，为深入学习，对这个的理解写在注释了，注释方法可能错了(用的是C语言的注释法)，注意删除(不是不想写对，实在百度不到他的只是方案，有途径大佬会的话，可以留言或私聊我，欢迎斧正，对了也可以告诉我哦)。</p>
-]]></content>
-      <categories>
-        <category>环境配置</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -2477,6 +2477,27 @@
       </categories>
   </entry>
   <entry>
+    <title>树的直径</title>
+    <url>/2020/04/21/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/</url>
+    <content><![CDATA[<p>时隔14天，洒家终于有准备开始刷题了，暂时开篇第一个就是树的直径！<a id="more"></a></p>
+<h1 id="树的直径"><a href="#树的直径" class="headerlink" title="树的直径"></a>树的直径</h1><p>这个时候可能就有朋友问了，什么是树的直径？<br>来看，树的直径就是<strong>树上的最长简单路</strong>。<br>换个说法，就是树上两点之间最长的距离。<br>我这里介绍一个暴力算法，dfs的</p>
+<h2 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h2><blockquote>
+<p>首先，我们以任意一点$w$去$dfs$搜出距离根节点最远的点（也可以说是，深度最大的点）任意一个($v$)<br>然后以它做根节点去搜以它为根节点时最大的深度，节点为$u$，此即直径。</p>
+<p>简单证明:<br>如果w在直径上，那么u一定是直径的一个端点。反证：若u不是端点，则从直径另一端点到w再到u的距离比直径更长，与假设矛盾。<br>如果w不在直径上，且w到其距最远点u的路径与直径一定有一交点c，那么由上一个证明可知，u是直径的一个端点。<br>如果w到最远点u的路径与直径没有交点，设直径的两端为S与T，那么(w-&gt;u)&gt;(w-&gt;c)+(c-&gt;T)，推出(w-&gt;u)+(S-&gt;c)+(w-&gt;c)&gt;(S-&gt;c)+(c-&gt;T)=(S-&gt;T)与假设矛盾。<br>因此w到最远点u的路径与直径必有交点。<br>S—————-c—————-T<br>                |<br>                w———u</p>
+</blockquote>
+<p>看个例题<br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4612" target="_blank" rel="noopener">warm up</a><br>求在图里面连一条边后最少的割边。<br>由于是割边，我们可以先缩图成DAG图也就是一颗树，然后求其直径(答案就是：桥的数量-直径)，剖去Tarjan缩图，就是个直径板子。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 2e5+5;</span><br><span class="line">const int M = 2e6+5;</span><br><span class="line">typedef long long ll;</span><br><span class="line">#define rep(i,a,b) for(i=(a);i&lt;=b;i++)</span><br><span class="line">#define pt(a) printf(&quot;%d\n&quot;,(a))</span><br><span class="line">struct ED&#123;</span><br><span class="line">    int pre,id,w;</span><br><span class="line">&#125;ed1[M],ed2[M];</span><br><span class="line">int head1[N],head2[N],tot1=0,tot2=0;</span><br><span class="line">void add1(int u,int v)&#123;</span><br><span class="line">    ed1[++tot1].id=v;</span><br><span class="line">    ed1[tot1].pre=head1[u];</span><br><span class="line">    ed1[tot1].w = 1;</span><br><span class="line">    head1[u]= tot1;</span><br><span class="line">&#125;</span><br><span class="line">void add2(int u,int v)&#123;</span><br><span class="line">    ed2[++tot2].id=v;</span><br><span class="line">    ed2[tot2].pre=head2[u];</span><br><span class="line">    head2[u]=tot2;</span><br><span class="line">&#125;</span><br><span class="line">int clo[N],dfn[N],sta[N],low[N],top=0,vis[N],cnt=0,siz=0;</span><br><span class="line">int edge=0;</span><br><span class="line">void tarjan(int x)&#123;</span><br><span class="line">    dfn[x]=++cnt;</span><br><span class="line">    low[x]=cnt;</span><br><span class="line">    vis[x]=1;</span><br><span class="line">    sta[++top]=x;</span><br><span class="line">    //printf(&quot;dfs %d %d\n&quot;,x,fa);</span><br><span class="line">    for(int i=head1[x];i;i=ed1[i].pre)&#123;</span><br><span class="line">        int v=ed1[i].id;</span><br><span class="line">        //printf(&quot;dfs %d %d\n&quot;,x,ed1[i].id);</span><br><span class="line">        if(ed1[i].w==0) continue;</span><br><span class="line">        ed1[i].w = 0;</span><br><span class="line">        ed1[i^1].w = 0;</span><br><span class="line">        if(!dfn[v])&#123;</span><br><span class="line">            tarjan(v);</span><br><span class="line">            low[x]=min(low[x],low[v]);</span><br><span class="line">            if(dfn[x]&lt;low[v]) edge++;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(vis[v])&#123;</span><br><span class="line">            low[x]=min(low[x],dfn[v]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(dfn[x]==low[x])&#123;</span><br><span class="line">        clo[x]=++siz;</span><br><span class="line">        vis[x]=0;</span><br><span class="line">        int sum=1;</span><br><span class="line">        while(sta[top]!=x)&#123;</span><br><span class="line">            clo[sta[top]]=siz;</span><br><span class="line">            vis[sta[top--]]=0;</span><br><span class="line">            //printf(&quot;%dsss\n&quot;,sta[top+1]);</span><br><span class="line">            sum++;</span><br><span class="line">        &#125;</span><br><span class="line">        vis[sta[top--]]=0;</span><br><span class="line">        //printf(&quot;sum %d %d %d\n&quot;,sum,x,clo[x]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int ans = 0,pos=0;</span><br><span class="line"></span><br><span class="line">void dfs(int x,int fa)&#123;</span><br><span class="line">    vis[x]=1;</span><br><span class="line">    dfn[x] = dfn[fa]+1;</span><br><span class="line">    for(int i=head2[x];i;i=ed2[i].pre)&#123;</span><br><span class="line">        if(fa!=ed2[i].id&amp;&amp;vis[ed2[i].id]==0)&#123;</span><br><span class="line">            //printf(&quot;%d %d %d %dsss\n&quot;,ed2[i].id,x,fa,dfn[x]);</span><br><span class="line">            dfs(ed2[i].id,x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(dfn[x]&gt;ans)&#123;</span><br><span class="line">        ans = dfn[x];</span><br><span class="line">        pos = x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline int ReadInt()</span><br><span class="line">&#123;</span><br><span class="line">    char ch = getchar();</span><br><span class="line">    int data = 0;</span><br><span class="line">    while (ch &lt; &apos;0&apos; || ch &gt; &apos;9&apos;)</span><br><span class="line">    &#123;</span><br><span class="line">        ch = getchar();</span><br><span class="line">    &#125;</span><br><span class="line">    do</span><br><span class="line">    &#123;</span><br><span class="line">        data = data*10 + ch-&apos;0&apos;;</span><br><span class="line">        ch = getchar();</span><br><span class="line">    &#125;while (ch &gt;= &apos;0&apos; &amp;&amp; ch &lt;= &apos;9&apos;);</span><br><span class="line">        return data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void init()</span><br><span class="line">&#123;</span><br><span class="line">    top=cnt=siz=edge=0;</span><br><span class="line">    tot1=tot2=1;</span><br><span class="line">    memset(vis,0,sizeof(vis));</span><br><span class="line">    memset(dfn,0,sizeof(dfn));</span><br><span class="line">    memset(low,0,sizeof(low));</span><br><span class="line">    memset(head2,0,sizeof(head2));</span><br><span class="line">    memset(head1,0,sizeof(head1));</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,m,i,j,k,t=0;</span><br><span class="line">    while(scanf(&quot;%d %d&quot;,&amp;n,&amp;m)!=EOF)&#123;</span><br><span class="line">        if(!n&amp;&amp;!m) break;</span><br><span class="line">        init();</span><br><span class="line">        rep(i,1,m)&#123;</span><br><span class="line">            int u,v;</span><br><span class="line">            u = ReadInt();</span><br><span class="line">            v = ReadInt();</span><br><span class="line">            add1(u,v);</span><br><span class="line">            add1(v,u);</span><br><span class="line">        &#125;</span><br><span class="line">        tarjan(1);</span><br><span class="line">        for(int i=1;i&lt;=n;i++)</span><br><span class="line">            for(int j=head1[i];j;j=ed1[j].pre)</span><br><span class="line">            &#123;</span><br><span class="line">                int to=ed1[j].id;</span><br><span class="line">                if(clo[to]!=clo[i]) &#123;add2(clo[to],clo[i]);add2(clo[i],clo[to]);&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ans = 0;</span><br><span class="line">        memset(vis,0,sizeof vis);</span><br><span class="line">        dfn[0]=-1;</span><br><span class="line">        dfs(1,0);</span><br><span class="line">        memset(vis,0,sizeof vis);</span><br><span class="line">        dfn[0]=-1;</span><br><span class="line">        dfs(pos,0);</span><br><span class="line">        pt(edge-ans);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>多讲一点点，因为下面这个和直径思路差不多</p>
+<h1 id="树的重心"><a href="#树的重心" class="headerlink" title="树的重心"></a>树的重心</h1><p>何谓树的重心？<br>树的重心：找到一个点，其所有的子树中最大的子树节点数最少,那么这个点就是这棵树的重心,删去重心后，生成的多棵树尽可能平衡。<br>树的重心可以通过简单的两次搜索求出，第一遍搜索求出每个结点的子结点数量son[u]，第二遍搜索找出使max{son[u],n-son[u]-1}最小的结点。<br>实际上这两步操作可以在一次遍历中解决。对结点u的每一个儿子v，递归的处理v，求出son[v]，然后判断是否是结点数最多的子树，处理完所有子结点后，判断u是否为重心。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct CenterTree&#123;</span><br><span class="line">    int n;</span><br><span class="line">    int ans;</span><br><span class="line">    int siz;</span><br><span class="line">    int son[maxn];</span><br><span class="line">    void dfs(int u,int pa)&#123;</span><br><span class="line">        son[u]=1;</span><br><span class="line">        int res=0;</span><br><span class="line">        for (int i=head[u];i!=-1;i=edges[i].next)&#123;</span><br><span class="line">            int v=edges[i].to;</span><br><span class="line">            if (v==pa) continue;</span><br><span class="line">            if (vis[v]) continue;</span><br><span class="line">            dfs(v,u);</span><br><span class="line">            son[u]+=son[v];</span><br><span class="line">            res=max(res,son[v]-1);</span><br><span class="line">        &#125;</span><br><span class="line">        res=max(res,n-son[u]);</span><br><span class="line">        if (res&lt;siz)&#123;</span><br><span class="line">            ans=u;</span><br><span class="line">            siz=res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    int getCenter(int x)&#123;</span><br><span class="line">        ans=0;</span><br><span class="line">        siz=INF;</span><br><span class="line">        dfs(x,-1);</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;Cent;</span><br></pre></td></tr></table></figure></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://oi-wiki.org/graph/tree-centroid/" target="_blank" rel="noopener">oi-wiki</a><br><a href="https://www.cnblogs.com/zinthos/p/3899075.html" target="_blank" rel="noopener">树的直径、树的重心与树的点分治</a></p>
+]]></content>
+      <categories>
+        <category>图论</category>
+      </categories>
+      <tags>
+        <tag>ACM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>欧拉函数</title>
     <url>/2020/01/28/%E6%AC%A7%E6%8B%89%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<h1 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h1><blockquote>
@@ -2875,27 +2896,6 @@
 <li>循环1操作直到堆为空就好了。<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 2e+5;</span><br><span class="line">struct ED&#123;</span><br><span class="line">    int pre,id,w;</span><br><span class="line">&#125;ed[N];</span><br><span class="line">int head[N],tot=0,dis[N],vis[N];</span><br><span class="line">void add(int u,int v,int w)&#123;</span><br><span class="line">    ed[++tot].pre=head[u];</span><br><span class="line">    ed[tot].id=v;</span><br><span class="line">    ed[tot].w=w;</span><br><span class="line">    head[u]=tot;</span><br><span class="line">&#125;</span><br><span class="line">priority_queue&lt;pair&lt;int,int&gt; &gt;q;</span><br><span class="line">void dij_heap(int x)&#123;</span><br><span class="line">    int i;</span><br><span class="line">    memset(dis,0x3f,sizeof dis);</span><br><span class="line">    memset(vis,0,sizeof vis);</span><br><span class="line">    dis[x]=0;</span><br><span class="line">    q.push(make_pair(0,x));</span><br><span class="line">    while(!q.empty())&#123;</span><br><span class="line">        int u=q.top().second;</span><br><span class="line">        q.pop();</span><br><span class="line">        if(vis[u]) continue;</span><br><span class="line">        vis[u]=1;</span><br><span class="line">        for(i=head[u];i;i=ed[i].pre)&#123;</span><br><span class="line">            if(dis[u]+ed[i].w&lt;=dis[ed[i].id])&#123;</span><br><span class="line">                dis[ed[i].id]=dis[u]+w;</span><br><span class="line">                q.push(-dis[ed[i].id],ed[i].id);//这里用负数使最大堆变最小堆</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    dij_heap();</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-]]></content>
-      <categories>
-        <category>图论</category>
-      </categories>
-      <tags>
-        <tag>ACM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>树的直径</title>
-    <url>/2020/04/21/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/</url>
-    <content><![CDATA[<p>时隔14天，洒家终于有准备开始刷题了，暂时开篇第一个就是树的直径！<a id="more"></a></p>
-<h1 id="树的直径"><a href="#树的直径" class="headerlink" title="树的直径"></a>树的直径</h1><p>这个时候可能就有朋友问了，什么是树的直径？<br>来看，树的直径就是<strong>树上的最长简单路</strong>。<br>换个说法，就是树上两点之间最长的距离。<br>我这里介绍一个暴力算法，dfs的</p>
-<h2 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h2><blockquote>
-<p>首先，我们以任意一点$w$去$dfs$搜出距离根节点最远的点（也可以说是，深度最大的点）任意一个($v$)<br>然后以它做根节点去搜以它为根节点时最大的深度，节点为$u$，此即直径。</p>
-<p>简单证明:<br>如果w在直径上，那么u一定是直径的一个端点。反证：若u不是端点，则从直径另一端点到w再到u的距离比直径更长，与假设矛盾。<br>如果w不在直径上，且w到其距最远点u的路径与直径一定有一交点c，那么由上一个证明可知，u是直径的一个端点。<br>如果w到最远点u的路径与直径没有交点，设直径的两端为S与T，那么(w-&gt;u)&gt;(w-&gt;c)+(c-&gt;T)，推出(w-&gt;u)+(S-&gt;c)+(w-&gt;c)&gt;(S-&gt;c)+(c-&gt;T)=(S-&gt;T)与假设矛盾。<br>因此w到最远点u的路径与直径必有交点。<br>S—————-c—————-T<br>                |<br>                w———u</p>
-</blockquote>
-<p>看个例题<br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4612" target="_blank" rel="noopener">warm up</a><br>求在图里面连一条边后最少的割边。<br>由于是割边，我们可以先缩图成DAG图也就是一颗树，然后求其直径(答案就是：桥的数量-直径)，剖去Tarjan缩图，就是个直径板子。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int N = 2e5+5;</span><br><span class="line">const int M = 2e6+5;</span><br><span class="line">typedef long long ll;</span><br><span class="line">#define rep(i,a,b) for(i=(a);i&lt;=b;i++)</span><br><span class="line">#define pt(a) printf(&quot;%d\n&quot;,(a))</span><br><span class="line">struct ED&#123;</span><br><span class="line">    int pre,id,w;</span><br><span class="line">&#125;ed1[M],ed2[M];</span><br><span class="line">int head1[N],head2[N],tot1=0,tot2=0;</span><br><span class="line">void add1(int u,int v)&#123;</span><br><span class="line">    ed1[++tot1].id=v;</span><br><span class="line">    ed1[tot1].pre=head1[u];</span><br><span class="line">    ed1[tot1].w = 1;</span><br><span class="line">    head1[u]= tot1;</span><br><span class="line">&#125;</span><br><span class="line">void add2(int u,int v)&#123;</span><br><span class="line">    ed2[++tot2].id=v;</span><br><span class="line">    ed2[tot2].pre=head2[u];</span><br><span class="line">    head2[u]=tot2;</span><br><span class="line">&#125;</span><br><span class="line">int clo[N],dfn[N],sta[N],low[N],top=0,vis[N],cnt=0,siz=0;</span><br><span class="line">int edge=0;</span><br><span class="line">void tarjan(int x)&#123;</span><br><span class="line">    dfn[x]=++cnt;</span><br><span class="line">    low[x]=cnt;</span><br><span class="line">    vis[x]=1;</span><br><span class="line">    sta[++top]=x;</span><br><span class="line">    //printf(&quot;dfs %d %d\n&quot;,x,fa);</span><br><span class="line">    for(int i=head1[x];i;i=ed1[i].pre)&#123;</span><br><span class="line">        int v=ed1[i].id;</span><br><span class="line">        //printf(&quot;dfs %d %d\n&quot;,x,ed1[i].id);</span><br><span class="line">        if(ed1[i].w==0) continue;</span><br><span class="line">        ed1[i].w = 0;</span><br><span class="line">        ed1[i^1].w = 0;</span><br><span class="line">        if(!dfn[v])&#123;</span><br><span class="line">            tarjan(v);</span><br><span class="line">            low[x]=min(low[x],low[v]);</span><br><span class="line">            if(dfn[x]&lt;low[v]) edge++;</span><br><span class="line">        &#125;</span><br><span class="line">        else if(vis[v])&#123;</span><br><span class="line">            low[x]=min(low[x],dfn[v]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(dfn[x]==low[x])&#123;</span><br><span class="line">        clo[x]=++siz;</span><br><span class="line">        vis[x]=0;</span><br><span class="line">        int sum=1;</span><br><span class="line">        while(sta[top]!=x)&#123;</span><br><span class="line">            clo[sta[top]]=siz;</span><br><span class="line">            vis[sta[top--]]=0;</span><br><span class="line">            //printf(&quot;%dsss\n&quot;,sta[top+1]);</span><br><span class="line">            sum++;</span><br><span class="line">        &#125;</span><br><span class="line">        vis[sta[top--]]=0;</span><br><span class="line">        //printf(&quot;sum %d %d %d\n&quot;,sum,x,clo[x]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int ans = 0,pos=0;</span><br><span class="line"></span><br><span class="line">void dfs(int x,int fa)&#123;</span><br><span class="line">    vis[x]=1;</span><br><span class="line">    dfn[x] = dfn[fa]+1;</span><br><span class="line">    for(int i=head2[x];i;i=ed2[i].pre)&#123;</span><br><span class="line">        if(fa!=ed2[i].id&amp;&amp;vis[ed2[i].id]==0)&#123;</span><br><span class="line">            //printf(&quot;%d %d %d %dsss\n&quot;,ed2[i].id,x,fa,dfn[x]);</span><br><span class="line">            dfs(ed2[i].id,x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(dfn[x]&gt;ans)&#123;</span><br><span class="line">        ans = dfn[x];</span><br><span class="line">        pos = x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline int ReadInt()</span><br><span class="line">&#123;</span><br><span class="line">    char ch = getchar();</span><br><span class="line">    int data = 0;</span><br><span class="line">    while (ch &lt; &apos;0&apos; || ch &gt; &apos;9&apos;)</span><br><span class="line">    &#123;</span><br><span class="line">        ch = getchar();</span><br><span class="line">    &#125;</span><br><span class="line">    do</span><br><span class="line">    &#123;</span><br><span class="line">        data = data*10 + ch-&apos;0&apos;;</span><br><span class="line">        ch = getchar();</span><br><span class="line">    &#125;while (ch &gt;= &apos;0&apos; &amp;&amp; ch &lt;= &apos;9&apos;);</span><br><span class="line">        return data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void init()</span><br><span class="line">&#123;</span><br><span class="line">    top=cnt=siz=edge=0;</span><br><span class="line">    tot1=tot2=1;</span><br><span class="line">    memset(vis,0,sizeof(vis));</span><br><span class="line">    memset(dfn,0,sizeof(dfn));</span><br><span class="line">    memset(low,0,sizeof(low));</span><br><span class="line">    memset(head2,0,sizeof(head2));</span><br><span class="line">    memset(head1,0,sizeof(head1));</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,m,i,j,k,t=0;</span><br><span class="line">    while(scanf(&quot;%d %d&quot;,&amp;n,&amp;m)!=EOF)&#123;</span><br><span class="line">        if(!n&amp;&amp;!m) break;</span><br><span class="line">        init();</span><br><span class="line">        rep(i,1,m)&#123;</span><br><span class="line">            int u,v;</span><br><span class="line">            u = ReadInt();</span><br><span class="line">            v = ReadInt();</span><br><span class="line">            add1(u,v);</span><br><span class="line">            add1(v,u);</span><br><span class="line">        &#125;</span><br><span class="line">        tarjan(1);</span><br><span class="line">        for(int i=1;i&lt;=n;i++)</span><br><span class="line">            for(int j=head1[i];j;j=ed1[j].pre)</span><br><span class="line">            &#123;</span><br><span class="line">                int to=ed1[j].id;</span><br><span class="line">                if(clo[to]!=clo[i]) &#123;add2(clo[to],clo[i]);add2(clo[i],clo[to]);&#125;</span><br><span class="line">            &#125;</span><br><span class="line">        ans = 0;</span><br><span class="line">        memset(vis,0,sizeof vis);</span><br><span class="line">        dfn[0]=-1;</span><br><span class="line">        dfs(1,0);</span><br><span class="line">        memset(vis,0,sizeof vis);</span><br><span class="line">        dfn[0]=-1;</span><br><span class="line">        dfs(pos,0);</span><br><span class="line">        pt(edge-ans);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>多讲一点点，因为下面这个和直径思路差不多</p>
-<h1 id="树的重心"><a href="#树的重心" class="headerlink" title="树的重心"></a>树的重心</h1><p>何谓树的重心？<br>树的重心：找到一个点，其所有的子树中最大的子树节点数最少,那么这个点就是这棵树的重心,删去重心后，生成的多棵树尽可能平衡。<br>树的重心可以通过简单的两次搜索求出，第一遍搜索求出每个结点的子结点数量son[u]，第二遍搜索找出使max{son[u],n-son[u]-1}最小的结点。<br>实际上这两步操作可以在一次遍历中解决。对结点u的每一个儿子v，递归的处理v，求出son[v]，然后判断是否是结点数最多的子树，处理完所有子结点后，判断u是否为重心。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">struct CenterTree&#123;</span><br><span class="line">    int n;</span><br><span class="line">    int ans;</span><br><span class="line">    int siz;</span><br><span class="line">    int son[maxn];</span><br><span class="line">    void dfs(int u,int pa)&#123;</span><br><span class="line">        son[u]=1;</span><br><span class="line">        int res=0;</span><br><span class="line">        for (int i=head[u];i!=-1;i=edges[i].next)&#123;</span><br><span class="line">            int v=edges[i].to;</span><br><span class="line">            if (v==pa) continue;</span><br><span class="line">            if (vis[v]) continue;</span><br><span class="line">            dfs(v,u);</span><br><span class="line">            son[u]+=son[v];</span><br><span class="line">            res=max(res,son[v]-1);</span><br><span class="line">        &#125;</span><br><span class="line">        res=max(res,n-son[u]);</span><br><span class="line">        if (res&lt;siz)&#123;</span><br><span class="line">            ans=u;</span><br><span class="line">            siz=res;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    int getCenter(int x)&#123;</span><br><span class="line">        ans=0;</span><br><span class="line">        siz=INF;</span><br><span class="line">        dfs(x,-1);</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;Cent;</span><br></pre></td></tr></table></figure></p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://oi-wiki.org/graph/tree-centroid/" target="_blank" rel="noopener">oi-wiki</a><br><a href="https://www.cnblogs.com/zinthos/p/3899075.html" target="_blank" rel="noopener">树的直径、树的重心与树的点分治</a></p>
 ]]></content>
       <categories>
         <category>图论</category>
