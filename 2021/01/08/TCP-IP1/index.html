@@ -57,8 +57,10 @@
 <meta property="og:site_name" content="林木森">
 <meta property="og:description" content="TCP&#x2F;IP学习">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-23T00:56:30.522Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;smilecoding.cn&#x2F;2021&#x2F;01&#x2F;08&#x2F;TCP-IP1&#x2F;报文格式.jpg">
+<meta property="og:updated_time" content="2021-05-20T07:17:13.197Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;smilecoding.cn&#x2F;2021&#x2F;01&#x2F;08&#x2F;TCP-IP1&#x2F;报文格式.jpg">
 
 <link rel="canonical" href="https://smilecoding.cn/2021/01/08/TCP-IP1/">
 
@@ -252,7 +254,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-01-23 08:56:30" itemprop="dateModified" datetime="2021-01-23T08:56:30+08:00">2021-01-23</time>
+                <time title="修改时间：2021-05-20 15:17:13" itemprop="dateModified" datetime="2021-05-20T15:17:13+08:00">2021-05-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -293,14 +295,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>733</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -430,6 +432,39 @@
 </li>
 <li>网络接口发送</li>
 </ol>
+<h3 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h3><h4 id="地址划分"><a href="#地址划分" class="headerlink" title="地址划分"></a>地址划分</h4><ol>
+<li>A类以0开头的ip地址，前8位是网络标识，后面是主机标识</li>
+<li>B类地址以10开头，前16位为网络标识，后面为主机标识</li>
+<li>C类地址以110开头，前24位为网络标识，后面为主机标识</li>
+<li>D类地址以1110开头，前32位为网络标识，常用于多播</li>
+</ol>
+<h4 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h4><p>如果只对地址进行划分的话，因为同一个网络标识的必须在同一个链路，所以为细化网络的大小，出现了子网掩码，以减少ip地址的浪费。</p>
+<p>一个子网掩码，前面连续的1标识网络标识的长度，后面是连续的0，表示主机位</p>
+<h4 id="IP数据报的分片与重组"><a href="#IP数据报的分片与重组" class="headerlink" title="IP数据报的分片与重组"></a>IP数据报的分片与重组</h4><p>因为不同类型的数据链路的使用目的不同，所以其MTU就不相同，IP不能被不同的数据链路所限制，所以其分片是寻找最小的MTU进行分片。</p>
+<ol>
+<li>首先将ip的分片标志位置1，如果数据包过大，则丢弃，根据icmp的不可达信息找到数据链路上的MTU。</li>
+<li>下一次继续发送，直到没有ICMP后，将该值缓存10分钟左右，然后重新做一次路径MTU发现</li>
+<li>TCP：根据路径MTU计算出最大段长度MSS，再根据这些进行数据报发送，因此，如果是TCP，再IP地址中不再会对其进行分片</li>
+</ol>
+<h4 id="报文格式"><a href="#报文格式" class="headerlink" title="报文格式"></a>报文格式</h4><p><img src="/2021/01/08/TCP-IP1/报文格式.jpg" alt="报文格式"></p>
+<ol>
+<li>总长度：表示首部与数据部分合起来的总字节数，一共16位，所以一个IP包理论上最长65535。</li>
+<li>标识：16位，用于表示每一个IP数据包，同一个分片标识相同，如果标识相同，源地址目的地址不一样也不是同一个分片</li>
+<li>标志：一共是3位，第一位必须是0；第二位表示是否可分片，0可以分配，1不可以；第三位表示分片时是否为最后一个包</li>
+<li>片偏移：13位组成，表示每一个字节的位置，最大可表示65535个字节位置</li>
+<li>TTL：8位组成，每经过一个路由器TTL减一，当其为0时丢弃该包。</li>
+<li>协议：8位表示当前协议。</li>
+<li>首部校验和：8位，用于校验ip数据报的首部是否出现差错</li>
+<li>源地址：32位</li>
+<li>目的地址：32位</li>
+<li>可选项，只在进行实验与诊断时使用</li>
+<li>填充，当出现可选字段时使用填充，让其保证是32位的整数倍</li>
+</ol>
+<p>首部校验和，将首部校验和默认为0，将首部所有数值相加后如果大于$2^16$则取低16位并将其+1，具体代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ip</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">CheckSum</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ArrayList&lt;Long&gt; st = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        insert(st,<span class="number">0x45</span>,<span class="number">0x00</span>);<span class="comment">//版本，及TOS</span></span><br><span class="line">        insert(st,<span class="number">0x00</span>,<span class="number">0x2d</span>);<span class="comment">//总长度</span></span><br><span class="line">        insert(st,<span class="number">0x1e</span>,<span class="number">0xfa</span>);<span class="comment">//标识</span></span><br><span class="line">        insert(st,<span class="number">0x40</span>,<span class="number">0x00</span>);<span class="comment">//片偏移与分片标志</span></span><br><span class="line">        insert(st,<span class="number">0x71</span>,<span class="number">0x06</span>);<span class="comment">//TTL与协议</span></span><br><span class="line">        insert(st,<span class="number">0x00</span>,<span class="number">0x00</span>);<span class="comment">//校验和</span></span><br><span class="line">        insert(st,<span class="number">0x25</span>,<span class="number">0xfc</span>);</span><br><span class="line">        insert(st,<span class="number">0xe5</span>,<span class="number">0xa7</span>);<span class="comment">//源地址</span></span><br><span class="line">        insert(st,<span class="number">0xac</span>,<span class="number">0x1e</span>);</span><br><span class="line">        insert(st,<span class="number">0x28</span>,<span class="number">0xd8</span>);<span class="comment">//目的地址</span></span><br><span class="line">        System.out.printf(<span class="string">"%X\n"</span>,solve(st));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(ArrayList&lt;Long&gt; st,<span class="keyword">long</span> x,<span class="keyword">long</span> y)</span></span>&#123;</span><br><span class="line">        st.add(((x)&lt;&lt;<span class="number">8</span>)+y);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">solve</span><span class="params">(ArrayList&lt;Long&gt; arr)</span></span>&#123;</span><br><span class="line">        <span class="keyword">long</span> cksum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(Long it:arr)&#123;</span><br><span class="line">            cksum = cksum + it;</span><br><span class="line">            cksum = (cksum&amp;<span class="number">0xFFFF</span>) + (cksum&gt;&gt;<span class="number">16</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ((~cksum)&amp;<span class="number">0xFFFF</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//0x0a37</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>发送前我们算出校验和后将其放到首部，在接收的时候将所有首部加起来算得的数据校验和是0则首部没有问题，否则首部出现差错，丢弃。</p>
+</blockquote>
 
     </div>
 
@@ -441,6 +476,9 @@
   <ul class="popular-posts">
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2020\09\03\Http简述\" rel="bookmark">Http简述</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2021\05\20\NAT与ARP及DNS\" rel="bookmark">NAT与ARP及DNS</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2021\01\23\数据链路层\" rel="bookmark">数据链路层</a></div>
@@ -531,7 +569,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IP学习"><span class="nav-number">1.</span> <span class="nav-text">TCP/IP学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSi参考模型各个分层的作用"><span class="nav-number">1.1.</span> <span class="nav-text">OSi参考模型各个分层的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP分层模型"><span class="nav-number">1.2.</span> <span class="nav-text">TCP/IP分层模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP通信示例"><span class="nav-number">1.3.</span> <span class="nav-text">TCP/IP通信示例</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IP学习"><span class="nav-number">1.</span> <span class="nav-text">TCP/IP学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSi参考模型各个分层的作用"><span class="nav-number">1.1.</span> <span class="nav-text">OSi参考模型各个分层的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP分层模型"><span class="nav-number">1.2.</span> <span class="nav-text">TCP/IP分层模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-IP通信示例"><span class="nav-number">1.3.</span> <span class="nav-text">TCP/IP通信示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP地址"><span class="nav-number">1.4.</span> <span class="nav-text">IP地址</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#地址划分"><span class="nav-number">1.4.1.</span> <span class="nav-text">地址划分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#子网掩码"><span class="nav-number">1.4.2.</span> <span class="nav-text">子网掩码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IP数据报的分片与重组"><span class="nav-number">1.4.3.</span> <span class="nav-text">IP数据报的分片与重组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#报文格式"><span class="nav-number">1.4.4.</span> <span class="nav-text">报文格式</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -547,14 +585,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -608,12 +646,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">138k</span>
+    <span title="站点总字数">142k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:06</span>
+    <span title="站点阅读时长">2:09</span>
 </div>
 
 <!--
