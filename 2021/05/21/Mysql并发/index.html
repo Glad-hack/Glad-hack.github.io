@@ -49,15 +49,15 @@
   };
 </script>
 
-  <meta name="description" content="Mysql并发问题Mysql本身是没有什么问题的，但是如果对于一个表引入并发以后，问题就来了，两个事务同时对于一个表进行时操作时，到底谁先操作的问题就会随之发生。如下：假设表table有属性value = 1000;|事务1|事务2|结果||:—-:|:—-:|:—-:||写：将value改为800后回滚|读：读取value=800|脏读，读取到的数据是更新前的数据||读：在同一个事务中对同一数据">
+  <meta name="description" content="Mysql并发问题Mysql本身是没有什么问题的，但是如果对于一个表引入并发以后，问题就来了，两个事务同时对于一个表进行时操作时，到底谁先操作的问题就会随之发生。如下：假设表table有属性value = 1000;     事务1 事务2 结果     写：将value改为800后回滚 读：读取value=800 脏读，读取到的数据是更新前的数据   读：在同一个事务中对同一数据value读取多">
 <meta name="keywords" content="数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mysql并发">
 <meta property="og:url" content="https:&#x2F;&#x2F;smilecoding.cn&#x2F;2021&#x2F;05&#x2F;21&#x2F;Mysql%E5%B9%B6%E5%8F%91&#x2F;index.html">
 <meta property="og:site_name" content="林木森">
-<meta property="og:description" content="Mysql并发问题Mysql本身是没有什么问题的，但是如果对于一个表引入并发以后，问题就来了，两个事务同时对于一个表进行时操作时，到底谁先操作的问题就会随之发生。如下：假设表table有属性value = 1000;|事务1|事务2|结果||:—-:|:—-:|:—-:||写：将value改为800后回滚|读：读取value=800|脏读，读取到的数据是更新前的数据||读：在同一个事务中对同一数据">
+<meta property="og:description" content="Mysql并发问题Mysql本身是没有什么问题的，但是如果对于一个表引入并发以后，问题就来了，两个事务同时对于一个表进行时操作时，到底谁先操作的问题就会随之发生。如下：假设表table有属性value = 1000;     事务1 事务2 结果     写：将value改为800后回滚 读：读取value=800 脏读，读取到的数据是更新前的数据   读：在同一个事务中对同一数据value读取多">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-05-21T14:19:47.283Z">
+<meta property="og:updated_time" content="2021-05-22T03:31:32.131Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://smilecoding.cn/2021/05/21/Mysql%E5%B9%B6%E5%8F%91/">
@@ -244,10 +244,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-05-21 20:16:36 / 修改时间：22:19:47" itemprop="dateCreated datePublished" datetime="2021-05-21T20:16:36+08:00">2021-05-21</time>
+              <time title="创建时间：2021-05-21 20:16:36" itemprop="dateCreated datePublished" datetime="2021-05-21T20:16:36+08:00">2021-05-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-22 11:31:32" itemprop="dateModified" datetime="2021-05-22T11:31:32+08:00">2021-05-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -306,7 +312,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Mysql并发问题"><a href="#Mysql并发问题" class="headerlink" title="Mysql并发问题"></a>Mysql并发问题</h3><p>Mysql本身是没有什么问题的，但是如果对于一个表引入并发以后，问题就来了，<strong>两个事务同时对于一个表进行时操作时，到底谁先操作的问题就会随之发生</strong>。如下：假设表table有属性value = 1000;<br>|事务1|事务2|结果|<br>|:—-:|:—-:|:—-:|<br>|写：将value改为800后回滚|读：读取value=800|脏读，读取到的数据是更新前的数据|<br>|读：在同一个事务中对同一数据value读取多次|写：将value的值进行改变|不可重复读：事务1多次读取的数据value不一样|<br>|读：多次读取value的数据|写: 在事务1读取过程中，在value中插入一个新的数据value=800|最后会出现多次读取道德value数量不一样，就像是幻觉|<br>|写：对value执行-100的操作后提交|写：对value执行+100的操作，但是读取数据时在事务1 减100以前，且提交时间在事务1之后|第二类丢失更新：最后的值会变为600，理论应该是500|<br>|写：对value+100|写：对value-100，但是取value值的时候时事务1加100以前，在事务1提交之后之后，发生回滚|第一类丢失更新：很明显，回滚value就会-100|</p>
+        <h3 id="Mysql并发问题"><a href="#Mysql并发问题" class="headerlink" title="Mysql并发问题"></a>Mysql并发问题</h3><p>Mysql本身是没有什么问题的，但是如果对于一个表引入并发以后，问题就来了，<strong>两个事务同时对于一个表进行时操作时，到底谁先操作的问题就会随之发生</strong>。如下：假设表table有属性value = 1000;</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">事务1</th>
+<th style="text-align:left">事务2</th>
+<th style="text-align:left">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">写：将value改为800后回滚</td>
+<td style="text-align:left">读：读取value=800</td>
+<td style="text-align:left">脏读，读取到的数据是更新前的数据</td>
+</tr>
+<tr>
+<td style="text-align:left">读：在同一个事务中对同一数据value读取多次</td>
+<td style="text-align:left">写：将value的值进行改变</td>
+<td style="text-align:left">不可重复读：事务1多次读取的数据value不一样</td>
+</tr>
+<tr>
+<td style="text-align:left">读：多次读取value的数据</td>
+<td style="text-align:left">写: 在事务1读取过程中，在value中插入一个新的数据value=800</td>
+<td style="text-align:left">最后会出现多次读取道德value数量不一样，就像是幻觉</td>
+</tr>
+<tr>
+<td style="text-align:left">写：对value执行-100的操作后提交</td>
+<td style="text-align:left">写：对value执行+100的操作，但是读取数据时在事务1 减100以前，且提交时间在事务1之后</td>
+<td style="text-align:left">第二类丢失更新：最后的值会变为600，理论应该是500</td>
+</tr>
+<tr>
+<td style="text-align:left">写：对value+100</td>
+<td style="text-align:left">写：对value-100，但是取value值的时候时事务1加100以前，在事务1提交之后之后，发生回滚</td>
+<td style="text-align:left">第一类丢失更新：很明显，回滚value就会-100</td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>从上来看，在两个事务同时操作时，除非都是读，否则很容易出现问题，而出现问题的时候都是在某一个事务并没有执行完成，没有submit时，资源被另一个事务获取。<br>为解决这个问题我们一共有三种解决办法：</p>
 <ol>
 <li>悲观并发控制：最常用的一种机制，也就是锁</li>
