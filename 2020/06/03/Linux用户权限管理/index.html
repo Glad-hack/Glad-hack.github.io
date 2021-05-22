@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/502216.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/502216.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open Sans:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|32px:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://smilecoding.cn').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="关于Linux的权限管理不得不说十分的重要，几乎很多在部署上的错误都是因为权限不够，所以这里特意写一篇来了解这个Linux的权限管理。">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux用户权限管理">
+<meta property="og:url" content="https:&#x2F;&#x2F;smilecoding.cn&#x2F;2020&#x2F;06&#x2F;03&#x2F;Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86&#x2F;index.html">
+<meta property="og:site_name" content="林木森">
+<meta property="og:description" content="关于Linux的权限管理不得不说十分的重要，几乎很多在部署上的错误都是因为权限不够，所以这里特意写一篇来了解这个Linux的权限管理。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;smilecoding.cn&#x2F;2020&#x2F;06&#x2F;03&#x2F;Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86&#x2F;档案属性.gif">
+<meta property="og:image" content="https:&#x2F;&#x2F;smilecoding.cn&#x2F;2020&#x2F;06&#x2F;03&#x2F;Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86&#x2F;档案权限.gif">
+<meta property="og:updated_time" content="2020-06-03T13:25:40.163Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;smilecoding.cn&#x2F;2020&#x2F;06&#x2F;03&#x2F;Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86&#x2F;档案属性.gif">
+
+<link rel="canonical" href="https://smilecoding.cn/2020/06/03/Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Linux用户权限管理 | 林木森</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="林木森" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <script src="/live2d-widget/autoload.js"></script>
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">林木森</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">淡然处之，莫要强求</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-live">
+
+    <a href="/live" rel="section"><i class="fa fa-fw fa-heartbeat"></i>live</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Glad-hack/Glad-hack.github.io" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://smilecoding.cn/2020/06/03/Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/vscode.jpg">
+      <meta itemprop="name" content="林木森">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林木森">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux用户权限管理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-06-03 11:45:32 / 修改时间：21:25:40" itemprop="dateCreated datePublished" datetime="2020-06-03T11:45:32+08:00">2020-06-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/06/03/Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/06/03/Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>关于Linux的权限管理不得不说十分的重要，几乎很多在部署上的错误都是因为权限不够，所以这里特意写一篇来了解这个Linux的权限管理。<a id="more"></a></p>
+<h1 id="档案的基本权限"><a href="#档案的基本权限" class="headerlink" title="档案的基本权限"></a>档案的基本权限</h1><p>这里为表达方便，我把文件和目录统称为档案。</p>
+<h2 id="档案的属性"><a href="#档案的属性" class="headerlink" title="档案的属性"></a>档案的属性</h2><p>对于一个档案我们首先在目录里面使用&lt;<strong>ll</strong>&gt;命令，查看每一个档案的属性，下图是属性的介绍表<br><img src="/2020/06/03/Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/档案属性.gif" alt="Linux属性"></p>
+<blockquote>
+<p>第一栏是档案的类型权限。<br><img src="/2020/06/03/Linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/档案权限.gif" alt="Linux档案权限"><br>第一个字元代表这个档案是『目录、档案或连结档等等』：</p>
+<blockquote>
+<p>当为[ d ]则是目录。<br>当为[ - ]则是档案。<br>若是[ l ]则表示为连结档(link file)；<br>若是[ b ]则表示为装置档里面的可供储存的周边设备(可随机存取装置)；<br>若是[ c ]则表示为装置档里面的序列埠设备，例如键盘、滑鼠(一次性读取装置)。<br>接下来的字元中，以三个为一组，且均为『rwx』的三个参数的组合。其中，[ r ]代表可读(read)、[ w ]代表可写(write)、[ x ]代表可执行(execute)。要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号[ - ]而已。<br>第一组为『档案拥有者可具备的权限』，该档案的拥有者可以读写，但不可执行；<br>第二组为『加入此群组之帐号的权限』；<br>第三组为『非本人且没有加入本群组之其他帐号的权限』。</p>
+</blockquote>
+<p>第二栏是与该文件的连接数<br>每个档案都会将他的权限与属性记录到档案系统的i-node中，不过，我们使用的目录树却是使用档名来记录，因此每个档名就会连结到一个i-node啰！这个属性记录的，就是有多少不同的档名连结到相同的一个i-node号码去就是了。</p>
+<p>第三栏是账户拥有者</p>
+<p>第四栏表示这个档案的所属群组<br>在Linux系统下，你的帐号会加入于一个或多个的群组中。举刚刚我们提到的例子，class1, class2, class3均属于projecta这个群组，假设某个档案所属的群组为projecta，且该档案的权限如图5.2.2所示(-rwxrwx—-) ，则class1, class2, class3三人对于该档案都具有可读、可写、可执行的权限(看群组权限)。但如果是不属于projecta的其他帐号，对于此档案就不具有任何权限了。</p>
+<p>第五栏为这个档案的容量大小，预设单位为bytes；</p>
+<p>第六栏为修改日期<br>这一栏的内容分别为日期(月/日)及时间。如果这个档案被修改的时间距离现在太久了，那么时间部分会仅显示年份而已。如下所示：</p>
+<p>第7栏为文档名称<br>这个栏位就是档名了。比较特殊的是：如果档名之前多一个『 . 』，则代表这个档案为『隐藏档』，例如上表中的.config那一行，该档案就是隐藏档。你可以使用『ls』及『ls -a』这两个指令去感受一下什么是隐藏档啰！</p>
+</blockquote>
+<h2 id="文档的重要性"><a href="#文档的重要性" class="headerlink" title="文档的重要性"></a>文档的重要性</h2><p>与Windows系统不一样的是，在Linux系统当中，每一个档案都多加了很多的属性进来，尤其是群组的概念，这样有什么用途呢？其实，最大的用途是在『资料安全性』上面的。</p>
+<blockquote>
+<p>系统保护的功能：<br>举个简单的例子，在你的系统中，关于系统服务的档案通常只有root才能读写或者是执行，例如/etc/shadow这一个帐号管理的档案，由于该档案记录了你系统中所有帐号的资料，因此是很重要的一个设定档，当然不能让任何人读取(否则密码会被窃取啊)，只有root才能够来读取啰！所以该档案的权限就会成为[ ————— ]啰！咦！所有人都不能使用？没关系，root基本上是不受系统的权限所限制的，所以无论档案权限为何，预设root都可以存取喔！</p>
+<p>团队开发软体或资料共用的功能：<br>此外，如果你有一个软体开发团队，在你的团队中，你希望每个人都可以使用某一些目录下的档案，而非你的团队的其他人则不予以开放呢？以上面的例子来说，testgroup的团队共有三个人，分别是test1, test2, test3，那么我就可以将团队所需的档案权限订为[ -rwxrws—- ]来提供给testgroup的工作团队使用啰！(怎么会有s呢？没关系，这个我们在后续章节再讲给你听！)</p>
+<p>未将权限设定妥当的危害：<br>再举个例子来说，如果你的目录权限没有作好的话，可能造成其他人都可以在你的系统上面乱搞啰！例如本来只有root才能做的开关机、ADSL的拨接程式、新增或删除使用者等等的指令，若被你改成任何人都可以执行的话，那么如果使用者不小心给你重新开机啦！重新拨接啦！等等的！那么你的系统不就会常常莫名其妙的挂掉啰！而且万一你的使用者的密码被其他不明人士取得的话，只要他登入你的系统就可以轻而易举的执行一些root的工作！</p>
+</blockquote>
+<p>可怕吧！因此，在你修改你的linux档案与目录的属性之前，一定要先搞清楚，什么资料是可变的，什么是不可变的！千万注意啰！接下来我们来处理一下档案属性与权限的变更吧！</p>
+<h2 id="改变档案的属性和权限"><a href="#改变档案的属性和权限" class="headerlink" title="改变档案的属性和权限"></a>改变档案的属性和权限</h2><blockquote>
+<p>改变所属群组, chgrp<br>改变一个档案的群组真是很简单的，直接以chgrp来改变即可，咦！这个指令就是change group的缩写嘛！这样就很好记了吧！^_^。不过，请记得，要被改变的群组名称必须要在/etc/group档案内存在才行，否则就会显示错误！<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@study ~]# chgrp [-R] dirname/filename ... </span><br><span class="line">选项与参数：</span><br><span class="line">-R : 进行递回(recursive)的持续变更，亦即连同次目录下的所有档案、目录</span><br><span class="line">     都更新成为这个群组之意。常常用在变更某一目录内所有的档案之情况。</span><br><span class="line">范例： </span><br><span class="line">[root@study ~]# chgrp users initial-setup-ks.cfg </span><br><span class="line">[root@study ~]# ls -l </span><br><span class="line">-rw-r--r--. 1 root users 1864 May 4 18:01 initial-setup -ks.cfg</span><br><span class="line">[root@study ~]# chgrp testing initial-setup-ks.cfg </span><br><span class="line">chgrp: invalid group: `testing&apos; &lt;==发生错误讯息啰～找不到这个群组名～</span><br></pre></td></tr></table></figure></p>
+<p>改变档案拥有者, chown<br>如何改变一个档案的拥有者呢？很简单呀！既然改变群组是change group，那么改变拥有者就是change owner啰！BINGO！那就是chown这个指令的用途，要注意的是，使用者必须是已经存在系统中的帐号，也就是在/etc/passwd 这个档案中有纪录的使用者名称才能改变。</p>
+</blockquote>
+<p>chown的用途还满多的，他还可以顺便直接修改群组的名称呢！此外，如果要连目录下的所有次目录或档案同时更改档案拥有者的话，直接加上-R的选项即可！我们来看看语法与范例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@study ~]# chown [-R]帐号名称档案或目录 </span><br><span class="line">[root@study ~]# chown [-R]帐号名称:群组名称档案或目录</span><br><span class="line">选项与参数：</span><br><span class="line">-R : 进行递回(recursive)的持续变更，亦即连同次目录下的所有档案都变更</span><br><span class="line"></span><br><span class="line">范例：将initial-setup-ks.cfg的拥有者改为bin这个帐号： </span><br><span class="line">[root@study ~]# chown bin initial-setup-ks.cfg </span><br><span class="line">[root@study ~]# ls -l </span><br><span class="line">-rw-r- -r--. 1 bin   users 1864 May 4 18:01 initial-setup-ks.cfg</span><br><span class="line"></span><br><span class="line">范例：将initial-setup-ks.cfg的拥有者与群组改回为root： </span><br><span class="line">[root@study ~]# chown root:root initial-setup-ks.cfg </span><br><span class="line">[root@study ~]# ls -l </span><br><span class="line">- rw-r--r--. 1 root root 1864 May 4 18:01 initial-setup-ks.cfg</span><br></pre></td></tr></table></figure></p>
+<p>事实上，chown也可以使用『chown user.group file』，亦即在拥有者与群组间加上小数点『 . 』也行！不过很多朋友设定帐号时，喜欢在帐号当中加入小数点(例如vbird.tsai这样的帐号格式)，这就会造成系统的误判了！所以我们比较建议使用冒号『:』来隔开拥有者与群组啦！此外，<strong>chown也能单纯的修改所属群组呢</strong>！例如『chown .sshd initial-setup-ks.cfg』就是修改群组～看到了吗？就是那个小数点的用途！</p>
+<blockquote>
+<p>改变权限, chmod<br>这里只讲一种，另外一种u、g、o、a代名词的自行了解。<br>Linux档案的基本权限就有九个，分别是owner/group/others三种身份各有自己的read/write/execute权限，先复习一下刚刚上面提到的资料：档案的权限字元为：『-rwxrwxrwx』，这九个权限是三个三个一组的！其中，我们可以使用数字来代表各个权限，各权限的分数对照表如下：<br>r:4<br>w:2<br>x:1<br>每种身份(owner/group/others)各自的三个权限(r/w/x)分数是需要累加的，例如当权限为： [-rwxrwx—-] 分数则是：<br>owner = rwx = 4+2+1 = 7<br>group = rwx = 4+2+1 = 7<br>others= —- = 0+0+0 = 0<br>所以等一下我们设定权限的变更时，该档案的权限数字就是770啦！变更权限的指令chmod的语法是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@study ~]# chmod [-R] xyz档案或目录</span><br><span class="line">选项与参数：</span><br><span class="line">xyz : 就是刚刚提到的数字类型的权限属性，为rwx 属性数值的相加。</span><br><span class="line">-R : 进行递回(recursive)的持续变更，亦即连同次目录下的所有档案都会变更</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="档案权限介绍"><a href="#档案权限介绍" class="headerlink" title="档案权限介绍"></a>档案权限介绍</h2><p>对于档案的权限这里是两种，分别分为文件的权限和目录的权限</p>
+<ol>
+<li>当是一个文件的时候，『r』就是浏览文件，『w』就是修改文件，『x』就是执行文件</li>
+<li>当该档案是一个目录的时候『r』是查看目录下的所有档案或档案信息，『w』是修改当前目录的文档信息，『x』是是否能进入该目录的权限。</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">目录</th>
+<th style="text-align:left">放置档案内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">/bin</td>
+<td style="text-align:left">系统有很多放置执行档的目录，但/bin比较特殊。因为/bin放置的是在单人维护模式下还能够被操作的指令。 在/bin底下的指令可以被root与一般帐号所使用，主要有：cat, chmod, chown, date, mv, mkdir, cp, bash等等常用的指令。</td>
+</tr>
+<tr>
+<td style="text-align:center">/boot</td>
+<td style="text-align:left">这个目录主要在放置开机会使用到的档案，包括Linux核心档案以及开机选单与开机所需设定档等等。 Linux kernel常用的档名为：vmlinuz，如果使用的是grub2这个开机管理程式，则还会存在/boot/grub2/这个目录喔！</td>
+</tr>
+<tr>
+<td style="text-align:center">/dev</td>
+<td style="text-align:left">在Linux系统上，任何装置与周边设备都是以档案的型态存在于这个目录当中的。你只要透过存取这个目录底下的某个档案，就等于存取某个装置啰～比要重要的档案有/dev/null, /dev/zero, /dev/tty , /dev/loop<em>, / dev/sd</em>等等</td>
+</tr>
+<tr>
+<td style="text-align:center">/etc</td>
+<td style="text-align:left">系统主要的设定档几乎都放置在这个目录内，例如人员的帐号密码档、各种服务的启始档等等。一般来说，这个目录下的各档案属性是可以让一般使用者查阅的，但是只有root有权力修改。FHS建议不要放置可执行档(binary)在这个目录中喔。比较重要的档案有： /etc/modprobe.d/, /etc/passwd, /etc/fstab, /etc/issue等等。另外FHS还规范几个重要的目录最好要存在/etc/目录下喔：&lt;\br&gt;/etc/opt(必要)：这个目录在放置第三方协力软体/opt的相关设定档/etc/X11/(建议)：与X Window有关的各种设定档都在这里，尤其是xorg.conf这个X Server的设定档。&lt;\br&gt;/etc/sgml/(建议)：与SGML格式有关的各项设定档&lt;\br&gt;/etc/xml/(建议)：与XML格式有关的各项设定档</td>
+</tr>
+<tr>
+<td style="text-align:center">/lib</td>
+<td style="text-align:left">系统的函式库非常的多，而/lib放置的则是在开机时会用到的函式库，以及在/bin或/sbin底下的指令会呼叫的函式库而已。什么是函式库呢？妳可以将他想成是『外挂』，某些指令必须要有这些『外挂』才能够顺利完成程式的执行之意。另外FHS还要求底下的目录必须要存在：&lt;\br&gt;/lib/modules/：这个目录主要放置可抽换式的核心相关模组(驱动程式)喔！&lt;\br&gt;/media    media是『媒体』的英文，顾名思义，这个/media底下放置的就是可移除的装置啦！ 包括软碟、光碟、DVD等等装置都暂时挂载于此。常见的档名有：/media/floppy, /media/cdrom等等。</td>
+</tr>
+<tr>
+<td style="text-align:center">/mnt</td>
+<td style="text-align:left">如果妳想要暂时挂载某些额外的装置，一般建议妳可以放置到这个目录中。在古早时候，这个目录的用途与/media相同啦！只是有了/media之后，这个目录就用来暂时挂载用了。</td>
+</tr>
+<tr>
+<td style="text-align:center">/opt</td>
+<td style="text-align:left">这个是给第三方协力软体放置的目录。什么是第三方协力软体啊？举例来说，KDE这个桌面管理系统是一个独立的计画，不过他可以安装到Linux系统中，因此KDE的软体就建议放置到此目录下了。另外，如果妳想要自行安装额外的软体(非原本的distribution提供的)，那么也能够将你的软体安装到这里来。不过，以前的Linux系统中，我们还是习惯放置在/usr/local目录下呢！</td>
+</tr>
+<tr>
+<td style="text-align:center">/run</td>
+<td style="text-align:left">早期的FHS 规定系统开机后所产生的各项资讯应该要放置到/var/run 目录下，新版的FHS 则规范到/run 底下。由于/run 可以使用记忆体来模拟，因此效能上会好很多！</td>
+</tr>
+<tr>
+<td style="text-align:center">/sbin</td>
+<td style="text-align:left">Linux有非常多指令是用来设定系统环境的，这些指令只有root才能够利用来『设定』系统，其他使用者最多只能用来『查询』而已。 放在/sbin底下的为开机过程中所需要的，里面包括了开机、修复、还原系统所需要的指令。 至于某些伺服器软体程式，一般则放置到/usr/sbin/当中。至于本机自行安装的软体所产生的系统执行档(system binary)，则放置到/usr/local/sbin/当中了。常见的指令包括：fdisk, fsck, ifconfig, mkfs等等。</td>
+</tr>
+<tr>
+<td style="text-align:center">/srv</td>
+<td style="text-align:left">srv可以视为『service』的缩写，是一些网路服务启动之后，这些服务所需要取用的资料目录。常见的服务例如WWW, FTP等等。举例来说，WWW伺服器需要的网页资料就可以放置在/srv/www/里面。不过，系统的服务资料如果尚未要提供给网际网路任何人浏览的话，预设还是建议放置到/var/lib 底下即可。</td>
+</tr>
+<tr>
+<td style="text-align:center">/tmp</td>
+<td style="text-align:left">这是让一般使用者或者是正在执行的程序暂时放置档案的地方。这个目录是任何人都能够存取的，所以你需要定期的清理一下。当然，重要资料不可放置在此目录啊！因为FHS甚至建议在开机时，应该要将/tmp下的资料都删除唷！</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="http://linux.vbird.org/linux_basic/0210filepermission.php#table2.1.1" target="_blank" rel="noopener">鸟哥的Linux私房菜</a></p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\06\06\Ubuntu18安装酷Q\" rel="bookmark">Ubuntu18.04安装docker安装酷Q</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\05\12\shell入门\" rel="bookmark">shell入门</a></div>
+    </li>
+  </ul>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/19/DAY3/" rel="prev" title="CCPC Wannafly Winter Camp Day3">
+      <i class="fa fa-chevron-left"></i> CCPC Wannafly Winter Camp Day3
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/05/Calenda/" rel="next" title="Calendar类">
+      Calendar类 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#档案的基本权限"><span class="nav-number">1.</span> <span class="nav-text">档案的基本权限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#档案的属性"><span class="nav-number">1.1.</span> <span class="nav-text">档案的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档的重要性"><span class="nav-number">1.2.</span> <span class="nav-text">文档的重要性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改变档案的属性和权限"><span class="nav-number">1.3.</span> <span class="nav-text">改变档案的属性和权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#档案权限介绍"><span class="nav-number">1.4.</span> <span class="nav-text">档案权限介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">1.5.</span> <span class="nav-text">参考文章</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="林木森"
+      src="/images/vscode.jpg">
+  <p class="site-author-name" itemprop="name">林木森</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      <a href="https://github.com/Glad-hack/Glad-hack.github.io" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Glad-hack&#x2F;Glad-hack.github.io" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+      <a href="mailto:treesirpeng@qq.com" rel="alternate" title="E-Mail" rel="noopener" target="_blank"> <i class="fa fa-fw fa-envelope"></i> E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+      <a href="https://blog.csdn.net/qq_42937891" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_42937891" rel="noopener" target="_blank"><i class="fa fa-fw fa-copyright"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+      <a href="tencent://message/?uin=2972300671&Site=2972300671&Menu=yes" rel="alternate" title="QQ" rel="noopener" target="_blank"> <i class="fa fa-fw fa-qq"></i>QQ</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林木森</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">143k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:10</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div> -->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+  <script>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: ,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+  <script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: true,
+      notify: true,
+      appId: 'BipSoA2zCEQAYpWMykiSStVv-gzGzoHsz',
+      appKey: '5hT2yJIWHqMQf0KtlvPktoMw',
+      placeholder: "快来留下你的足迹吧",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: '' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+  
+  <script type="text/javascript"
+  color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+</body>
+</html>
